@@ -42,21 +42,8 @@ int main()
 
 
 #if (!_DEBUG)
-	if (IsDebuggerPresent())
-		{
-		MessageBoxEx( NULL, TEXT("This program will not run under a debugger"), TEXT("ERROR"), MB_OK, MB_ICONERROR );
-		FatalExit(8256);
-		}
 
-	ifstream my_file("wow.exe");
-
-	if( my_file.bad())
-		{
-		MessageBoxEx( NULL, TEXT("This program MUST be in your World of Warcraft directory"), TEXT("ERROR"), MB_OK, MB_ICONERROR );
-		exit(0);
-		}
-
-	if (my_file.good() && !IsDebuggerPresent() && !Is_Debug)
+	if (!IsDebuggerPresent() && !Is_Debug)
 		{
 
 #endif
@@ -69,10 +56,10 @@ int main()
 		Application::Run(gcnew Main_Window());
 		return 0;
 
-#if (!_DEBUG && !Is_Debug)
+#if (!_DEBUG)
 		}
 
-	if(!IsDebuggerPresent())
+	if(IsDebuggerPresent())
 		{
 		FatalExit(8256);
 		}	
