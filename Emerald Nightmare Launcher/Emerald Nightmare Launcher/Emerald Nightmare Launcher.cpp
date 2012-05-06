@@ -14,7 +14,7 @@ int main()
 	// these may seem redundant but these are here to force different methods of editing just to look at what happens in the code
 	while( IsDebuggerPresent() == TRUE )
 		{
-		FatalExit(8256);
+		exit(8256);
 		}
 #endif
 
@@ -61,9 +61,9 @@ int main()
 
 	if(IsDebuggerPresent())
 		{
-		FatalExit(8256);
+		exit(8256);
 		}	
-	FatalExit(1);
+	exit(1);
 #endif
 
 #if (!_DEBUG)

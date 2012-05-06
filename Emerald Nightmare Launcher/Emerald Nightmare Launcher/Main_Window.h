@@ -537,7 +537,7 @@ namespace EmeraldNightmareLauncher {
 					 if(VersionOfRemoteIni > VersionAtCompile)
 						 {
 						 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/AutoUpdater.exe"), _T("AutoUpdater.exe"), 0, NULL );
-						 LauncherAlertBox->Text = "";
+						 LauncherAlertBox->Text->Empty;
 						 LauncherAlertBox->Text = "An updated version is available, one moment while the launcher is updated.";
 						 Sleep(5000);
 						 VerofRemoteBeforeConvert.clear();
@@ -741,12 +741,12 @@ namespace EmeraldNightmareLauncher {
 					 DeleteDirectoryLauncher("Data\\realmlist.wtf", false);
 					 DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
 
-					 LauncherAlertBox->Text = "";
+					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleting Non-Essential files that won't be used in a private server environment(bloat)... \r\n\r\nYou should now relaunch World of Warcraft and close it to generate temporary files it needs. Realmlist.wtf is now integrated into WTF\\Config.wtf";
 					 }
 		private: System::Void deleteWarcraftsCacheToolStripMenuItem_Click_1(System::Object^  sender, System::EventArgs^  e) {
 					 DeleteDirectoryLauncher("Cache", false);
-					 LauncherAlertBox->Text = "";
+					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleted Cache...";
 					 }
 		private: System::Void shareGathererDataByLastEditedToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -775,7 +775,7 @@ namespace EmeraldNightmareLauncher {
 		private: System::Void deleteSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 DeleteDirectoryLauncher("WTF", false);
 					 DeleteDirectoryLauncher("Cache", false);
-					 LauncherAlertBox->Text = "";
+					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleted Cache and Settings...";
 					 }
 		private: System::Void clientSystemChecksToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -796,7 +796,7 @@ namespace EmeraldNightmareLauncher {
 		private: System::Void Main_Window_Load(System::Object^  sender, System::EventArgs^  e) {
 					 }
 		private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 LauncherAlertBox->Text = "";
+					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Launcher programmed and designed by Marforius for the Emerald Nightmare/Marforius-Client projects. No authorization is given for use of this launcher or related tools in other projects' launchers or toolchains. Emerald Nightmare AND all related tools by Marforius are licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.";
 					 }
 		};
