@@ -1723,7 +1723,19 @@ class StormProxy_MD5Check_Thread
 		inline void VerifyMPQMD5()
 			// Verifies locally stored MD5 from MPQ
 			{
-			const char *szFileName;
+			int i;
+			const char* ListOfFilesToVerify[] = { "first", "second" };
+
+			for (i = 1; i < **ListOfFilesToVerify; i++){
+				// TODO
+				VerifyMPQMD5Iterate(ListOfFilesToVerify[i]);
+				}
+			}
+
+
+
+		inline void VerifyMPQMD5Iterate(const char *szFileName)
+			{
 			HANDLE hFile = NULL;
 			HANDLE hMpq = NULL;
 			printf("Opening file \"%s\" for MD5 verification ...\n", szFileName);
@@ -1732,7 +1744,8 @@ class StormProxy_MD5Check_Thread
 				{
 				printf("Failed to open file \"%s\" for MD5 verification\n", szFileName);
 				}
-			}                  
+			delete [] szFileName;
+			}
 	};
 
 
