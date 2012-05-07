@@ -7,10 +7,11 @@ THIS IS NOT COMPLETE
 
 An "alpha" version is in the downloads, I am not done coding things I want into this. The generic launcher will be coded when I am done with this one's features.
 
-Basically it's missing the ability to torrent files, compare MD5s (in but not implemented), repack patch Mopaq files to master Mopaq files (in but not implemented).
+Basically it's missing the ability to torrent files, compare MD5s (in but not implemented), repack patch Mopaq files to master Mopaq files (in but not implemented), and download zips from github repos and extract them to specific directories.
 
-Theres also a slew of features I haven't gotten to that are in the interface but not handled
+There's also a slew of features I haven't gotten to that are in the interface but not handled
 
+No estimate on when I get around to finishing this as it's not my highest priority.
 
 
 
@@ -23,6 +24,15 @@ This launcher is for those in Marforius' modding project named "Emerald Nightmar
 
 
 No authorization is given for any project other then EMERALD NIGHTMARE to use this launcher. Use the Marforius-Client Generic Launcher https://github.com/Marforius/Generic-MarforiusClient-Launcher if you intend to use this for anything other then its intended use.
+
+= Compiling
+
+Install Boost http://www.boost.org/
+The prefix path I used was "C:\boost" if you use another prefix path you will have to change include/lib directories.
+
+
+The launcher will compile after you install Boost like any other project.
+(select release and compile)
 
 
 = Licence
