@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Doc Files">
-      <UniqueIdentifier>{d550bf7e-b026-4705-a96f-8186df3c9abf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{7f9ca1da-93ac-4f24-acbf-1859a75359a4}</UniqueIdentifier>
     </Filter>
@@ -69,15 +66,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="doc\History.txt">
-      <Filter>Doc Files</Filter>
-    </None>
-    <None Include="doc\The MoPaQ File Format 0.9.txt">
-      <Filter>Doc Files</Filter>
-    </None>
-    <None Include="doc\The MoPaQ File Format 1.0.txt">
-      <Filter>Doc Files</Filter>
-    </None>
     <None Include="..\StormProxy\app.ico">
       <Filter>Resources</Filter>
     </None>
