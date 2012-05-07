@@ -47,6 +47,10 @@
   #include <bzlib.h>
 #endif
 
+#include <boost/thread.hpp>
+#include <boost/smart_ptr.hpp>
+#include <functional>
+
 //-----------------------------------------------------------------------------
 // Cryptography support
 

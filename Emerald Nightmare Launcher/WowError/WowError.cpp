@@ -22,6 +22,8 @@ bool main(int argc, char *argv[])
 			}
 		myfile.close();
 
+		delete myfile;
+
 	printf ("\n\n");
 	printf ("World of Warcraft has crashed");
 	printf ("\n\n");

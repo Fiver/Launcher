@@ -47,6 +47,9 @@
 
 #define MAKE_PATH(path) _T(WORK_PATH_ROOT) _T(path)
 
+using namespace boost;
+using namespace boost::this_thread;
+
 // Unicode MPQ names
 /* Czech    */ static const wchar_t szUnicodeName1[] = {0x010C, 0x0065, 0x0073, 0x006B, 0x00FD, _T('.'), _T('m'), _T('p'), _T('q'), 0};
 /* Russian  */ static const wchar_t szUnicodeName2[] = {0x0420, 0x0443, 0x0441, 0x0441, 0x043A, 0x0438, 0x0439, _T('.'), _T('m'), _T('p'), _T('q'), 0};
@@ -1685,20 +1688,53 @@ static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 // any work at all into this thanks to you.
 //////////////////////////////////////////////////////////////////////////
 
-inline bool VerifyMPQMD5(const char *szFileName)
-	// Verifies locally stored MD5 from MPQ
+class StormProxy_MD5Check_Thread
 	{
-	HANDLE hFile = NULL;
-	HANDLE hMpq = NULL;
-	int nError = ERROR_SUCCESS;
-	printf("Opening file \"%s\" for MD5 verification ...\n", szFileName);
-	SFileVerifyFile(hMpq, szFileName, SFILE_VERIFY_RAW_MD5);
-	if(!SFileOpenFileEx(hMpq, szFileName, SFILE_OPEN_FROM_MPQ, &hFile))
-		{
-		nError = GetLastError();
-		printf("Failed to open file \"%s\" for MD5 verification\n", szFileName);
-		}
-	}
+	public:
+		StormProxy_MD5Check_Thread()
+			: m_stoprequested(false)
+			{
+			}
+
+		~StormProxy_MD5Check_Thread()
+			{
+			}
+
+		// Create the thread and start work
+		void go() 
+			{
+			assert(!m_thread);
+			m_thread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&StormProxy_MD5Check_Thread::VerifyMPQMD5, this)));
+			}
+
+		void stop() // Note 1
+			{
+			assert(m_thread);
+			m_stoprequested = true;
+			m_thread->join();
+			}
+
+	private: 
+
+		volatile bool m_stoprequested;
+		boost::shared_ptr<boost::thread> m_thread;
+		boost::mutex m_mutex;
+
+		inline void VerifyMPQMD5()
+			// Verifies locally stored MD5 from MPQ
+			{
+			const char *szFileName;
+			HANDLE hFile = NULL;
+			HANDLE hMpq = NULL;
+			printf("Opening file \"%s\" for MD5 verification ...\n", szFileName);
+			SFileVerifyFile(hMpq, szFileName, SFILE_VERIFY_RAW_MD5);
+			if(!SFileOpenFileEx(hMpq, szFileName, SFILE_OPEN_FROM_MPQ, &hFile))
+				{
+				printf("Failed to open file \"%s\" for MD5 verification\n", szFileName);
+				}
+			}                  
+	};
+
 
 
 //-----------------------------------------------------------------------------

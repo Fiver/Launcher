@@ -27,8 +27,10 @@ No authorization is given for any project other then EMERALD NIGHTMARE to use th
 
 = Compiling
 
-Install Boost http://www.boost.org
-The prefix path I used was "C:\\boost" if you use another prefix path you will have to change include/lib directories.
+Download and install:
+http://www.boostpro.com/download
+
+Install MSVC 10 multi-threaded static libraries.
 
 
 The launcher will compile after you install Boost like any other project.

@@ -531,6 +531,7 @@ namespace EmeraldNightmareLauncher {
 					 infile.open ("LauncherVersion.ini");
 					 getline(infile,VerofRemoteBeforeConvert); // Saves the line in STRING.
 					 infile.close();
+					 delete infile;
 
 					 int VersionOfRemoteIni = atoi( VerofRemoteBeforeConvert.c_str() ); // convert...
 
