@@ -1669,17 +1669,77 @@ static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 	return nError;
 	}
 
+//////////////////////////////////////////////////////////////////////////
+// StormProxy code 
+// Handles command line arguments from Emerald Nightmare Launcher
+// Based on StormLib Test
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+// Stormproxy, Copyright (C) 2012 Marforius CC BY-NC-ND
+// Stormlib, and all related code Copyright (C) 2010 Ladislav Zezula
+//////////////////////////////////////////////////////////////////////////
+// http://creativecommons.org/licenses/by-nc-nd/3.0/
+//////////////////////////////////////////////////////////////////////////
+// A very big thanks to Ladik for this great library, I hardly had to put
+// any work at all into this thanks to you.
+//////////////////////////////////////////////////////////////////////////
+
+inline bool VerifyMPQMD5(const char *szFileName)
+	// Verifies locally stored MD5 from MPQ
+	{
+	HANDLE hFile = NULL;
+	HANDLE hMpq = NULL;
+	int nError = ERROR_SUCCESS;
+	printf("Opening file \"%s\" for MD5 verification ...\n", szFileName);
+	SFileVerifyFile(hMpq, szFileName, SFILE_VERIFY_RAW_MD5);
+	if(!SFileOpenFileEx(hMpq, szFileName, SFILE_OPEN_FROM_MPQ, &hFile))
+		{
+		nError = GetLastError();
+		printf("Failed to open file \"%s\" for MD5 verification\n", szFileName);
+		}
+	}
+
+
 //-----------------------------------------------------------------------------
 // Main
 // 
 
-	inline int main(void)
+int main(int argc, char *argv[])
 	{
 	int nError = ERROR_SUCCESS;
 
 #if defined(_MSC_VER) && defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif  // defined(_MSC_VER) && defined(_DEBUG)
+
+	int i;
+
+	if (argc == 1)
+		return 0;
+	else
+		for (i = 1; i < argc; i++)
+			if (strcmp (argv[i], "-RunCHECKARCHIVES") == 0)
+				//VerifyMPQMD5();
+
+	// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable
+
+	/* bool WINAPI SFileSetMaxFileCount(
+	HANDLE hMpq,                    // Handle to an open archive
+		DWORD dwMaxFileCount            // New limit of file count in the MPQ
+		);
+		// max hashtable is 524288 (0x00080000)
+    **/
+	// -RunDELETEARCHIVEINTERFACEFILES // DELETE ARCHIVED INTERFACE LUA/XML/TOC/SIG
+
+	delete [] argv; // put this at the end of the command line argument check
+
+
+
+
+
+
+
 
 	//  FileStream_OpenEncrypted(_T("e:\\Multimedia\\MPQs\\2010 - Starcraft II\\Installer UI 2 deDE.MPQE"));
 
