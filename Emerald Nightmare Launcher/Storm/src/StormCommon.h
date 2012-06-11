@@ -49,6 +49,8 @@
 
 #include <boost/thread.hpp>
 #include <boost/smart_ptr.hpp>
+#include <boost/filesystem.hpp>
+#include <iostream>
 #include <functional>
 
 //-----------------------------------------------------------------------------

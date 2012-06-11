@@ -4,70 +4,38 @@
 #include "Main_Window.h"
 
 using namespace EmeraldNightmareLauncher;
+using namespace System;
 
 [STAThreadAttribute]
 
 int main()
 	{
 
-#if !(_DEBUG)
-	// these may seem redundant but these are here to force different methods of editing just to look at what happens in the code
-	while( IsDebuggerPresent() == TRUE )
+	ifstream my_file("wow.exe");
+
+	if( !my_file.is_open() )
 		{
-		exit(8256);
+		if (MessageBox::Show("This launcher MUST be in the World of Warcraft directory for any functions to work properly.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error) == DialogResult::OK)
+			{
+			return 0;
+			}
 		}
-#endif
 
-	// For people that are going to use this with private code in it.
-	// I am not going to sponsor your usage and will remove your legally licensed rights to my code
-	// as well as warn the general public if you attempt to add ANY malicious code to the generic launcher
-	// 
-	// For those that can't read this
-	// If debug build is selected then skip all security checks
-	// If release build is selected then add wow.exe existence check and check if a debugger is present
-	// I won't give away the other checks
-	//
-	// This won't give you much security but combined with an obfuscater and packer (UPX + UPX Scrambler)
-	// you will be a little more secure then just releasing this with a simple reloc
-
-	bool Is_Debug;
+	my_file.close();
 
 #if (_DEBUG)
-	Is_Debug = TRUE;
-#endif
 
-#if !(_DEBUG)
-	Is_Debug = FALSE;
-#endif
-
-
-#if (!_DEBUG)
-
-	if (!IsDebuggerPresent() && !Is_Debug)
-		{
+	OutputDebugString("Wow.exe check skipped in debug.\n");
 
 #endif
 
-		// Enabling Windows XP visual effects before any controls are created
-		Application::EnableVisualStyles();
-		Application::SetCompatibleTextRenderingDefault(false); 
 
-		// Create the main window and run it
-		Application::Run(gcnew Main_Window());
-		return 0;
+	// Enabling Windows XP visual effects before any controls are created
+	Application::EnableVisualStyles();
+	Application::SetCompatibleTextRenderingDefault(false); 
 
-#if (!_DEBUG)
-		}
-
-	if(IsDebuggerPresent())
-		{
-		exit(8256);
-		}	
-	exit(1);
-#endif
-
-#if (!_DEBUG)
+	// Create the main window and run it
+	Application::Run(gcnew Main_Window());
 	return 0;
-#endif
 
 	}
