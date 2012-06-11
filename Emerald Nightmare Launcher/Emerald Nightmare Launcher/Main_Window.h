@@ -780,7 +780,6 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text = "Deleted Cache and Settings...";
 					 }
 		private: System::Void clientSystemChecksToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
 					 }
 		private: System::Void deleteARCHIVEFrameGlueAddOnsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunDELETEARCHIVEINTERFACEFILES");

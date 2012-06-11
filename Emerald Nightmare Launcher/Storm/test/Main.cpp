@@ -1693,11 +1693,14 @@ inline void VerifyMPQMD5(const char *szFileName)
 	{
 	DWORD dwVerifyResult;
 	HANDLE hMpq = NULL;
-	printf("Opening file \"%s\" for MD5 verification ...\n", szFileName);
+	cout << "Opening file \"" << szFileName << "\"" << " for MD5 verification ..." << endl;
 	dwVerifyResult = SFileVerifyFile(hMpq, szFileName, MPQ_ATTRIBUTE_CRC32 | MPQ_ATTRIBUTE_MD5);(hMpq, szFileName, SFILE_VERIFY_ALL);
 
 	if(dwVerifyResult & (VERIFY_OPEN_ERROR | VERIFY_READ_ERROR | VERIFY_FILE_SECTOR_CRC_ERROR | VERIFY_FILE_CHECKSUM_ERROR | VERIFY_FILE_MD5_ERROR))
-	cout << "Integrity error in file: \"%s\"" << szFileName << endl;
+		{
+	cout << "Integrity error in file: \"" << szFileName << "\"" << endl;
+	cin.get();
+		}
 
 	delete [] szFileName;
 	}
@@ -1745,6 +1748,7 @@ inline void VerifyMPQMD5(const char *szFileName)
 
 inline void VerifyMPQMD51()
 	{
+
 	boost::filesystem::path isrepacked("Data\\enUS\\patch-enUS-3.MPQ");
 
 	if( !boost::filesystem::exists(isrepacked) )
@@ -1764,6 +1768,7 @@ inline void VerifyMPQMD51()
 		VerifyMPQMD5("Data\\enUS\\locale-enUS.MPQ");
 		VerifyMPQMD5("Data\\enUS\\patch-enUS.MPQ");
 		VerifyMPQMD5("Data\\enUS\\speech-enUS.MPQ");
+
 
 		}
 	else if( boost::filesystem::exists(isrepacked) )
@@ -1792,6 +1797,8 @@ inline void VerifyMPQMD51()
 		VerifyMPQMD5("Data\\enUS\\speech-enUS.MPQ");
 
 		}
+	cout << "MD5 check complete. Press any key to exit." << endl;
+	cin.get();
 	}
 
 inline void RepackArchives()
@@ -1809,12 +1816,13 @@ int main(int argc, char *argv[])
 	{
 
 	boost::filesystem::path wowexe("wow.exe");
-
-	if( !boost::filesystem::exists(wowexe) )
-		{
-		cout << "Wow.exe not detected, nothing will work - exiting" << endl;
-		exit(1);
-		}
+ 
+ 	if( !boost::filesystem::exists(wowexe) )
+ 		{
+ 		cout << "Wow.exe not detected, nothing will work - exiting" << endl;
+		cin.get();
+ 		exit(1);
+ 		}
 
 	int nError = ERROR_SUCCESS;
 
@@ -1825,8 +1833,13 @@ int main(int argc, char *argv[])
 	int i;
 
 	if (argc == 1)
+		{
+		cout << "This program must be called from the launcher." << endl;
+		cin.get();
 		return 0;
-	else
+		}
+		else
+			{
 		for (i = 1; i < argc; i++)
 			if (strcmp (argv[i], "-RunCHECKARCHIVES") == 0)
 				{
@@ -1836,6 +1849,7 @@ int main(int argc, char *argv[])
 				{
 				RepackArchives();
 				}
+		}
 			// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable
 
 			/* bool WINAPI SFileSetMaxFileCount(
@@ -1845,6 +1859,10 @@ int main(int argc, char *argv[])
 			// max hashtable is 524288 (0x00080000)
 			**/
 			// -RunDELETEARCHIVEINTERFACEFILES // DELETE ARCHIVED INTERFACE LUA/XML/TOC/SIG
+			
+			cin.get();
+
+
 
 			delete [] argv; // put this at the end of the command line argument check
 

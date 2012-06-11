@@ -50,6 +50,7 @@
 #include <boost/thread.hpp>
 #include <boost/smart_ptr.hpp>
 #include <boost/filesystem.hpp>
+#include <string>
 #include <iostream>
 #include <functional>
 
