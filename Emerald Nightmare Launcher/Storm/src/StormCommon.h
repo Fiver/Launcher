@@ -50,6 +50,8 @@
 #include <boost/thread.hpp>
 #include <boost/smart_ptr.hpp>
 #include <boost/filesystem.hpp>
+#include "boost/filesystem/operations.hpp"
+#include "boost/filesystem/path.hpp"
 #include <string>
 #include <iostream>
 #include <functional>

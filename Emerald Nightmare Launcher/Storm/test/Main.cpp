@@ -50,6 +50,9 @@ using namespace std;
 
 using namespace boost;
 using namespace boost::this_thread;
+namespace fs = boost::filesystem;
+
+
 
 // Unicode MPQ names
 /* Czech    */ static const wchar_t szUnicodeName1[] = {0x010C, 0x0065, 0x0073, 0x006B, 0x00FD, _T('.'), _T('m'), _T('p'), _T('q'), 0};
@@ -1696,11 +1699,31 @@ inline void VerifyMPQMD5(const char *szFileName)
 	cout << "Opening file \"" << szFileName << "\"" << " for MD5 verification ..." << endl;
 	dwVerifyResult = SFileVerifyFile(hMpq, szFileName, MPQ_ATTRIBUTE_CRC32 | MPQ_ATTRIBUTE_MD5);(hMpq, szFileName, SFILE_VERIFY_ALL);
 
-	if(dwVerifyResult & (VERIFY_OPEN_ERROR | VERIFY_READ_ERROR | VERIFY_FILE_SECTOR_CRC_ERROR | VERIFY_FILE_CHECKSUM_ERROR | VERIFY_FILE_MD5_ERROR))
+	if(dwVerifyResult & (VERIFY_FILE_SECTOR_CRC_ERROR))
 		{
-	cout << "Integrity error in file: \"" << szFileName << "\"" << endl;
-	cin.get();
+	cout << "CRC error in file: \"" << szFileName << "\"" << endl;
 		}
+	else if(dwVerifyResult & (VERIFY_FILE_CHECKSUM_ERROR))
+		{
+		cout << "General file checksum error in file: \"" << szFileName << "\"" << endl;
+		}
+	else if(dwVerifyResult & (VERIFY_FILE_MD5_ERROR))
+		{
+		cout << "MD5 checksum error in file: \"" << szFileName << "\"" << endl;
+		}
+	else if(dwVerifyResult & (VERIFY_OPEN_ERROR))
+		{
+	cout << "Error opening file, doesn't exist: \"" << szFileName << "\"" << endl;
+		}
+	else if(dwVerifyResult & (VERIFY_READ_ERROR))
+		{
+		cout << "Error opening file, machine is unstable, file is very corrupt, or doesn't exist: \"" << szFileName << "\"" << endl;
+		}
+	else if (dwVerifyResult & (!VERIFY_READ_ERROR || !VERIFY_FILE_SECTOR_CRC_ERROR || !VERIFY_FILE_CHECKSUM_ERROR || !VERIFY_OPEN_ERROR || !VERIFY_FILE_MD5_ERROR))
+		{
+		cout << "File" << szFileName << "integrity is good." << endl;
+		}
+	cin.get();
 
 	delete [] szFileName;
 	}
@@ -1751,51 +1774,49 @@ inline void VerifyMPQMD51()
 
 	boost::filesystem::path isrepacked("Data\\enUS\\patch-enUS-3.MPQ");
 
+
 	if( !boost::filesystem::exists(isrepacked) )
 		{
 		cout << "Detected files as being repacked." << endl;
 
-		VerifyMPQMD5("Data\\common.MPQ");
-		VerifyMPQMD5("Data\\common-2.MPQ");
-		VerifyMPQMD5("Data\\expansion.MPQ");
-		VerifyMPQMD5("Data\\lichking.MPQ");
-		VerifyMPQMD5("Data\\patch.MPQ");
+		VerifyMPQMD5(MAKE_PATH("Data\\common.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\common-2.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\expansion.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\lichking.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\patch.MPQ"));
 
-		VerifyMPQMD5("Data\\enUS\\expansion-locale-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\expansion-speech-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\lichking-locale-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\lichking-speech-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\locale-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\patch-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\speech-enUS.MPQ");
-
-
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-locale-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-speech-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-locale-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-speech-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\locale-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\speech-enUS.MPQ"));
 		}
 	else if( boost::filesystem::exists(isrepacked) )
 		{
 		cout << "Detected files as being original 3.3.5A layout." << endl;
 
-		VerifyMPQMD5("Data\\common-2.MPQ");
-		VerifyMPQMD5("Data\\common.MPQ");
-		VerifyMPQMD5("Data\\expansion.MPQ");
-		VerifyMPQMD5("Data\\lichking.MPQ");
-		VerifyMPQMD5("Data\\patch-2.MPQ");
-		VerifyMPQMD5("Data\\patch-3.MPQ");
-		VerifyMPQMD5("Data\\patch-4.MPQ");
-		VerifyMPQMD5("Data\\patch.MPQ");
+		VerifyMPQMD5(MAKE_PATH("Data\\common-2.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\common.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\expansion.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\lichking.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\patch-2.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\patch-3.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\patch-4.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\patch.MPQ"));
 
-		VerifyMPQMD5("Data\\enUS\\backup-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\base-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\expansion-locale-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\expansion-speech-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\lichking-locale-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\lichking-speech-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\locale-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\patch-enUS-2.MPQ");
-		VerifyMPQMD5("Data\\enUS\\patch-enUS-3.MPQ");
-		VerifyMPQMD5("Data\\enUS\\patch-enUS.MPQ");
-		VerifyMPQMD5("Data\\enUS\\speech-enUS.MPQ");
-
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\backup-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\base-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-locale-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-speech-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-locale-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-speech-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\locale-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS-2.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS-3.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS.MPQ"));
+		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\speech-enUS.MPQ"));
 		}
 	cout << "MD5 check complete. Press any key to exit." << endl;
 	cin.get();
@@ -1814,6 +1835,18 @@ inline void RepackArchives()
 
 int main(int argc, char *argv[])
 	{
+
+	//current working directory
+	boost::filesystem::path full_path( boost::filesystem::current_path() );
+
+	//std::cout << full_path << std::endl;
+
+	std::string firstFile = boost::filesystem::path(full_path).string();
+
+	cout << firstFile << endl;
+
+	//////////////////////////////////////////////////////////////////////////
+
 
 	boost::filesystem::path wowexe("wow.exe");
  
