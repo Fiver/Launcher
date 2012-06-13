@@ -126,6 +126,7 @@ namespace EmeraldNightmareLauncher {
 
 
 
+
 		protected: 
 
 		private:
@@ -192,15 +193,21 @@ namespace EmeraldNightmareLauncher {
 				// 
 				this->button1->AutoSize = true;
 				this->button1->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
-				this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-				this->button1->ForeColor = System::Drawing::SystemColors::ControlText;
+				this->button1->BackColor = System::Drawing::Color::Transparent;
+				this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"button1.BackgroundImage")));
+				this->button1->FlatAppearance->BorderColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), 
+					static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
+				this->button1->FlatAppearance->BorderSize = 10;
+				this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Lime;
+				this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Green;
+				this->button1->ForeColor = System::Drawing::Color::Transparent;
 				this->button1->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"button1.Image")));
-				this->button1->Location = System::Drawing::Point(486, 428);
+				this->button1->Location = System::Drawing::Point(489, 426);
 				this->button1->Margin = System::Windows::Forms::Padding(0);
 				this->button1->Name = L"button1";
 				this->button1->Size = System::Drawing::Size(147, 90);
 				this->button1->TabIndex = 1;
-				this->button1->UseVisualStyleBackColor = true;
+				this->button1->UseVisualStyleBackColor = false;
 				this->button1->Click += gcnew System::EventHandler(this, &Main_Window::button1_Click);
 				// 
 				// menuStrip1
@@ -427,7 +434,7 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
 				this->toggleDebugToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->toggleDebugToolStripMenuItem->Name = L"toggleDebugToolStripMenuItem";
-				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(149, 22);
+				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 				this->toggleDebugToolStripMenuItem->Text = L"Toggle Debug";
 				this->toggleDebugToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::toggleDebugToolStripMenuItem_Click);
 				// 
@@ -479,7 +486,7 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(0)));
 				this->LauncherAlertBox->Location = System::Drawing::Point(-3, 426);
 				this->LauncherAlertBox->Name = L"LauncherAlertBox";
-				this->LauncherAlertBox->Size = System::Drawing::Size(486, 92);
+				this->LauncherAlertBox->Size = System::Drawing::Size(497, 90);
 				this->LauncherAlertBox->TabIndex = 4;
 				// 
 				// Main_Window
@@ -491,7 +498,7 @@ namespace EmeraldNightmareLauncher {
 				this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(20)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(20)));
 				this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"$this.BackgroundImage")));
-				this->ClientSize = System::Drawing::Size(636, 517);
+				this->ClientSize = System::Drawing::Size(636, 513);
 				this->Controls->Add(this->menuStrip1);
 				this->Controls->Add(this->button1);
 				this->Controls->Add(this->webBrowser1);
@@ -803,7 +810,7 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 LauncherAlertBox->Text->Empty;
-					 LauncherAlertBox->Text = "Launcher programmed and designed by Marforius for the Emerald Nightmare/Marforius-Client projects. No authorization is given for use of this launcher or related tools in other projects' launchers or toolchains. Emerald Nightmare AND all related tools by Marforius are licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.";
+					 LauncherAlertBox->Text = "Launcher wrote by Marforius for the Emerald Nightmare/Marforius-Client projects. No authorization is given for use of this launcher or related tools in other projects' launchers or toolchains. Emerald Nightmare AND all related tools by Marforius are licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.";
 					 }
 		};
 	}
