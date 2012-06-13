@@ -1701,7 +1701,7 @@ inline void VerifyMPQMD5(const char *szFileName)
 
 	if(dwVerifyResult & (VERIFY_FILE_SECTOR_CRC_ERROR))
 		{
-	cout << "CRC error in file: \"" << szFileName << "\"" << endl;
+		cout << "CRC error in file: \"" << szFileName << "\"" << endl;
 		}
 	else if(dwVerifyResult & (VERIFY_FILE_CHECKSUM_ERROR))
 		{
@@ -1713,7 +1713,7 @@ inline void VerifyMPQMD5(const char *szFileName)
 		}
 	else if(dwVerifyResult & (VERIFY_OPEN_ERROR))
 		{
-	cout << "Error opening file, doesn't exist: \"" << szFileName << "\"" << endl;
+		cout << "Error opening file, doesn't exist: \"" << szFileName << "\"" << endl;
 		}
 	else if(dwVerifyResult & (VERIFY_READ_ERROR))
 		{
@@ -1843,19 +1843,19 @@ int main(int argc, char *argv[])
 
 	std::string firstFile = boost::filesystem::path(full_path).string();
 
-	cout << firstFile << endl;
+	//cout << firstFile << endl;
 
 	//////////////////////////////////////////////////////////////////////////
 
 
 	boost::filesystem::path wowexe("wow.exe");
- 
- 	if( !boost::filesystem::exists(wowexe) )
- 		{
- 		cout << "Wow.exe not detected, nothing will work - exiting" << endl;
+
+	if( !boost::filesystem::exists(wowexe) )
+		{
+		cout << "Wow.exe not detected, nothing will work - exiting" << endl;
 		cin.get();
- 		return 1;
- 		}
+		return 1;
+		}
 
 	int nError = ERROR_SUCCESS;
 
@@ -1871,8 +1871,8 @@ int main(int argc, char *argv[])
 		cin.get();
 		return 0;
 		}
-		else
-			{
+	else
+		{
 		for (i = 1; i < argc; i++)
 			if (strcmp (argv[i], "-RunCHECKARCHIVES") == 0)
 				{
@@ -1883,147 +1883,147 @@ int main(int argc, char *argv[])
 				RepackArchives();
 				}
 		}
-			// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable
+	// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable
 
-			/* bool WINAPI SFileSetMaxFileCount(
-			HANDLE hMpq,                    // Handle to an open archive
-			DWORD dwMaxFileCount            // New limit of file count in the MPQ
-			);
-			// max hashtable is 524288 (0x00080000)
-			**/
-			// -RunDELETEARCHIVEINTERFACEFILES // DELETE ARCHIVED INTERFACE LUA/XML/TOC/SIG
-			
-			cin.get();
+	/* bool WINAPI SFileSetMaxFileCount(
+	HANDLE hMpq,                    // Handle to an open archive
+	DWORD dwMaxFileCount            // New limit of file count in the MPQ
+	);
+	// max hashtable is 524288 (0x00080000)
+	**/
+	// -RunDELETEARCHIVEINTERFACEFILES // DELETE ARCHIVED INTERFACE LUA/XML/TOC/SIG
 
-
-
-			delete [] argv; // put this at the end of the command line argument check
+	cin.get();
 
 
+
+	delete [] argv; // put this at the end of the command line argument check
 
 
 
 
 
 
-			//  FileStream_OpenEncrypted(_T("e:\\Multimedia\\MPQs\\2010 - Starcraft II\\Installer UI 2 deDE.MPQE"));
 
-			// Mix the random number generator
-			//  srand(GetTickCount());
 
-			// Test structure sizes
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestStructureSizes();
+	//  FileStream_OpenEncrypted(_T("e:\\Multimedia\\MPQs\\2010 - Starcraft II\\Installer UI 2 deDE.MPQE"));
 
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestOpenLocalFile("C:\\autoexec.bat");
+	// Mix the random number generator
+	//  srand(GetTickCount());
 
-			// Test reading partial file
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestPartFileRead(MAKE_PATH("2009 - PartialMPQs/patch.MPQ.part"));
+	// Test structure sizes
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestStructureSizes();
 
-			// Test LZMA compression method against the code ripped from Starcraft II
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = CompareLzmaCompressions(MPQ_SECTOR_SIZE);
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestOpenLocalFile("C:\\autoexec.bat");
 
-			// Test compression methods
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestSectorCompress(MPQ_SECTOR_SIZE);
+	// Test reading partial file
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestPartFileRead(MAKE_PATH("2009 - PartialMPQs/patch.MPQ.part"));
 
-			// Test the archive open and close
-			// if(nError == ERROR_SUCCESS)
-			//    nError = TestArchiveOpenAndClose(_T("e:\\Ladik\\Incoming\\Diablo III\\Diablo-III-8370-enGB-Installer\\Installer Tome 1.MPQE"));
-			//      nError = TestArchiveOpenAndClose(MAKE_PATH("2011 - WoW BETA/wow-update-13202.MPQ"));
-			//      nError = TestArchiveOpenAndClose(MAKE_PATH("2002 - Warcraft III/ProtectedMap_HashTable_FakeValid.w3x"));
-			//      nError = TestArchiveOpenAndClose(MAKE_PATH("2010 - Starcraft II/Installer Tome 1 enGB.MPQE"));
-			//      nError = TestArchiveOpenAndClose(MAKE_PATH("1997 - Diablo I/DIABDAT_orig.MPQ"));
-			//      nError = TestArchiveOpenAndClose(MAKE_PATH("2004 - World of Warcraft/SoundCache-enUS.MPQ"));
-			//      nError = TestArchiveOpenAndClose(MAKE_PATH("smpq.mpq "));
+	// Test LZMA compression method against the code ripped from Starcraft II
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = CompareLzmaCompressions(MPQ_SECTOR_SIZE);
 
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestFindFiles(MAKE_PATH("2002 - Warcraft III/HumanEd.mpq"));
+	// Test compression methods
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestSectorCompress(MPQ_SECTOR_SIZE);
 
-			// Create a big MPQ archive
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestCreateArchive_PaliRoharBug(MAKE_PATH("Test.mpq"));
-			//      nError = TestCreateArchive(MAKE_PATH("Test.mpq"));
-			//      nError = TestCreateArchive((const TCHAR*)szUnicodeName1);
-			//      nError = TestCreateArchive((const TCHAR*)szUnicodeName2);
-			//      nError = TestCreateArchive((const TCHAR*)szUnicodeName3);
-			//      nError = TestCreateArchive((const TCHAR*)szUnicodeName4);
-			//      nError = TestCreateArchive((const TCHAR*)szUnicodeName5);
-			//      nError = TestCreateArchive((const TCHAR*)szUnicodeName6);
+	// Test the archive open and close
+	// if(nError == ERROR_SUCCESS)
+	//    nError = TestArchiveOpenAndClose(_T("e:\\Ladik\\Incoming\\Diablo III\\Diablo-III-8370-enGB-Installer\\Installer Tome 1.MPQE"));
+	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2011 - WoW BETA/wow-update-13202.MPQ"));
+	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2002 - Warcraft III/ProtectedMap_HashTable_FakeValid.w3x"));
+	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2010 - Starcraft II/Installer Tome 1 enGB.MPQE"));
+	//      nError = TestArchiveOpenAndClose(MAKE_PATH("1997 - Diablo I/DIABDAT_orig.MPQ"));
+	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2004 - World of Warcraft/SoundCache-enUS.MPQ"));
+	//      nError = TestArchiveOpenAndClose(MAKE_PATH("smpq.mpq "));
 
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestAddFilesToMpq(MAKE_PATH("wow-update-13202.MPQ"),
-			//                                 "c:\\Tools32\\Arj32.exe",
-			//                                 "c:\\Tools32\\autoruns.chm",
-			//                                 "c:\\Tools32\\CPUEater.exe",
-			//                                 "c:\\Tools32\\dumpbin.exe",
-			//                                 "c:\\Tools32\\editbin.exe",
-			//                                 "c:\\Tools32\\fsg.ini",
-			//                                 "c:\\Tools32\\hiew8.ini",
-			//                                 "c:\\Tools32\\ida.bat",
-			//                                 "c:\\Tools32\\mp3.ini",
-			//                                 NULL);
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestFindFiles(MAKE_PATH("2002 - Warcraft III/HumanEd.mpq"));
 
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestCreateArchiveFromMemory(MAKE_PATH("Test-leak.mpq"));
+	// Create a big MPQ archive
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestCreateArchive_PaliRoharBug(MAKE_PATH("Test.mpq"));
+	//      nError = TestCreateArchive(MAKE_PATH("Test.mpq"));
+	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName1);
+	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName2);
+	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName3);
+	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName4);
+	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName5);
+	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName6);
 
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestFileReadAndWrite(MAKE_PATH("2002 - Warcraft III/(10)DustwallowKeys.w3m"), "war3map.j");
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestAddFilesToMpq(MAKE_PATH("wow-update-13202.MPQ"),
+	//                                 "c:\\Tools32\\Arj32.exe",
+	//                                 "c:\\Tools32\\autoruns.chm",
+	//                                 "c:\\Tools32\\CPUEater.exe",
+	//                                 "c:\\Tools32\\dumpbin.exe",
+	//                                 "c:\\Tools32\\editbin.exe",
+	//                                 "c:\\Tools32\\fsg.ini",
+	//                                 "c:\\Tools32\\hiew8.ini",
+	//                                 "c:\\Tools32\\ida.bat",
+	//                                 "c:\\Tools32\\mp3.ini",
+	//                                 NULL);
 
-			// Verify the archive signature
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestSignatureVerify(MAKE_PATH("1998 - Starcraft/BW-1152.exe"));
-			//      nError = TestSignatureVerify(MAKE_PATH("2002 - Warcraft III/(10)DustwallowKeys.w3m"));
-			//      nError = TestSignatureVerify(MAKE_PATH("2002 - Warcraft III/War3TFT_121b_English.exe"));
-			//      nError = TestSignatureVerify(MAKE_PATH("2004 - World of Warcraft/WoW-2.3.3.7799-to-2.4.0.8089-enUS-patch.exe"));
-			//      nError = TestSignatureVerify(MAKE_PATH("2004 - World of Warcraft/standalone.MPQ"));
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestCreateArchiveFromMemory(MAKE_PATH("Test-leak.mpq"));
 
-			// Compact the archive        
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestMpqCompacting(MAKE_PATH("wow-update-base-14333.MPQ"));
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestFileReadAndWrite(MAKE_PATH("2002 - Warcraft III/(10)DustwallowKeys.w3m"), "war3map.j");
 
-			// Create copy of the archive, appending some bytes before the MPQ header
-			//  if(nError == ERROR_SUCCESS)
-			//      nError = TestCreateArchiveCopy(MAKE_PATH("PartialMPQs/interface.MPQ.part"), MAKE_PATH("PartialMPQs/interface-copy.MPQ.part"), NULL);
-			/*
-			if(nError == ERROR_SUCCESS)
-			{
-			nError = TestCompareTwoArchives(MAKE_PATH("2011 - WoW-Cataclysm/wow-update-13189.MPQ"),
-			MAKE_PATH("wow-update-13189.MPQ"),
-			NULL,
-			0x1001);
-			}
-			*/
+	// Verify the archive signature
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestSignatureVerify(MAKE_PATH("1998 - Starcraft/BW-1152.exe"));
+	//      nError = TestSignatureVerify(MAKE_PATH("2002 - Warcraft III/(10)DustwallowKeys.w3m"));
+	//      nError = TestSignatureVerify(MAKE_PATH("2002 - Warcraft III/War3TFT_121b_English.exe"));
+	//      nError = TestSignatureVerify(MAKE_PATH("2004 - World of Warcraft/WoW-2.3.3.7799-to-2.4.0.8089-enUS-patch.exe"));
+	//      nError = TestSignatureVerify(MAKE_PATH("2004 - World of Warcraft/standalone.MPQ"));
 
-			//  if(nError == ERROR_SUCCESS)
-			// {
-			//      nError = TestOpenPatchedArchive(MAKE_PATH("2004 - Wow 3.x/lichking.MPQ"),
-			//                                      MAKE_PATH("2011 - WoW 4.x/wow-update-13287.MPQ"),
-			//                                      NULL);
-			/*
-			nError = TestOpenPatchedArchive(MAKE_PATH("2011 - WoW 4.x/locale-enGB.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-13164.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-13205.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-13287.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-13329.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-13596.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-13623.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-13914.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14007.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14333.MPQ"),
-			MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14480.MPQ"),
-			NULL);
-			*/
-			//   }
+	// Compact the archive        
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestMpqCompacting(MAKE_PATH("wow-update-base-14333.MPQ"));
 
-			// Remove the working directory
-			clreol();
-			if(nError != ERROR_SUCCESS)
-				printf("One or more errors occurred when executing StormLib\n");
+	// Create copy of the archive, appending some bytes before the MPQ header
+	//  if(nError == ERROR_SUCCESS)
+	//      nError = TestCreateArchiveCopy(MAKE_PATH("PartialMPQs/interface.MPQ.part"), MAKE_PATH("PartialMPQs/interface-copy.MPQ.part"), NULL);
+	/*
+	if(nError == ERROR_SUCCESS)
+	{
+	nError = TestCompareTwoArchives(MAKE_PATH("2011 - WoW-Cataclysm/wow-update-13189.MPQ"),
+	MAKE_PATH("wow-update-13189.MPQ"),
+	NULL,
+	0x1001);
+	}
+	*/
 
-			printf("Work complete.\n");
-			return nError;
+	//  if(nError == ERROR_SUCCESS)
+	// {
+	//      nError = TestOpenPatchedArchive(MAKE_PATH("2004 - Wow 3.x/lichking.MPQ"),
+	//                                      MAKE_PATH("2011 - WoW 4.x/wow-update-13287.MPQ"),
+	//                                      NULL);
+	/*
+	nError = TestOpenPatchedArchive(MAKE_PATH("2011 - WoW 4.x/locale-enGB.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-13164.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-13205.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-13287.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-13329.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-13596.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-13623.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-13914.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14007.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14333.MPQ"),
+	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14480.MPQ"),
+	NULL);
+	*/
+	//   }
+
+	// Remove the working directory
+	clreol();
+	if(nError != ERROR_SUCCESS)
+		printf("One or more errors occurred when executing StormLib\n");
+
+	printf("Work complete.\n");
+	return nError;
 	}

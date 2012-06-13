@@ -32,7 +32,7 @@ int main()
 #endif
 
 
-	
+
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 

@@ -15,14 +15,14 @@ bool main(int argc, char *argv[])
 
 	ofstream myfile;
 	myfile.open("Errors\\WowError.exe.log");
-		int il;
-		for (il = 0; il < argc; il++)
-			{
-			myfile << ("argv[%d] is %s\n", il, argv[il]);
-			}
-		myfile.close();
+	int il;
+	for (il = 0; il < argc; il++)
+		{
+		myfile << ("argv[%d] is %s\n", il, argv[il]);
+		}
+	myfile.close();
 
-		delete myfile;
+	delete myfile;
 
 	printf ("\n\n");
 	printf ("World of Warcraft has crashed");

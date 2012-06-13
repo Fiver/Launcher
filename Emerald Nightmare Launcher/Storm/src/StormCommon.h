@@ -35,16 +35,16 @@
 
 // Include functions from zlib
 #ifndef __SYS_ZLIB
-  #include "zlib/zlib.h"
+#include "zlib/zlib.h"
 #else
-  #include <zlib.h>
+#include <zlib.h>
 #endif
 
 // Include functions from bzlib
 #ifndef __SYS_BZLIB
-  #include "bzip2/bzlib.h"
+#include "bzip2/bzlib.h"
 #else
-  #include <bzlib.h>
+#include <bzlib.h>
 #endif
 
 #include <boost/thread.hpp>
@@ -95,16 +95,16 @@
 
 #if defined(_MSC_VER) && defined(_DEBUG)
 __inline void * DebugMalloc(char * /* szFile */, int /* nLine */, size_t nSize)
-{
-//  return new BYTE[nSize];
-    return HeapAlloc(GetProcessHeap(), 0, nSize);
-}
+	{
+	//  return new BYTE[nSize];
+	return HeapAlloc(GetProcessHeap(), 0, nSize);
+	}
 
 __inline void DebugFree(void * ptr)
-{
-//  delete [] ptr;
-    HeapFree(GetProcessHeap(), 0, ptr);
-}
+	{
+	//  delete [] ptr;
+	HeapFree(GetProcessHeap(), 0, ptr);
+	}
 
 #define STORM_ALLOC(type, nitems) (type *)DebugMalloc(__FILE__, __LINE__, (nitems) * sizeof(type))
 #define STORM_FREE(ptr)           DebugFree(ptr)
@@ -232,25 +232,25 @@ bool IsInternalMpqFileName(const char * szFileName);
 // Support for adding files to the MPQ
 
 int SFileAddFile_Init(
-    TMPQArchive * ha,
-    const char * szArchivedName,
-    ULONGLONG ft,
-    DWORD dwFileSize,
-    LCID lcLocale,
-    DWORD dwFlags,
-    TMPQFile ** phf
-    );
+	TMPQArchive * ha,
+	const char * szArchivedName,
+	ULONGLONG ft,
+	DWORD dwFileSize,
+	LCID lcLocale,
+	DWORD dwFlags,
+	TMPQFile ** phf
+	);
 
 int SFileAddFile_Write(
-    TMPQFile * hf,
-    const void * pvData,
-    DWORD dwSize,
-    DWORD dwCompression
-    );
+	TMPQFile * hf,
+	const void * pvData,
+	DWORD dwSize,
+	DWORD dwCompression
+	);
 
 int SFileAddFile_Finish(
-    TMPQFile * hf
-    );
+	TMPQFile * hf
+	);
 
 //-----------------------------------------------------------------------------
 // Attributes support

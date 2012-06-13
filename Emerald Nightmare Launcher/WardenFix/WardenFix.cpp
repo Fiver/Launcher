@@ -15,8 +15,8 @@ int main( void )
 	A mock of it. Use "stdcall" for maximum compatibility.
 	*/
 
-//	#	Type	Name	Pre-Call Value	Post-Call Value
-//	1	Stack		{ uintp = 324665132, intp = 324665132, psz = 0x1359ff2c  ...}	{ uintp = 324665132, intp = 324665132, psz = 0x1359ff2c  ...}
+	//	#	Type	Name	Pre-Call Value	Post-Call Value
+	//	1	Stack		{ uintp = 324665132, intp = 324665132, psz = 0x1359ff2c  ...}	{ uintp = 324665132, intp = 324665132, psz = 0x1359ff2c  ...}
 
 	//typedef int (__stdcall * SCAN_START)(int sone, int stwo, LPSTR psz);
 
