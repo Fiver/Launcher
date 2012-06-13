@@ -32,6 +32,6 @@ bool main(int argc, char *argv[])
 	printf("This program does nothing but print these lines, as the default\nbugreporter(WowError.exe) carries a risk of reporting private server information to blizzard entertainment.");
 	printf ("\n\n");
 	delete [] argv;
-	system("PAUSE");
+	cin.get();
 	return(0);
 	}
