@@ -24,7 +24,7 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 		&si,              // Pointer to STARTUPINFO structure.
 		&pi );
 	delete ProcessName;
-	exit(0);
+	return 0;
 	}
 
 inline bool DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)

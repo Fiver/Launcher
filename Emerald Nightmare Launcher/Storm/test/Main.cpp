@@ -1821,7 +1821,7 @@ int main(int argc, char *argv[])
  		{
  		cout << "Wow.exe not detected, nothing will work - exiting" << endl;
 		cin.get();
- 		exit(1);
+ 		return 1;
  		}
 
 	int nError = ERROR_SUCCESS;
