@@ -24,7 +24,6 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 		&si,              // Pointer to STARTUPINFO structure.
 		&pi );
 	delete ProcessName;
-	return 0;
 	}
 
 inline bool DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
@@ -552,6 +551,7 @@ namespace EmeraldNightmareLauncher {
 						 VersionAtCompile = 0;
 						 VersionOfRemoteIni = 0;
 						 CreateProcessLauncher("AutoUpdater.exe -RunMain");
+						 EmeraldNightmareLauncher::Main_Window::Close();
 						 }
 					 VerofRemoteBeforeConvert.clear();
 					 VersionAtCompile = 0;
@@ -559,6 +559,7 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("wow.exe -console");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void test1ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 }
@@ -567,6 +568,7 @@ namespace EmeraldNightmareLauncher {
 					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/AutoUpdater.exe"), _T("AutoUpdater.exe"), 0, NULL );
 					 Sleep(5000);
 					 CreateProcessLauncher("AutoUpdater.exe -RunMain");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void mD5CheckArchivesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 //                         Vanilla (3.3.5A) MD5 Hashes
@@ -620,6 +622,7 @@ namespace EmeraldNightmareLauncher {
 					 // fin
 					 // 
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void deleteNonessentialFilesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -768,23 +771,28 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void downloadReccomendedAddonsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("AutoUpdater.exe -DownloadAddons");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void shareGathererDataAcrossAllAccountsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 // TODO: copy the biggest gatherer saved data file across all account folders
 					 }
 		private: System::Void downloadMarforiusClientToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("AutoUpdater.exe -DownloadMarforiusClient");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void editSavedServersToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 }
 		private: System::Void clientSystemCheckToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void mD5CheckArchivesToolStripMenuItem1_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void consolidatePatchesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunREPACKPATCHESINTOPARENTMPQ");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void deleteSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 DeleteDirectoryLauncher("WTF", false);
@@ -796,11 +804,13 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void deleteARCHIVEFrameGlueAddOnsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunDELETEARCHIVEINTERFACEFILES");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void toggleDebugToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 }
 		private: System::Void downloadAddOnToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("AutoUpdater.exe -DownloadNightmareAdmin");
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void richlinkLabel1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 					 }

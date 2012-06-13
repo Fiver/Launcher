@@ -48,9 +48,6 @@
     <EmbeddedResource Include="Main_Window.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main_Window.en.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="BackGround.png">

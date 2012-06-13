@@ -11,6 +11,7 @@ using namespace System;
 int main()
 	{
 
+#if (!_DEBUG)
 	ifstream my_file("wow.exe");
 
 	if( !my_file.is_open() )
@@ -22,6 +23,7 @@ int main()
 		}
 
 	my_file.close();
+#endif
 
 #if (_DEBUG)
 
@@ -30,6 +32,7 @@ int main()
 #endif
 
 
+	
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
