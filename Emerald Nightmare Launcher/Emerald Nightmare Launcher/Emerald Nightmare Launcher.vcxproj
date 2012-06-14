@@ -114,10 +114,14 @@
       <SetChecksum>true</SetChecksum>
       <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\boost\boost_1_47\lib</AdditionalLibraryDirectories>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
     </Link>
     <ResourceCompile>
       <NullTerminateStrings>true</NullTerminateStrings>
     </ResourceCompile>
+    <Manifest>
+      <VerboseOutput>false</VerboseOutput>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System" />

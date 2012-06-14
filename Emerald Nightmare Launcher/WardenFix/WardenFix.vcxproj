@@ -94,7 +94,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\boost\boost_1_47\lib</AdditionalLibraryDirectories>
+      <SetChecksum>true</SetChecksum>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
     </Link>
+    <Manifest>
+      <VerboseOutput>false</VerboseOutput>
+    </Manifest>
+    <ResourceCompile>
+      <NullTerminateStrings>true</NullTerminateStrings>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System" />

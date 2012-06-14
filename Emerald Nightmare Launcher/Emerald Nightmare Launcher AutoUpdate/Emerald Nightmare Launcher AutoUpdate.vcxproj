@@ -27,7 +27,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <CLRSupport>Pure</CLRSupport>
+    <CLRSupport>true</CLRSupport>
     <CharacterSet>NotSet</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -99,7 +99,15 @@
       <TurnOffAssemblyGeneration>false</TurnOffAssemblyGeneration>
       <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\boost\boost_1_47\lib</AdditionalLibraryDirectories>
+      <SetChecksum>true</SetChecksum>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
     </Link>
+    <Manifest>
+      <VerboseOutput>false</VerboseOutput>
+    </Manifest>
+    <ResourceCompile>
+      <NullTerminateStrings>true</NullTerminateStrings>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System" />

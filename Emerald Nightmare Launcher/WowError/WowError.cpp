@@ -1,16 +1,41 @@
 // WowError.cpp : main project file.
 
 #include "stdafx.h"
+#include "boost\filesystem\path.hpp"
+#include "boost\filesystem\operations.hpp"
 
 using namespace std;
 
 bool main(int argc, char *argv[])
 	{
 
-	int i;
-	for (i = 0; i < argc; i++)
+#if (!_DEBUG)
+	boost::filesystem::path wowexe("wow.exe");
+
+	if( !boost::filesystem::exists(wowexe) )
 		{
-		printf ("argv[%d] is %s\n", i, argv[i]);
+		cout << "This program must called from wow.exe!" << endl;
+		cin.get();
+		return 1;
+		}
+#endif
+
+#if (_DEBUG)
+
+	OutputDebugString("Wow.exe check skipped in debug.\n");
+
+#endif
+
+	int i;
+	if (argc == 1)
+		{
+		cout << "This program must called from wow.exe!" << endl;
+		cin.get();
+		return 0;
+		}
+	else for (i = 0; i < argc; i++)
+		{
+		cout << ("argv[%d] is %s\n", i, argv[i]) << endl;
 		}
 
 	ofstream myfile;
@@ -24,13 +49,13 @@ bool main(int argc, char *argv[])
 
 	delete myfile;
 
-	printf ("\n\n");
-	printf ("World of Warcraft has crashed");
-	printf ("\n\n");
-	printf("A crash report has been saved in \"World of Warcraft\\Errors\"\n\nupload this file to mediafire if you are able to reproduce this bug\nand make a report,\nlinking this crashdump on our Marforius-Client github \"issues\" section.");
-	printf ("\n\n");
-	printf("This program does nothing but print these lines, as the default\nbugreporter(WowError.exe) carries a risk of reporting private server information to blizzard entertainment.");
-	printf ("\n\n");
+	cout << "\n\n" << endl;
+	cout << "World of Warcraft has crashed" << endl;
+	cout << "\n\n" << endl;
+	cout << "A crash report has been saved in \"World of Warcraft\\Errors\"\n\nupload this file to mediafire if you are able to reproduce this bug\nand make a report,\nlinking this crashdump on our Marforius-Client github \"issues\" section." << endl;
+	cout << "\n\n" << endl;
+	cout << "This program does nothing but print these lines, as the default\nbugreporter(WowError.exe) carries a risk of reporting private server information to blizzard entertainment." << endl;
+	cout << "\n\n" << endl;
 	delete [] argv;
 	cin.get();
 	return(0);
