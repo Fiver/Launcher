@@ -1,7 +1,14 @@
 #include "stdafx.h"
 
+using namespace std;
+
 int main( void ) 
 	{ 
+
+	cout << "This is unused, I didn't finish what I was playing with, with this." << endl;
+	cin.get();
+	return 0;
+
 	LPSTR psz;
 
 	/* get handle to dll */
@@ -17,6 +24,10 @@ int main( void )
 
 	//	#	Type	Name	Pre-Call Value	Post-Call Value
 	//	1	Stack		{ uintp = 324665132, intp = 324665132, psz = 0x1359ff2c  ...}	{ uintp = 324665132, intp = 324665132, psz = 0x1359ff2c  ...}
+	// Return value for cheatengine
+	//////////////////////////////////////////////////////////////////////////
+	// I will be removing this because it's useless to use scan.dll instead of making my own version.
+	//////////////////////////////////////////////////////////////////////////
 
 	//typedef int (__stdcall * SCAN_START)(int sone, int stwo, LPSTR psz);
 
