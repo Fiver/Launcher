@@ -74,9 +74,23 @@ namespace EmeraldNightmareLauncher {
 			}
 #pragma endregion
 	private: System::Void Server_Changer_Window_Load(System::Object^  sender, System::EventArgs^  e) {
-				 // best name ever, right?
 
+				 // determine existence of realmlist.wtf
+				 // else look for entry in config.wtf
+				 // else  create entry in config.wtf
+				 // load current realm list then
+				 // read from LoginUI.lua to make list
+				 // 
 
+				 ifstream my_file("wtf\\config.wtf");
+
+				 if( !my_file.is_open() )
+					 {
+					 
+					 }
+
+				 my_file.close();
+				 delete my_file;
 				 }
 		};
 }

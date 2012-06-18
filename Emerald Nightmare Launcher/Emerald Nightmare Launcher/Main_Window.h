@@ -4,6 +4,7 @@ using namespace std;
 #pragma once
 
 #include "Download_Window.h"
+#include "Server_Changer_Window.h"
 
 inline void CreateProcessLauncher(LPSTR ProcessName)
 	{
@@ -703,6 +704,14 @@ namespace EmeraldNightmareLauncher {
 					 DeleteDirectoryLauncher("Data\\realmlist.wtf", false);
 					 DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
 
+					 // some private server stuff that's common and cleanup after myself, so that I can call this function (or a clone of) after downloading my client with the UI
+
+					 DeleteDirectoryLauncher("Buildings", false);
+					 DeleteDirectoryLauncher("Repacker", false);
+					 DeleteDirectoryLauncher("World of Warcraft.app", false); // no love for mac
+					 DeleteDirectoryLauncher("maps", false);
+					 DeleteDirectoryLauncher("vmaps", false);
+
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleting Non-Essential files that won't be used in a private server environment(bloat)... \r\n\r\nYou should now relaunch World of Warcraft and close it to generate temporary files it needs. Realmlist.wtf is now integrated into WTF\\Config.wtf";
 
@@ -732,7 +741,8 @@ namespace EmeraldNightmareLauncher {
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void editSavedServersToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 // implement
+					 Server_Changer_Window^ server_changer_window = gcnew Server_Changer_Window();
+					 server_changer_window->Show();
 					 }
 		private: System::Void clientSystemCheckToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
