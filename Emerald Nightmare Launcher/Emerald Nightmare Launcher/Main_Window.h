@@ -3,6 +3,8 @@
 using namespace std;
 #pragma once
 
+#include "Download_Window.h"
+
 inline void CreateProcessLauncher(LPSTR ProcessName)
 	{
 	STARTUPINFO si;
@@ -25,6 +27,7 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 		&pi );
 	delete ProcessName;
 	}
+
 
 inline bool DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
 	{
@@ -123,10 +126,6 @@ namespace EmeraldNightmareLauncher {
 
 
 
-
-
-
-		protected: 
 
 		private:
 			/// <summary>
@@ -558,10 +557,12 @@ namespace EmeraldNightmareLauncher {
 					 VersionOfRemoteIni = 0;
 					 }
 		private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+					 // PlaySound("%temp%\\launcher-launchbutton.mp3", NULL, SND_FILENAME | SND_ASYNCH); // todo: Marforius
 					 CreateProcessLauncher("wow.exe -console");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void test1ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+					 // DNI - remove
 					 }
 		private: System::Void forceLauncherUpdateToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -571,56 +572,6 @@ namespace EmeraldNightmareLauncher {
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void mD5CheckArchivesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 //                         Vanilla (3.3.5A) MD5 Hashes
-					 //				 \\data\\
-					 //					 17d340dbd0ac02569d56cd0d96b2c8b7 *common-2.MPQ
-					 //					 325452ce19054ee76f29acb14da85884 *common.MPQ
-					 //					 c48af167bd3253f4762dd077112252af *expansion.MPQ
-					 //					 6c9f85caf621ee546dbfe8811315eb11 *lichking.MPQ
-					 //					 ab3a08a2993caec2db8c2c181f5f5065 *patch-2.MPQ
-					 //					 35733b76fcf0f95a0d8240d1f36cc5c3 *patch-3.MPQ
-					 //					 88e4545c0074f9d6c1eced7e035bdf6e *patch-4.MPQ
-					 //					 6e099a82d9d2bb75c037625aecaa34aa *patch.MPQ
-					 //					 \\data\\enUS\\
-					 //					 2aa2c2c6aa341977ec15ee75d13a2429 *backup-enUS.MPQ
-					 //					 0423b93701903133e282247b74822364 *base-enUS.MPQ
-					 //					 c9b1786849ade7f399c57da8c61fe352 *expansion-locale-enUS.MPQ
-					 //					 4077b16db9fe39f81fadbb2098ece280 *expansion-speech-enUS.MPQ
-					 //					 af01bc97ca87104c589d4d84684d3b4e *lichking-locale-enUS.MPQ
-					 //					 be2a6737bb323b700c3d750ca9b72709 *lichking-speech-enUS.MPQ
-					 //					 6a2d75fad8d317b0bedaa4f82f9340a5 *locale-enUS.MPQ
-					 //					 2352dfdbb85174d80b748a1111c56ee9 *patch-enUS-2.MPQ
-					 //					 5514621925fa8cd17e864fabcbf85b4a *patch-enUS-3.MPQ
-					 //					 273cc8a0137dbc6f978c74acaa809098 *patch-enUS.MPQ
-					 //					 965021d466779f68407965f4759c5cc6 *speech-enUS.MPQ
-					 //					 
-					 //					       Packed or Repacked (3.3.5A) MD5 Hashes
-					 //					             (Using custom repacker tool, without textfile generation for signature, will not match current Repacker.exe output)
-					 //                              (HASHTABLES WERE SET TO MAXIMUM FOR THESE MD5s)
-					 //					              \\data\\
-					 //					              d7ae8eab68248604d640548f1a3b6527 *common.MPQ
-					 //					              5643de2e29ffedcadff3eb6b3febfe77 *common-2.MPQ
-					 //					              2b5f10292180ae8d9a378ab2051daa47 *expansion.MPQ
-					 //					              a270a7133f743ed6a0278b73463d3657 *lichking.MPQ
-					 //					              b63f05db29a2e659d92451f32934c6be *patch.MPQ
-					 //					              \\data\\enUS\\
-					 //					              7c9742cef1f777f9a92a0f911cf92a11 *expansion-locale-enUS.MPQ
-					 //					              aa506008faed178f2fa0abb9bcb86ccd *expansion-speech-enUS.MPQ
-					 //					              2d92f4a4f75347f9778e2b73a85087e4 *lichking-locale-enUS.MPQ
-					 //					              e7ec7cc3cad40a77fc2451872d381bdd *lichking-speech-enUS.MPQ
-					 //					              ba03e06f36572240e4e7e8185ff6a2cc *locale-enUS.MPQ
-					 //					              f6065bd0d0340edbd702023cc0d7f5f6 *patch-enUS.MPQ
-					 //					              443b1b20d16a0972e8c435e8d0bf45ea *speech-enUS.MPQ
-					 //					              
-					 // TODO: Logic
-					 // MD5 generate per file
-					 // If match retail then ok
-					 // if match marforius-client then give message about test working fine
-					 // if match launcherrepacked then ok
-					 // if else, CORRUPTED
-					 // if corrupted offer to open torrent webpage to download new data files
-					 // fin
-					 // 
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
@@ -770,17 +721,18 @@ namespace EmeraldNightmareLauncher {
 					 // DO NOT IMPLEMENT
 					 }
 		private: System::Void downloadReccomendedAddonsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("AutoUpdater.exe -DownloadAddons");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 Download_Window^ download_window = gcnew Download_Window();
+					 download_window->Show();
 					 }
 		private: System::Void shareGathererDataAcrossAllAccountsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 // TODO: copy the biggest gatherer saved data file across all account folders
+					 // DNI
 					 }
 		private: System::Void downloadMarforiusClientToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("AutoUpdater.exe -DownloadMarforiusClient");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void editSavedServersToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+					 // implement
 					 }
 		private: System::Void clientSystemCheckToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
@@ -801,22 +753,33 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text = "Deleted Cache and Settings...";
 					 }
 		private: System::Void clientSystemChecksToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+					 // remove
 					 }
 		private: System::Void deleteARCHIVEFrameGlueAddOnsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunDELETEARCHIVEINTERFACEFILES");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void toggleDebugToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+					 // toggle lfg debugging
+					 // toggle all debug outs
+					 // enable full UI debugging
+					 // ?
+
+
 					 }
 		private: System::Void downloadAddOnToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("AutoUpdater.exe -DownloadNightmareAdmin");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void richlinkLabel1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+					 // remove
 					 }
 		private: System::Void menuStrip1_ItemClicked(System::Object^  sender, System::Windows::Forms::ToolStripItemClickedEventArgs^  e) {
+					 // remove
 					 }
 		private: System::Void Main_Window_Load(System::Object^  sender, System::EventArgs^  e) {
+					 // remove
 					 }
 		private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 LauncherAlertBox->Text->Empty;

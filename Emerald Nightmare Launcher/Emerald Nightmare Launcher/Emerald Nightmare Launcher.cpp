@@ -40,5 +40,4 @@ int main()
 	// Create the main window and run it
 	Application::Run(gcnew Main_Window());
 	return 0;
-
 	}
