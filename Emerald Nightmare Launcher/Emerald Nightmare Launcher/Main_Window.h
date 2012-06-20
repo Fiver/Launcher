@@ -677,17 +677,21 @@ namespace EmeraldNightmareLauncher {
 						 {
 						 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/AutoUpdater.exe"), _T("AutoUpdater.exe"), 0, NULL );
 						 LauncherAlertBox->Text->Empty;
-						 LauncherAlertBox->Text = "An updated version is available, one moment while the launcher is updated.";
-						 Sleep(5000);
-						 VerofRemoteBeforeConvert.clear();
-						 VersionAtCompile = 0;
-						 VersionOfRemoteIni = 0;
-						 CreateProcessLauncher("AutoUpdater.exe -RunMain");
-						 EmeraldNightmareLauncher::Main_Window::Close();
+
+						 if (MessageBox::Show("An updated version is available, update to the latest version?", "Update", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+							 {
+							 VerofRemoteBeforeConvert.clear();
+							 VersionAtCompile = NULL;
+							 VersionOfRemoteIni = NULL;
+							 CreateProcessLauncher("AutoUpdater.exe -RunMain");
+							 EmeraldNightmareLauncher::Main_Window::Close();
+							 }
+
+
 						 }
 					 VerofRemoteBeforeConvert.clear();
-					 VersionAtCompile = 0;
-					 VersionOfRemoteIni = 0;
+					 VersionAtCompile = NULL;
+					 VersionOfRemoteIni = NULL;
 					 }
 		private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 					 // PlaySound("%temp%\\launcher-launchbutton.mp3", NULL, SND_FILENAME | SND_ASYNCH); // todo: Marforius
@@ -707,7 +711,7 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void deleteNonessentialFilesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-					 DeleteNonEssentialFiles;
+					 DeleteNonEssentialFiles();
 
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleting Non-Essential files that won't be used in a private server environment(bloat)... \r\n\r\nYou should now relaunch World of Warcraft and close it to generate temporary files it needs. Realmlist.wtf is now integrated into WTF\\Config.wtf";
