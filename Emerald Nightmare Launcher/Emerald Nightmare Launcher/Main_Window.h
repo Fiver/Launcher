@@ -694,7 +694,7 @@ namespace EmeraldNightmareLauncher {
 					 VersionOfRemoteIni = NULL;
 					 }
 		private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-					 // PlaySound("%temp%\\launcher-launchbutton.mp3", NULL, SND_FILENAME | SND_ASYNCH); // todo: Marforius
+					 //PlaySound("%appdata%\\Marforius-Launcher\\launcher-launchbutton.mp3", NULL, SND_FILENAME | SND_ASYNCH); // todo: Marforius
 					 CreateProcessLauncher("wow.exe -console");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
