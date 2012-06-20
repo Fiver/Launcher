@@ -28,7 +28,7 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 	delete ProcessName;
 	}
 
-inline bool DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
+inline void DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
 	{
 	int len = _tcslen(lpszDir);
 	TCHAR *pszFrom = new TCHAR[len+2];
@@ -50,10 +50,11 @@ inline bool DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
 	fileop.lpszProgressTitle     = NULL;
 	fileop.hNameMappings         = NULL;
 
-	int ret = SHFileOperation(&fileop);
+	SHFileOperation(&fileop);
+	delete &fileop;
 	delete [] pszFrom;
 	delete lpszDir;
-	return (ret == 0);
+
 	}
 
 inline void DeleteNonEssentialFiles(void)
