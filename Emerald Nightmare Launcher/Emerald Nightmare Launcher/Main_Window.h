@@ -28,7 +28,7 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 	delete ProcessName;
 	}
 
-inline void DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
+inline void DeleteDirectoryLauncher(LPCTSTR lpszDir)
 	{
 	int len = _tcslen(lpszDir);
 	TCHAR *pszFrom = new TCHAR[len+2];
@@ -43,8 +43,8 @@ inline void DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
 	fileop.pTo    = NULL;    // no destination needed
 	fileop.fFlags = FOF_NOCONFIRMATION|FOF_SILENT;  // do not prompt the user
 
-	if(!noRecycleBin)
-		fileop.fFlags |= FOF_ALLOWUNDO;
+// 	if(!noRecycleBin)
+// 		fileop.fFlags |= FOF_ALLOWUNDO;
 
 	fileop.fAnyOperationsAborted = FALSE;
 	fileop.lpszProgressTitle     = NULL;
@@ -60,138 +60,138 @@ inline void DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
 inline void DeleteNonEssentialFiles(void)
 	{
 	// main directory
-	DeleteDirectoryLauncher("Cache", false);
-	DeleteDirectoryLauncher("Logger.exe", false);
-	DeleteDirectoryLauncher("Util.dll", false);
-	DeleteDirectoryLauncher("Battle.net.dll", false);
-	DeleteDirectoryLauncher("Changelog.URL", false);
-	DeleteDirectoryLauncher("Create Account.URL", false);
-	//"DivxDecoder.dll", false); // see below why this is commented
-	DeleteDirectoryLauncher("Features.URL", false);
-	DeleteDirectoryLauncher("Molten Official Website.URL", false);
-	DeleteDirectoryLauncher("Repair.exe", false);
-	DeleteDirectoryLauncher("dbghelp.dll", false);
-	DeleteDirectoryLauncher("ijl15.dll", false);
-	DeleteDirectoryLauncher("msvcr80.dll", false);
-	DeleteDirectoryLauncher("unicows.dll", false);
+	DeleteDirectoryLauncher("Cache");
+	DeleteDirectoryLauncher("Logger.exe");
+	DeleteDirectoryLauncher("Util.dll");
+	DeleteDirectoryLauncher("Battle.net.dll");
+	DeleteDirectoryLauncher("Changelog.URL");
+	DeleteDirectoryLauncher("Create Account.URL");
+	//"DivxDecoder.dll"); // see below why this is commented
+	DeleteDirectoryLauncher("Features.URL");
+	DeleteDirectoryLauncher("Molten Official Website.URL");
+	DeleteDirectoryLauncher("Repair.exe");
+	DeleteDirectoryLauncher("dbghelp.dll");
+	DeleteDirectoryLauncher("ijl15.dll");
+	DeleteDirectoryLauncher("msvcr80.dll");
+	DeleteDirectoryLauncher("unicows.dll");
 
 	// interface\\addons directory
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AchievementUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ArenaUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AuctionUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BarbershopUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BattlefieldMinimap", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BindingUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_Calendar", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatLog", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatText", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_DebugTools", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMChatUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMSurveyUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GlyphUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GuildBankUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_InspectUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ItemSocketingUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_MacroUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_RaidUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TalentUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TimeManager", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TokenUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TradeSkillUI", false);
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TrainerUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AchievementUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ArenaUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AuctionUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BarbershopUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BattlefieldMinimap");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BindingUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_Calendar");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatLog");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatText");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_DebugTools");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMChatUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMSurveyUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GlyphUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GuildBankUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_InspectUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ItemSocketingUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_MacroUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_RaidUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TalentUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TimeManager");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TokenUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TradeSkillUI");
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TrainerUI");
 
 	// under data\\enUS directory
-	DeleteDirectoryLauncher("Data\\enUS\\Documentation", false);
+	DeleteDirectoryLauncher("Data\\enUS\\Documentation");
 
-	//"Data\\enUS\\Interface", false);
+	//"Data\\enUS\\Interface");
 
 	// movies, divx codec - this functionality still exists in Marforius-Client however the client will crash if movies are played WITHOUT
 	// divx codec in directory, Marforius-Client just is smart enough to launch without the divx codec needed being there,
 	// official client however will not load without the dll
 
-	DeleteDirectoryLauncher("Data\\enUS\\AccountBilling.url", false);
-	DeleteDirectoryLauncher("Data\\enUS\\Credits.html", false);
-	DeleteDirectoryLauncher("Data\\enUS\\Credits_BC.html", false);
-	DeleteDirectoryLauncher("Data\\enUS\\Credits_LK.html", false);
-	DeleteDirectoryLauncher("Data\\enUS\\TechSupport.url", false);
-	DeleteDirectoryLauncher("Data\\enUS\\connection-help.html", false);
-	DeleteDirectoryLauncher("Data\\enUS\\eula.html", false);
-	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
-	DeleteDirectoryLauncher("Data\\enUS\\tos.html", false);
+	DeleteDirectoryLauncher("Data\\enUS\\AccountBilling.url");
+	DeleteDirectoryLauncher("Data\\enUS\\Credits.html");
+	DeleteDirectoryLauncher("Data\\enUS\\Credits_BC.html");
+	DeleteDirectoryLauncher("Data\\enUS\\Credits_LK.html");
+	DeleteDirectoryLauncher("Data\\enUS\\TechSupport.url");
+	DeleteDirectoryLauncher("Data\\enUS\\connection-help.html");
+	DeleteDirectoryLauncher("Data\\enUS\\eula.html");
+	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
+	DeleteDirectoryLauncher("Data\\enUS\\tos.html");
 
 	// don't think I missed anything as per http://torrentz.eu/35414f8be8348a08a49fc4ccfb29093e22f1d628
 
 
 	// more junk
-	DeleteDirectoryLauncher("Patch", false);
-	DeleteDirectoryLauncher("Patches", false);
-	DeleteDirectoryLauncher("Old", false);
-	DeleteDirectoryLauncher("Logs", false);
-	DeleteDirectoryLauncher("Errors", false);
-	DeleteDirectoryLauncher("pgort100.dll", false);
-	DeleteDirectoryLauncher("Logger.exe", false);
-	DeleteDirectoryLauncher("Util.dll", false);
-	DeleteDirectoryLauncher(".curseclient", false);
-	DeleteDirectoryLauncher("LauncherVersion.ini", false);
-	DeleteDirectoryLauncher("DeveloperStreamingControl.ini", false);
-	DeleteDirectoryLauncher("wow.ini", false);
-	DeleteDirectoryLauncher("Data\\allfiles.md5", false);
-	DeleteDirectoryLauncher("Data\\enUS\\allfiles.md5", false);
+	DeleteDirectoryLauncher("Patch");
+	DeleteDirectoryLauncher("Patches");
+	DeleteDirectoryLauncher("Old");
+	DeleteDirectoryLauncher("Logs");
+	DeleteDirectoryLauncher("Errors");
+	DeleteDirectoryLauncher("pgort100.dll");
+	DeleteDirectoryLauncher("Logger.exe");
+	DeleteDirectoryLauncher("Util.dll");
+	DeleteDirectoryLauncher(".curseclient");
+	DeleteDirectoryLauncher("LauncherVersion.ini");
+	DeleteDirectoryLauncher("DeveloperStreamingControl.ini");
+	DeleteDirectoryLauncher("wow.ini");
+	DeleteDirectoryLauncher("Data\\allfiles.md5");
+	DeleteDirectoryLauncher("Data\\enUS\\allfiles.md5");
 
 	// should really rig something up to grab dev archive
-	DeleteDirectoryLauncher("streamingloc.MPQ", false);
-	DeleteDirectoryLauncher("streaming.MPQ", false);
-	DeleteDirectoryLauncher("development.MPQ", false);
-	DeleteDirectoryLauncher("lichkingloc.MPQ", false);
-	DeleteDirectoryLauncher("expansionloc.MPQ", false);
-	DeleteDirectoryLauncher("dbc.MPQ", false);
-	DeleteDirectoryLauncher("fonts.MPQ", false);
-	DeleteDirectoryLauncher("sound.MPQ", false);
-	DeleteDirectoryLauncher("wmo.MPQ", false);
-	DeleteDirectoryLauncher("terrain.MPQ", false);
-	DeleteDirectoryLauncher("texture.MPQ", false);
-	DeleteDirectoryLauncher("model.MPQ", false);
-	DeleteDirectoryLauncher("misc.MPQ", false);
-	DeleteDirectoryLauncher("interface.MPQ", false);
-	DeleteDirectoryLauncher("alternate.MPQ", false);
-	DeleteDirectoryLauncher("Start.MPQ", false);
-	DeleteDirectoryLauncher("Installer Tome.MPQ", false);
-	DeleteDirectoryLauncher("Movies.MPQ", false);
-	DeleteDirectoryLauncher("agreements.mpq", false);
-	DeleteDirectoryLauncher("wow-patch.mpq", false);
-	DeleteDirectoryLauncher("Data\\base.MPQ", false);
+	DeleteDirectoryLauncher("streamingloc.MPQ");
+	DeleteDirectoryLauncher("streaming.MPQ");
+	DeleteDirectoryLauncher("development.MPQ");
+	DeleteDirectoryLauncher("lichkingloc.MPQ");
+	DeleteDirectoryLauncher("expansionloc.MPQ");
+	DeleteDirectoryLauncher("dbc.MPQ");
+	DeleteDirectoryLauncher("fonts.MPQ");
+	DeleteDirectoryLauncher("sound.MPQ");
+	DeleteDirectoryLauncher("wmo.MPQ");
+	DeleteDirectoryLauncher("terrain.MPQ");
+	DeleteDirectoryLauncher("texture.MPQ");
+	DeleteDirectoryLauncher("model.MPQ");
+	DeleteDirectoryLauncher("misc.MPQ");
+	DeleteDirectoryLauncher("interface.MPQ");
+	DeleteDirectoryLauncher("alternate.MPQ");
+	DeleteDirectoryLauncher("Start.MPQ");
+	DeleteDirectoryLauncher("Installer Tome.MPQ");
+	DeleteDirectoryLauncher("Movies.MPQ");
+	DeleteDirectoryLauncher("agreements.mpq");
+	DeleteDirectoryLauncher("wow-patch.mpq");
+	DeleteDirectoryLauncher("Data\\base.MPQ");
 
-	DeleteDirectoryLauncher("Data\\streamingloc.MPQ", false);
-	DeleteDirectoryLauncher("Data\\streaming.MPQ", false);
-	DeleteDirectoryLauncher("Data\\development.MPQ", false);
-	DeleteDirectoryLauncher("Data\\lichkingloc.MPQ", false);
-	DeleteDirectoryLauncher("Data\\expansionloc.MPQ", false);
-	DeleteDirectoryLauncher("Data\\dbc.MPQ", false);
-	DeleteDirectoryLauncher("Data\\fonts.MPQ", false);
-	DeleteDirectoryLauncher("Data\\sound.MPQ", false);
-	DeleteDirectoryLauncher("Data\\wmo.MPQ", false);
-	DeleteDirectoryLauncher("Data\\terrain.MPQ", false);
-	DeleteDirectoryLauncher("Data\\texture.MPQ", false);
-	DeleteDirectoryLauncher("Data\\model.MPQ", false);
-	DeleteDirectoryLauncher("Data\\misc.MPQ", false);
-	DeleteDirectoryLauncher("Data\\interface.MPQ", false);
-	DeleteDirectoryLauncher("Data\\alternate.MPQ", false);
-	DeleteDirectoryLauncher("Data\\Start.MPQ", false);
-	DeleteDirectoryLauncher("Data\\Installer Tome.MPQ", false);
-	DeleteDirectoryLauncher("Data\\Movies.MPQ", false);
-	DeleteDirectoryLauncher("Data\\agreements.mpq", false);
-	DeleteDirectoryLauncher("Data\\wow-patch.mpq", false);
-	DeleteDirectoryLauncher("Data\\base.MPQ", false);
-	DeleteDirectoryLauncher("Data\\realmlist.wtf", false);
-	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
+	DeleteDirectoryLauncher("Data\\streamingloc.MPQ");
+	DeleteDirectoryLauncher("Data\\streaming.MPQ");
+	DeleteDirectoryLauncher("Data\\development.MPQ");
+	DeleteDirectoryLauncher("Data\\lichkingloc.MPQ");
+	DeleteDirectoryLauncher("Data\\expansionloc.MPQ");
+	DeleteDirectoryLauncher("Data\\dbc.MPQ");
+	DeleteDirectoryLauncher("Data\\fonts.MPQ");
+	DeleteDirectoryLauncher("Data\\sound.MPQ");
+	DeleteDirectoryLauncher("Data\\wmo.MPQ");
+	DeleteDirectoryLauncher("Data\\terrain.MPQ");
+	DeleteDirectoryLauncher("Data\\texture.MPQ");
+	DeleteDirectoryLauncher("Data\\model.MPQ");
+	DeleteDirectoryLauncher("Data\\misc.MPQ");
+	DeleteDirectoryLauncher("Data\\interface.MPQ");
+	DeleteDirectoryLauncher("Data\\alternate.MPQ");
+	DeleteDirectoryLauncher("Data\\Start.MPQ");
+	DeleteDirectoryLauncher("Data\\Installer Tome.MPQ");
+	DeleteDirectoryLauncher("Data\\Movies.MPQ");
+	DeleteDirectoryLauncher("Data\\agreements.mpq");
+	DeleteDirectoryLauncher("Data\\wow-patch.mpq");
+	DeleteDirectoryLauncher("Data\\base.MPQ");
+	DeleteDirectoryLauncher("Data\\realmlist.wtf");
+	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
 
 	// some private server stuff that's common and cleanup after myself, so that I can call this function (or a clone of) after downloading my client with the UI
 
-	DeleteDirectoryLauncher("Buildings", false);
-	DeleteDirectoryLauncher("Repacker", false);
-	DeleteDirectoryLauncher("World of Warcraft.app", false); // no love for mac
-	DeleteDirectoryLauncher("maps", false);
-	DeleteDirectoryLauncher("vmaps", false);
+	DeleteDirectoryLauncher("Buildings");
+	DeleteDirectoryLauncher("Repacker");
+	DeleteDirectoryLauncher("World of Warcraft.app"); // no love for mac
+	DeleteDirectoryLauncher("maps");
+	DeleteDirectoryLauncher("vmaps");
 
 	}
 
@@ -714,12 +714,12 @@ namespace EmeraldNightmareLauncher {
 
 					 if (MessageBox::Show("Should I delete the Cinematics folder? (About 540MB of data) The game will function without them - however you will not see any opening/expansion cinematics, nor the \"fall of the lich king\" video if you click on the fountain in Dalaran.", "Cinematic Folder", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 						 {
-						 DeleteDirectoryLauncher("Data\\enUS\\Interface\\Cinematics", false);
+						 DeleteDirectoryLauncher("Data\\enUS\\Interface\\Cinematics");
 						 }
 
 					 }
 		private: System::Void deleteWarcraftsCacheToolStripMenuItem_Click_1(System::Object^  sender, System::EventArgs^  e) {
-					 DeleteDirectoryLauncher("Cache", false);
+					 DeleteDirectoryLauncher("Cache");
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleted Cache...";
 					 }
@@ -748,8 +748,8 @@ namespace EmeraldNightmareLauncher {
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void deleteSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 DeleteDirectoryLauncher("WTF", false);
-					 DeleteDirectoryLauncher("Cache", false);
+					 DeleteDirectoryLauncher("WTF");
+					 DeleteDirectoryLauncher("Cache");
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleted Cache and Settings...";
 					 }
