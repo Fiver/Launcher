@@ -222,7 +222,6 @@ namespace EmeraldNightmareLauncher {
 				this->menuStrip1->Size = System::Drawing::Size(636, 24);
 				this->menuStrip1->TabIndex = 3;
 				this->menuStrip1->Text = L"menuStrip1";
-				this->menuStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &Main_Window::menuStrip1_ItemClicked);
 				// 
 				// test1ToolStripMenuItem
 				// 
@@ -236,7 +235,6 @@ namespace EmeraldNightmareLauncher {
 				this->test1ToolStripMenuItem->Size = System::Drawing::Size(59, 20);
 				this->test1ToolStripMenuItem->Text = L"General";
 				this->test1ToolStripMenuItem->TextImageRelation = System::Windows::Forms::TextImageRelation::TextAboveImage;
-				this->test1ToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::test1ToolStripMenuItem_Click);
 				// 
 				// forceLauncherUpdateToolStripMenuItem
 				// 
@@ -314,7 +312,6 @@ namespace EmeraldNightmareLauncher {
 				this->clientSystemChecksToolStripMenuItem->Size = System::Drawing::Size(129, 20);
 				this->clientSystemChecksToolStripMenuItem->Text = L"ClientSystem Checks";
 				this->clientSystemChecksToolStripMenuItem->TextImageRelation = System::Windows::Forms::TextImageRelation::TextAboveImage;
-				this->clientSystemChecksToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::clientSystemChecksToolStripMenuItem_Click);
 				// 
 				// mD5CheckArchivesToolStripMenuItem1
 				// 
@@ -358,7 +355,6 @@ namespace EmeraldNightmareLauncher {
 				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->Name = L"shareGathererDataAcrossAllAccountsToolStripMenuItem";
 				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->Size = System::Drawing::Size(286, 22);
 				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->Text = L"Share Gatherer Data Across All Accounts";
-				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::shareGathererDataAcrossAllAccountsToolStripMenuItem_Click);
 				// 
 				// marforiusClientToolStripMenuItem
 				// 
@@ -511,7 +507,6 @@ namespace EmeraldNightmareLauncher {
 				this->SizeGripStyle = System::Windows::Forms::SizeGripStyle::Hide;
 				this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 				this->Text = L"Emerald Nightmare Launcher";
-				this->Load += gcnew System::EventHandler(this, &Main_Window::Main_Window_Load);
 				this->menuStrip1->ResumeLayout(false);
 				this->menuStrip1->PerformLayout();
 				this->ResumeLayout(false);
@@ -530,7 +525,7 @@ namespace EmeraldNightmareLauncher {
 
 					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/LauncherVersion.ini"), _T("LauncherVersion.ini"), 0, NULL );
 
-					 int VersionAtCompile=2; // remember to set this
+					 int VersionAtCompile=2; // remember to set this to 3 on release
 
 					 string VerofRemoteBeforeConvert;
 					 ifstream infile;
@@ -561,9 +556,6 @@ namespace EmeraldNightmareLauncher {
 					 // PlaySound("%temp%\\launcher-launchbutton.mp3", NULL, SND_FILENAME | SND_ASYNCH); // todo: Marforius
 					 CreateProcessLauncher("wow.exe -console");
 					 EmeraldNightmareLauncher::Main_Window::Close();
-					 }
-		private: System::Void test1ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 // DNI - remove
 					 }
 		private: System::Void forceLauncherUpdateToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -726,15 +718,9 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleted Cache...";
 					 }
-		private: System::Void shareGathererDataByLastEditedToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 // DO NOT IMPLEMENT
-					 }
 		private: System::Void downloadReccomendedAddonsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 Download_Window^ download_window = gcnew Download_Window();
 					 download_window->Show();
-					 }
-		private: System::Void shareGathererDataAcrossAllAccountsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 // DNI
 					 }
 		private: System::Void downloadMarforiusClientToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("AutoUpdater.exe -DownloadMarforiusClient");
@@ -762,9 +748,6 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleted Cache and Settings...";
 					 }
-		private: System::Void clientSystemChecksToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 // remove
-					 }
 		private: System::Void deleteARCHIVEFrameGlueAddOnsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunDELETEARCHIVEINTERFACEFILES");
 					 EmeraldNightmareLauncher::Main_Window::Close();
@@ -774,22 +757,13 @@ namespace EmeraldNightmareLauncher {
 					 // toggle lfg debugging
 					 // toggle all debug outs
 					 // enable full UI debugging
-					 // ?
+					 // ? open debugger w/bypass?
 
 
 					 }
 		private: System::Void downloadAddOnToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("AutoUpdater.exe -DownloadNightmareAdmin");
 					 EmeraldNightmareLauncher::Main_Window::Close();
-					 }
-		private: System::Void richlinkLabel1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-					 // remove
-					 }
-		private: System::Void menuStrip1_ItemClicked(System::Object^  sender, System::Windows::Forms::ToolStripItemClickedEventArgs^  e) {
-					 // remove
-					 }
-		private: System::Void Main_Window_Load(System::Object^  sender, System::EventArgs^  e) {
-					 // remove
 					 }
 		private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 LauncherAlertBox->Text->Empty;

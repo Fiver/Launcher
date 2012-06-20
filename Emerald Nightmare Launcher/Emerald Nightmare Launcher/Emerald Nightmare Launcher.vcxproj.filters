@@ -63,6 +63,9 @@
     <EmbeddedResource Include="Download_Window.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="Server_Changer_Window.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="BackGround.png">
