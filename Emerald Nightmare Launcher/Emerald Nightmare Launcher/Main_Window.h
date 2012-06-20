@@ -15,8 +15,7 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 	ZeroMemory( &si, sizeof(si) );
 	si.cb=sizeof(STARTUPINFO); //sizeof(si);
 	ZeroMemory( &pi, sizeof(pi) );
-	int b=0;
-	b=CreateProcess( NULL,
+	CreateProcess( NULL,
 		ProcessName,    // Command line.
 		NULL,            // Process handle not inheritable.
 		NULL,            // Thread handle not inheritable.
@@ -28,7 +27,6 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 		&pi );
 	delete ProcessName;
 	}
-
 
 inline bool DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
 	{
@@ -58,6 +56,146 @@ inline bool DeleteDirectoryLauncher(LPCTSTR lpszDir, bool noRecycleBin = true)
 	return (ret == 0);
 	}
 
+inline void DeleteNonEssentialFiles(void)
+	{
+	// main directory
+	DeleteDirectoryLauncher("Cache", false);
+	DeleteDirectoryLauncher("Logger.exe", false);
+	DeleteDirectoryLauncher("Util.dll", false);
+	DeleteDirectoryLauncher("Battle.net.dll", false);
+	DeleteDirectoryLauncher("Changelog.URL", false);
+	DeleteDirectoryLauncher("Create Account.URL", false);
+	//"DivxDecoder.dll", false); // see below why this is commented
+	DeleteDirectoryLauncher("Features.URL", false);
+	DeleteDirectoryLauncher("Molten Official Website.URL", false);
+	DeleteDirectoryLauncher("Repair.exe", false);
+	DeleteDirectoryLauncher("dbghelp.dll", false);
+	DeleteDirectoryLauncher("ijl15.dll", false);
+	DeleteDirectoryLauncher("msvcr80.dll", false);
+	DeleteDirectoryLauncher("unicows.dll", false);
+
+	// interface\\addons directory
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AchievementUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ArenaUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AuctionUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BarbershopUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BattlefieldMinimap", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BindingUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_Calendar", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatLog", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatText", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_DebugTools", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMChatUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMSurveyUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GlyphUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GuildBankUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_InspectUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ItemSocketingUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_MacroUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_RaidUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TalentUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TimeManager", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TokenUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TradeSkillUI", false);
+	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TrainerUI", false);
+
+	// under data\\enUS directory
+	DeleteDirectoryLauncher("Data\\enUS\\Documentation", false);
+
+	//"Data\\enUS\\Interface", false);
+
+	// movies, divx codec - this functionality still exists in Marforius-Client however the client will crash if movies are played WITHOUT
+	// divx codec in directory, Marforius-Client just is smart enough to launch without the divx codec needed being there,
+	// official client however will not load without the dll
+
+	DeleteDirectoryLauncher("Data\\enUS\\AccountBilling.url", false);
+	DeleteDirectoryLauncher("Data\\enUS\\Credits.html", false);
+	DeleteDirectoryLauncher("Data\\enUS\\Credits_BC.html", false);
+	DeleteDirectoryLauncher("Data\\enUS\\Credits_LK.html", false);
+	DeleteDirectoryLauncher("Data\\enUS\\TechSupport.url", false);
+	DeleteDirectoryLauncher("Data\\enUS\\connection-help.html", false);
+	DeleteDirectoryLauncher("Data\\enUS\\eula.html", false);
+	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
+	DeleteDirectoryLauncher("Data\\enUS\\tos.html", false);
+
+	// don't think I missed anything as per http://torrentz.eu/35414f8be8348a08a49fc4ccfb29093e22f1d628
+
+
+	// more junk
+	DeleteDirectoryLauncher("Patch", false);
+	DeleteDirectoryLauncher("Patches", false);
+	DeleteDirectoryLauncher("Old", false);
+	DeleteDirectoryLauncher("Logs", false);
+	DeleteDirectoryLauncher("Errors", false);
+	DeleteDirectoryLauncher("pgort100.dll", false);
+	DeleteDirectoryLauncher("Logger.exe", false);
+	DeleteDirectoryLauncher("Util.dll", false);
+	DeleteDirectoryLauncher(".curseclient", false);
+	DeleteDirectoryLauncher("LauncherVersion.ini", false);
+	DeleteDirectoryLauncher("DeveloperStreamingControl.ini", false);
+	DeleteDirectoryLauncher("wow.ini", false);
+	DeleteDirectoryLauncher("Data\\allfiles.md5", false);
+	DeleteDirectoryLauncher("Data\\enUS\\allfiles.md5", false);
+
+	// should really rig something up to grab dev archive
+	DeleteDirectoryLauncher("streamingloc.MPQ", false);
+	DeleteDirectoryLauncher("streaming.MPQ", false);
+	DeleteDirectoryLauncher("development.MPQ", false);
+	DeleteDirectoryLauncher("lichkingloc.MPQ", false);
+	DeleteDirectoryLauncher("expansionloc.MPQ", false);
+	DeleteDirectoryLauncher("dbc.MPQ", false);
+	DeleteDirectoryLauncher("fonts.MPQ", false);
+	DeleteDirectoryLauncher("sound.MPQ", false);
+	DeleteDirectoryLauncher("wmo.MPQ", false);
+	DeleteDirectoryLauncher("terrain.MPQ", false);
+	DeleteDirectoryLauncher("texture.MPQ", false);
+	DeleteDirectoryLauncher("model.MPQ", false);
+	DeleteDirectoryLauncher("misc.MPQ", false);
+	DeleteDirectoryLauncher("interface.MPQ", false);
+	DeleteDirectoryLauncher("alternate.MPQ", false);
+	DeleteDirectoryLauncher("Start.MPQ", false);
+	DeleteDirectoryLauncher("Installer Tome.MPQ", false);
+	DeleteDirectoryLauncher("Movies.MPQ", false);
+	DeleteDirectoryLauncher("agreements.mpq", false);
+	DeleteDirectoryLauncher("wow-patch.mpq", false);
+	DeleteDirectoryLauncher("Data\\base.MPQ", false);
+
+	DeleteDirectoryLauncher("Data\\streamingloc.MPQ", false);
+	DeleteDirectoryLauncher("Data\\streaming.MPQ", false);
+	DeleteDirectoryLauncher("Data\\development.MPQ", false);
+	DeleteDirectoryLauncher("Data\\lichkingloc.MPQ", false);
+	DeleteDirectoryLauncher("Data\\expansionloc.MPQ", false);
+	DeleteDirectoryLauncher("Data\\dbc.MPQ", false);
+	DeleteDirectoryLauncher("Data\\fonts.MPQ", false);
+	DeleteDirectoryLauncher("Data\\sound.MPQ", false);
+	DeleteDirectoryLauncher("Data\\wmo.MPQ", false);
+	DeleteDirectoryLauncher("Data\\terrain.MPQ", false);
+	DeleteDirectoryLauncher("Data\\texture.MPQ", false);
+	DeleteDirectoryLauncher("Data\\model.MPQ", false);
+	DeleteDirectoryLauncher("Data\\misc.MPQ", false);
+	DeleteDirectoryLauncher("Data\\interface.MPQ", false);
+	DeleteDirectoryLauncher("Data\\alternate.MPQ", false);
+	DeleteDirectoryLauncher("Data\\Start.MPQ", false);
+	DeleteDirectoryLauncher("Data\\Installer Tome.MPQ", false);
+	DeleteDirectoryLauncher("Data\\Movies.MPQ", false);
+	DeleteDirectoryLauncher("Data\\agreements.mpq", false);
+	DeleteDirectoryLauncher("Data\\wow-patch.mpq", false);
+	DeleteDirectoryLauncher("Data\\base.MPQ", false);
+	DeleteDirectoryLauncher("Data\\realmlist.wtf", false);
+	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
+
+	// some private server stuff that's common and cleanup after myself, so that I can call this function (or a clone of) after downloading my client with the UI
+
+	DeleteDirectoryLauncher("Buildings", false);
+	DeleteDirectoryLauncher("Repacker", false);
+	DeleteDirectoryLauncher("World of Warcraft.app", false); // no love for mac
+	DeleteDirectoryLauncher("maps", false);
+	DeleteDirectoryLauncher("vmaps", false);
+
+	}
+
+
+
 namespace EmeraldNightmareLauncher {
 
 	using namespace System;
@@ -77,9 +215,6 @@ namespace EmeraldNightmareLauncher {
 			Main_Window(void)
 				{
 				InitializeComponent();
-				//
-				//TODO: Add the constructor code here
-				//
 				}
 
 		protected:
@@ -514,6 +649,7 @@ namespace EmeraldNightmareLauncher {
 
 				}
 #pragma endregion
+
 		private: System::Void webBrowser1_DocumentCompleted(System::Object^  sender, System::Windows::Forms::WebBrowserDocumentCompletedEventArgs^  e) {
 
 					 // The following is a model of the update process:
@@ -570,139 +706,7 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void deleteNonessentialFilesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-					 // main directory
-					 DeleteDirectoryLauncher("Cache", false);
-					 DeleteDirectoryLauncher("Logger.exe", false);
-					 DeleteDirectoryLauncher("Util.dll", false);
-					 DeleteDirectoryLauncher("Battle.net.dll", false);
-					 DeleteDirectoryLauncher("Changelog.URL", false);
-					 DeleteDirectoryLauncher("Create Account.URL", false);
-					 //"DivxDecoder.dll", false); // see below why this is commented
-					 DeleteDirectoryLauncher("Features.URL", false);
-					 DeleteDirectoryLauncher("Molten Official Website.URL", false);
-					 DeleteDirectoryLauncher("Repair.exe", false);
-					 DeleteDirectoryLauncher("dbghelp.dll", false);
-					 DeleteDirectoryLauncher("ijl15.dll", false);
-					 DeleteDirectoryLauncher("msvcr80.dll", false);
-					 DeleteDirectoryLauncher("unicows.dll", false);
-
-					 // interface\\addons directory
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AchievementUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ArenaUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AuctionUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BarbershopUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BattlefieldMinimap", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BindingUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_Calendar", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatLog", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatText", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_DebugTools", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMChatUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMSurveyUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GlyphUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GuildBankUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_InspectUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ItemSocketingUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_MacroUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_RaidUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TalentUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TimeManager", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TokenUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TradeSkillUI", false);
-					 DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TrainerUI", false);
-
-					 // under data\\enUS directory
-					 DeleteDirectoryLauncher("Data\\enUS\\Documentation", false);
-
-					 //"Data\\enUS\\Interface", false);
-
-					 // movies, divx codec - this functionality still exists in Marforius-Client however the client will crash if movies are played WITHOUT
-					 // divx codec in directory, Marforius-Client just is smart enough to launch without the divx codec needed being there,
-					 // official client however will not load without the dll
-
-					 DeleteDirectoryLauncher("Data\\enUS\\AccountBilling.url", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\Credits.html", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\Credits_BC.html", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\Credits_LK.html", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\TechSupport.url", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\connection-help.html", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\eula.html", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\tos.html", false);
-
-					 // don't think I missed anything as per http://torrentz.eu/35414f8be8348a08a49fc4ccfb29093e22f1d628
-
-
-					 // more junk
-					 DeleteDirectoryLauncher("Patch", false);
-					 DeleteDirectoryLauncher("Patches", false);
-					 DeleteDirectoryLauncher("Old", false);
-					 DeleteDirectoryLauncher("Logs", false);
-					 DeleteDirectoryLauncher("Errors", false);
-					 DeleteDirectoryLauncher("pgort100.dll", false);
-					 DeleteDirectoryLauncher("Logger.exe", false);
-					 DeleteDirectoryLauncher("Util.dll", false);
-					 DeleteDirectoryLauncher(".curseclient", false);
-					 DeleteDirectoryLauncher("LauncherVersion.ini", false);
-					 DeleteDirectoryLauncher("DeveloperStreamingControl.ini", false);
-					 DeleteDirectoryLauncher("wow.ini", false);
-					 DeleteDirectoryLauncher("Data\\allfiles.md5", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\allfiles.md5", false);
-
-					 // should really rig something up to grab dev archive
-					 DeleteDirectoryLauncher("streamingloc.MPQ", false);
-					 DeleteDirectoryLauncher("streaming.MPQ", false);
-					 DeleteDirectoryLauncher("development.MPQ", false);
-					 DeleteDirectoryLauncher("lichkingloc.MPQ", false);
-					 DeleteDirectoryLauncher("expansionloc.MPQ", false);
-					 DeleteDirectoryLauncher("dbc.MPQ", false);
-					 DeleteDirectoryLauncher("fonts.MPQ", false);
-					 DeleteDirectoryLauncher("sound.MPQ", false);
-					 DeleteDirectoryLauncher("wmo.MPQ", false);
-					 DeleteDirectoryLauncher("terrain.MPQ", false);
-					 DeleteDirectoryLauncher("texture.MPQ", false);
-					 DeleteDirectoryLauncher("model.MPQ", false);
-					 DeleteDirectoryLauncher("misc.MPQ", false);
-					 DeleteDirectoryLauncher("interface.MPQ", false);
-					 DeleteDirectoryLauncher("alternate.MPQ", false);
-					 DeleteDirectoryLauncher("Start.MPQ", false);
-					 DeleteDirectoryLauncher("Installer Tome.MPQ", false);
-					 DeleteDirectoryLauncher("Movies.MPQ", false);
-					 DeleteDirectoryLauncher("agreements.mpq", false);
-					 DeleteDirectoryLauncher("wow-patch.mpq", false);
-					 DeleteDirectoryLauncher("Data\\base.MPQ", false);
-
-					 DeleteDirectoryLauncher("Data\\streamingloc.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\streaming.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\development.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\lichkingloc.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\expansionloc.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\dbc.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\fonts.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\sound.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\wmo.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\terrain.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\texture.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\model.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\misc.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\interface.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\alternate.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\Start.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\Installer Tome.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\Movies.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\agreements.mpq", false);
-					 DeleteDirectoryLauncher("Data\\wow-patch.mpq", false);
-					 DeleteDirectoryLauncher("Data\\base.MPQ", false);
-					 DeleteDirectoryLauncher("Data\\realmlist.wtf", false);
-					 DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf", false);
-
-					 // some private server stuff that's common and cleanup after myself, so that I can call this function (or a clone of) after downloading my client with the UI
-
-					 DeleteDirectoryLauncher("Buildings", false);
-					 DeleteDirectoryLauncher("Repacker", false);
-					 DeleteDirectoryLauncher("World of Warcraft.app", false); // no love for mac
-					 DeleteDirectoryLauncher("maps", false);
-					 DeleteDirectoryLauncher("vmaps", false);
+					 DeleteNonEssentialFiles;
 
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleting Non-Essential files that won't be used in a private server environment(bloat)... \r\n\r\nYou should now relaunch World of Warcraft and close it to generate temporary files it needs. Realmlist.wtf is now integrated into WTF\\Config.wtf";
