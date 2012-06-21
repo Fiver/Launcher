@@ -43,8 +43,8 @@ inline void DeleteDirectoryLauncher(LPCTSTR lpszDir)
 	fileop.pTo    = NULL;    // no destination needed
 	fileop.fFlags = FOF_NOCONFIRMATION|FOF_SILENT;  // do not prompt the user
 
-// 	if(!noRecycleBin)
-// 		fileop.fFlags |= FOF_ALLOWUNDO;
+	// 	if(!noRecycleBin)
+	// 		fileop.fFlags |= FOF_ALLOWUNDO;
 
 	fileop.fAnyOperationsAborted = FALSE;
 	fileop.lpszProgressTitle     = NULL;
