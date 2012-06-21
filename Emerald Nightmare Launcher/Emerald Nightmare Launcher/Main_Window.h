@@ -701,7 +701,7 @@ namespace EmeraldNightmareLauncher {
 		private: System::Void forceLauncherUpdateToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
 					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/AutoUpdater.exe"), _T("AutoUpdater.exe"), 0, NULL );
-					 Sleep(5000);
+					 Sleep(1000);
 					 CreateProcessLauncher("AutoUpdater.exe -RunMain");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }

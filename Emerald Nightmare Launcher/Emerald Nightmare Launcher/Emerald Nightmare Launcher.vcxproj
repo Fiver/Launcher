@@ -172,7 +172,6 @@
   <ItemGroup>
     <None Include="app.ico" />
     <None Include="BackGround.png" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="PLAY.png" />
     <None Include="TOPBARGRADIENT.png" />
   </ItemGroup>

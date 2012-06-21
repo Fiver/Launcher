@@ -6,7 +6,7 @@ using namespace std;
 
 inline void UpdateEverything()
 	{
-	Sleep(2000); // Trying to prevent any possible lock problems - 2 seconds
+	Sleep(1000); // Trying to prevent any possible lock problems - 1 second
 	remove( "Emerald Nightmare Launcher.exe" );
 	remove( "StormProxy.exe" );
 	remove( "WowError.exe" );
@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 		}
 
 	my_file.close();
+	delete my_file;
 #endif
 
 #if (_DEBUG)
