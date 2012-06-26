@@ -806,6 +806,7 @@ namespace EmeraldNightmareLauncher {
 					 if ( this->DeleteCacheCheckBox->Checked == true )
 						 {
 						 WritePrivateProfileString("CACHE", "DeleteCache", "1", buffer);
+						 DeleteDirectoryLauncher("Cache");
 						 }
 					 else if ( this->DeleteCacheCheckBox->Checked == false )
 						 {
