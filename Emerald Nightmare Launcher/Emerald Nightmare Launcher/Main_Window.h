@@ -3,6 +3,9 @@
 using namespace std;
 #pragma once
 
+#pragma warning(disable:4996)
+
+
 #include "Download_Window.h"
 #include "Server_Changer_Window.h"
 
@@ -790,23 +793,23 @@ namespace EmeraldNightmareLauncher {
 					 if (MessageBox::Show("Debugging is obscure and is not recommended for you to turn on unless you are an addon developer, modifying the client, or changing packets.", "Debug", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 						 {
 
-					 char buffer[MAX_PATH];
-					 GetCurrentDirectory(sizeof(buffer),buffer);
-					 strcat(buffer , "\\EN-Launcher.wtf");
-					 int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
+						 char buffer[MAX_PATH];
+						 GetCurrentDirectory(sizeof(buffer),buffer);
+						 strcat(buffer , "\\EN-Launcher.wtf");
+						 int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
 
 
-					 if (DebugOn == 1)
-						 {
-						 WritePrivateProfileString("DEBUG", "DebugOn", "0", buffer);
-						 }
-					 else
-						 {
-						 WritePrivateProfileString("DEBUG", "DebugOn", "1", buffer);
-						 }
+						 if (DebugOn == 1)
+							 {
+							 WritePrivateProfileString("DEBUG", "DebugOn", "0", buffer);
+							 }
+						 else
+							 {
+							 WritePrivateProfileString("DEBUG", "DebugOn", "1", buffer);
+							 }
 
-					 // do stuff in main load event, not here
-					 // this item only generates the proper settings
+						 // do stuff in main load event, not here
+						 // this item only generates the proper settings
 
 						 }
 
@@ -830,6 +833,8 @@ namespace EmeraldNightmareLauncher {
 						 {
 						 WritePrivateProfileString("CACHE", "DeleteCache", "1", buffer);
 						 DeleteDirectoryLauncher("Cache");
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "Deleted Cache...";
 						 }
 					 else if ( this->DeleteCacheCheckBox->Checked == false )
 						 {
@@ -849,6 +854,15 @@ namespace EmeraldNightmareLauncher {
 						 {
 						 DeleteCacheCheckBox->Checked = TRUE;
 						 DeleteDirectoryLauncher("Cache");
+						 LauncherAlertBox->Text = "Deleted Cache...";
+						 }
+
+					 int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
+
+
+					 if (DebugOn == 1)
+						 {
+						 LauncherAlertBox->Text = "Debug mode is on...";
 						 }
 					 }
 		};
