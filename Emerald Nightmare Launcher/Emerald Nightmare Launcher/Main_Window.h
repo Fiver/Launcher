@@ -1,3 +1,78 @@
+/*//////////////////////////////////////////////////////////////////////////
+//        Emerald Nightmare Launcher / Generic Marforius-Client Launcher   /
+//                             By Marforius                                /
+//                                 Notes                                   /
+////////////////////////////////////////////////////////////////////////////
+// Before printing to LauncherAlertBox clear the string and the undo cache /
+// by passing it "LauncherAlertBox->Text->Empty;" first, this will cause   /
+// the "undo cache" to flush, as i'm using a richtextbox designed for user /
+// input, it was the only thing that would color my text and give me a     /
+// transparent background in windows forms.                                /
+////////////////////////////////////////////////////////////////////////////
+// Syntax corrections were done by ctrl+a+k+f in visual studio.            /
+////////////////////////////////////////////////////////////////////////////
+// If you didn't read the github page for my launcher you will need to     /
+// download and install the boost library from                             /
+// http://www.boostpro.com/download/ for stormproxy                        /
+////////////////////////////////////////////////////////////////////////////
+// You may notice that much of my code calls on the other executables to   /
+// get things done, that's because windows forms need managed code, and    /
+// some things are just easier to do with "normal c++", or I just didn't   /
+// want to include some code in here for reasons that are obvious like the /
+// automated updater that's called via the launcher                        /
+////////////////////////////////////////////////////////////////////////////
+// irc.rizon.net #Marforius                                                /
+// https://github.com/Emerald-Nightmare/Launcher                           /
+////////////////////////////////////////////////////////////////////////////
+//                                 License                                 ///////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                                                          //
+// You are free:                                                                                                                                            //
+//                                                                                                                                                          //
+// to Share — to copy, distribute and transmit the work                                                                                                     //
+//                                                                                                                                                          //
+//                                                                                                                                                          //
+// Under the following conditions:                                                                                                                          //
+//                                                                                                                                                          //
+// Attribution — You must attribute the work in the manner specified by the author or licensor                                                              //
+//(but not in any way that suggests that they endorse you or your use of the work).                                                                         //
+//                                                                                                                                                          //
+// Noncommercial — You may not use this work for commercial purposes.                                                                                       //
+//(this includes private servers that run for-profit donation operations, like the ones that promise something of electronic value for donations)           //
+//                                                                                                                                                          //
+// No Derivative Works — You may not alter, transform, or build upon this work.                                                                             //
+//                                                                                                                                                          //
+//                                                                                                                                                          //
+// With the understanding that:                                                                                                                             //
+//                                                                                                                                                          //
+// Waiver — Any of the above conditions can be waived if you get permission from the copyright holder.                                                      //
+// Public Domain — Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.    //
+// Other Rights — In no way are any of the following rights affected by the license:                                                                        //
+// Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;                                                          //
+// The author's moral rights;                                                                                                                               //
+// Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.                                 //
+//                                                                                                                                                          //
+//                                                                                                                                                          //
+// http://creativecommons.org/licenses/by-nc-nd/3.0/                                                                                                        //
+// http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode                                                                                               //
+// Attribution-NonCommercial-NoDerivs 3.0 Unported                                                                                                          //
+// (CC BY-NC-ND 3.0)                                                                                                                                        //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+// The following have had this license waived:                           /
+// AlterEgo (of Project Skyfire)                                         /
+//////////////////////////////////////////////////////////////////////////
+// Thanks:                                                               /
+// Ladik(Ladislav Zezula)                                                /
+// Dfighter                                                              /
+//////////////////////////////////////////////////////////////////////////
+// As I stated on the Github page this is not complete                   /
+// Also this launcher is made for the Emerald Nightmare Project, which   /
+// I am working on, I will make a generic version without my logos and   /
+// with a much less.. limiting license when I am done coding this version/
+//////////////////////////////////////////////////////////////////////////
+// I put this in because people are asking questions and forking this ;) /
+////////////////////////////////////////////////////////////////////////*/
+
 #include "stdafx.h"
 
 using namespace std;
