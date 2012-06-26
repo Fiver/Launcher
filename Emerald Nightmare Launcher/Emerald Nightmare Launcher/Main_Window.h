@@ -260,6 +260,7 @@ namespace EmeraldNightmareLauncher {
 		private: System::Windows::Forms::ToolStripMenuItem^  deleteARCHIVEFrameGlueAddOnsToolStripMenuItem;
 		private: System::Windows::Forms::LinkLabel^  LauncherAlertBox;
 		private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
+		private: System::Windows::Forms::CheckBox^  DeleteCacheCheckBox;
 
 
 
@@ -304,6 +305,7 @@ namespace EmeraldNightmareLauncher {
 				this->downloadAddOnToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->LauncherAlertBox = (gcnew System::Windows::Forms::LinkLabel());
+				this->DeleteCacheCheckBox = (gcnew System::Windows::Forms::CheckBox());
 				this->menuStrip1->SuspendLayout();
 				this->SuspendLayout();
 				// 
@@ -329,7 +331,6 @@ namespace EmeraldNightmareLauncher {
 				this->button1->AutoSize = true;
 				this->button1->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 				this->button1->BackColor = System::Drawing::Color::Transparent;
-				this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"button1.BackgroundImage")));
 				this->button1->FlatAppearance->BorderColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
 				this->button1->FlatAppearance->BorderSize = 10;
@@ -337,7 +338,7 @@ namespace EmeraldNightmareLauncher {
 				this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Green;
 				this->button1->ForeColor = System::Drawing::Color::Transparent;
 				this->button1->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"button1.Image")));
-				this->button1->Location = System::Drawing::Point(489, 426);
+				this->button1->Location = System::Drawing::Point(489, 449);
 				this->button1->Margin = System::Windows::Forms::Padding(0);
 				this->button1->Name = L"button1";
 				this->button1->Size = System::Drawing::Size(147, 90);
@@ -565,7 +566,7 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
 				this->toggleDebugToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->toggleDebugToolStripMenuItem->Name = L"toggleDebugToolStripMenuItem";
-				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(149, 22);
 				this->toggleDebugToolStripMenuItem->Text = L"Toggle Debug";
 				this->toggleDebugToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::toggleDebugToolStripMenuItem_Click);
 				// 
@@ -615,10 +616,23 @@ namespace EmeraldNightmareLauncher {
 				this->LauncherAlertBox->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"LauncherAlertBox.Image")));
 				this->LauncherAlertBox->LinkColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(0)));
-				this->LauncherAlertBox->Location = System::Drawing::Point(-3, 426);
+				this->LauncherAlertBox->Location = System::Drawing::Point(-3, 449);
 				this->LauncherAlertBox->Name = L"LauncherAlertBox";
 				this->LauncherAlertBox->Size = System::Drawing::Size(497, 90);
 				this->LauncherAlertBox->TabIndex = 4;
+				// 
+				// DeleteCacheCheckBox
+				// 
+				this->DeleteCacheCheckBox->AutoSize = true;
+				this->DeleteCacheCheckBox->BackColor = System::Drawing::Color::Transparent;
+				this->DeleteCacheCheckBox->ForeColor = System::Drawing::Color::White;
+				this->DeleteCacheCheckBox->Location = System::Drawing::Point(12, 429);
+				this->DeleteCacheCheckBox->Name = L"DeleteCacheCheckBox";
+				this->DeleteCacheCheckBox->Size = System::Drawing::Size(91, 17);
+				this->DeleteCacheCheckBox->TabIndex = 5;
+				this->DeleteCacheCheckBox->Text = L"Delete Cache";
+				this->DeleteCacheCheckBox->UseVisualStyleBackColor = false;
+				this->DeleteCacheCheckBox->CheckedChanged += gcnew System::EventHandler(this, &Main_Window::DeleteCacheCheckBox_CheckedChanged);
 				// 
 				// Main_Window
 				// 
@@ -629,7 +643,8 @@ namespace EmeraldNightmareLauncher {
 				this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(20)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(20)));
 				this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"$this.BackgroundImage")));
-				this->ClientSize = System::Drawing::Size(636, 513);
+				this->ClientSize = System::Drawing::Size(636, 541);
+				this->Controls->Add(this->DeleteCacheCheckBox);
 				this->Controls->Add(this->menuStrip1);
 				this->Controls->Add(this->button1);
 				this->Controls->Add(this->webBrowser1);
@@ -643,6 +658,7 @@ namespace EmeraldNightmareLauncher {
 				this->SizeGripStyle = System::Windows::Forms::SizeGripStyle::Hide;
 				this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 				this->Text = L"Emerald Nightmare Launcher";
+				this->Load += gcnew System::EventHandler(this, &Main_Window::Main_Window_Load);
 				this->menuStrip1->ResumeLayout(false);
 				this->menuStrip1->PerformLayout();
 				this->ResumeLayout(false);
@@ -660,16 +676,19 @@ namespace EmeraldNightmareLauncher {
 					 // if remote greater then version at compile, then call autoupdater.exe -RunMain :: Autoupdater will delete this file, and update it with whatever is in the remote /updates/ directory
 					 // fin, really simple versioning/update system
 
-					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/LauncherVersion.ini"), _T("LauncherVersion.ini"), 0, NULL );
+#define CURRENT_VERSION 3
 
-					 int VersionAtCompile=2; // remember to set this to 3 on release
+					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/LauncherVersion.ini"), _T("LauncherVersion.temp"), 0, NULL );
+
+					 int VersionAtCompile=CURRENT_VERSION;
 
 					 string VerofRemoteBeforeConvert;
 					 ifstream infile;
-					 infile.open ("LauncherVersion.ini");
+					 infile.open ("LauncherVersion.temp");
 					 getline(infile,VerofRemoteBeforeConvert); // Saves the line in STRING.
 					 infile.close();
 					 delete infile;
+					 remove( "LauncherVersion.temp" );
 
 					 int VersionOfRemoteIni = atoi( VerofRemoteBeforeConvert.c_str() ); // convert...
 
@@ -777,6 +796,36 @@ namespace EmeraldNightmareLauncher {
 		private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Launcher wrote by Marforius for the Emerald Nightmare/Marforius-Client projects. No authorization is given for use of this launcher or related tools in other projects' launchers or toolchains. Emerald Nightmare AND all related tools by Marforius are licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.";
+					 }
+		private: System::Void DeleteCacheCheckBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
+					 char buffer[MAX_PATH];
+					 GetCurrentDirectory(sizeof(buffer),buffer);
+					 strcat(buffer , "\\EN-Launcher.wtf");
+
+					 if ( this->DeleteCacheCheckBox->Checked == true )
+						 {
+						 WritePrivateProfileString("CACHE", "DeleteCache", "1", buffer);
+						 }
+					 else if ( this->DeleteCacheCheckBox->Checked == false )
+						 {
+						 WritePrivateProfileString("CACHE", "DeleteCache", "0", buffer);
+						 }
+
+					 }
+		private: System::Void Main_Window_Load(System::Object^  sender, System::EventArgs^  e) {
+
+					 char buffer[MAX_PATH];
+					 GetCurrentDirectory(sizeof(buffer),buffer);
+					 strcat(buffer , "\\EN-Launcher.wtf");
+					 int DeleteCache = GetPrivateProfileInt("CACHE", "DeleteCache", 0, buffer);
+
+
+					 if (DeleteCache == 1)
+						 {
+						 DeleteCacheCheckBox->Checked = TRUE;
+						 DeleteDirectoryLauncher("Cache");
+						 }
 					 }
 		};
 	}

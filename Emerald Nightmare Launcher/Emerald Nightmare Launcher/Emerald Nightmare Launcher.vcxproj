@@ -112,7 +112,7 @@
       <StackReserveSize>17000</StackReserveSize>
       <StackCommitSize>14000</StackCommitSize>
       <SetChecksum>true</SetChecksum>
-      <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\boost\boost_1_47\lib</AdditionalLibraryDirectories>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
     </Link>
@@ -122,6 +122,10 @@
     <Manifest>
       <VerboseOutput>false</VerboseOutput>
     </Manifest>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System" />
