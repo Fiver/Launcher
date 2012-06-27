@@ -829,6 +829,7 @@ namespace EmeraldNightmareLauncher {
 					 VersionOfRemoteIni = NULL;
 					 }
 		private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+					 SetCompatibleCVARs(); // set here so it seems invisible to the user
 					 //PlaySound("%appdata%\\Marforius-Launcher\\launcher-launchbutton.mp3", NULL, SND_FILENAME | SND_ASYNCH); // todo: Marforius
 					 CreateProcessLauncher("wow.exe -console");
 					 EmeraldNightmareLauncher::Main_Window::Close();
@@ -979,8 +980,6 @@ namespace EmeraldNightmareLauncher {
 						 LauncherAlertBox->Text = "Debug mode is on...";
 						 TurnOnDebugging();
 						 }
-
-					 SetCompatibleCVARs();
 					 }
 		};
 	}
