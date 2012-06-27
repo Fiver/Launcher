@@ -21,30 +21,7 @@ inline void UpdateEverything()
 
 int main(int argc, char *argv[])
 	{
-
-#if (!_DEBUG)
-	ifstream my_file("wow.exe");
-
-	if( !my_file.is_open() )
-		{
-		cout << "This program must be called by the launcher." << endl;
-			{
-			return 0;
-			}
-		}
-
-	my_file.close();
-	delete my_file;
-#endif
-
-#if (_DEBUG)
-
-	OutputDebugString("Wow.exe check skipped in debug.\n");
-
-#endif
-
 	int i;
-
 	if (argc == 1)
 		{
 		cout << "This program must be called by the launcher." << endl;
