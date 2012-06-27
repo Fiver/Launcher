@@ -80,6 +80,8 @@ using namespace std;
 
 #pragma warning(disable:4996)
 
+// Increase this to prevent new versions from being downloaded when the text file is changed on the server to create an update
+#define CURRENT_VERSION 3
 
 #include "Download_Window.h"
 #include "Server_Changer_Window.h"
@@ -273,6 +275,44 @@ inline void DeleteNonEssentialFiles(void)
 
 	}
 
+inline void TurnOnDebugging(void)
+	{
+	ofstream myfile;
+	myfile.open("WTF\\RunOnce-Development.wtf");
+
+	// http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgdebug does
+	myfile << ("SET lfgdebug \"1\"") << endl;
+
+
+	// note, too that the launcher automatically launches warcraft with the "-console" arg
+	myfile << ("SET FrameXML_Debug \"1\"") << endl;
+	myfile << ("SET errorlevelmin \"0\"") << endl;
+	myfile << ("SET errorlevelmax \"3\"") << endl;
+	myfile << ("SET errors \"1\"") << endl;
+
+
+
+	myfile.close();
+
+	delete myfile;
+	}
+
+
+// Since Marforius-Client has a ton of these already thrown in these are some that can be set on retail clients without any negative effects
+inline void SetCompatibleCVARs(void)
+	{
+	ofstream myfile;
+	myfile.open("WTF\\RunOnce-Compatibles.wtf");
+
+	myfile << ("SET expansionMovie \"0\"") << endl; // skips expansion movie on first launch
+	myfile << ("SET readEULA \"1\"") << endl; // skips reading eula on first launch
+	myfile << ("SET processaffinitymask \"255\"") << endl; // enables wow.exe to use all cores of a multi-processor machine
+	myfile << ("SET gxapi \"d3d9ex\"") << endl; // sets graphics API to d3d9 MM2.0 (much better performance)
+
+	myfile.close();
+
+	delete myfile;
+	}
 
 
 namespace EmeraldNightmareLauncher {
@@ -754,8 +794,6 @@ namespace EmeraldNightmareLauncher {
 					 // if remote greater then version at compile, then call autoupdater.exe -RunMain :: Autoupdater will delete this file, and update it with whatever is in the remote /updates/ directory
 					 // fin, really simple versioning/update system
 
-#define CURRENT_VERSION 3
-
 					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/LauncherVersion.ini"), _T("LauncherVersion.temp"), 0, NULL );
 
 					 int VersionAtCompile=CURRENT_VERSION;
@@ -881,6 +919,7 @@ namespace EmeraldNightmareLauncher {
 						 else
 							 {
 							 WritePrivateProfileString("DEBUG", "DebugOn", "1", buffer);
+							 TurnOnDebugging();
 							 }
 
 						 // do stuff in main load event, not here
@@ -938,7 +977,10 @@ namespace EmeraldNightmareLauncher {
 					 if (DebugOn == 1)
 						 {
 						 LauncherAlertBox->Text = "Debug mode is on...";
+						 TurnOnDebugging();
 						 }
+
+					 SetCompatibleCVARs();
 					 }
 		};
 	}
