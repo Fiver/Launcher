@@ -310,16 +310,18 @@ inline void TurnOnDebugging(void)
 	ofstream myfile;
 	myfile.open("WTF\\RunOnce-Development.wtf");
 
-	// http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgdebug does
-	myfile << ("SET lfgdebug \"1\"") << endl;
+	// http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgDebug does
+	myfile << ("SET lfgDebug \"1\"") << endl;
 
 
 	// note, too that the launcher automatically launches warcraft with the "-console" arg
-	myfile << ("SET FrameXML_Debug \"1\"") << endl;
-	myfile << ("SET errorlevelmin \"0\"") << endl;
-	myfile << ("SET errorlevelmax \"3\"") << endl;
-	myfile << ("SET errors \"1\"") << endl;
-
+	myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (or something similar)
+	myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report
+	myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report
+	myfile << ("SET errorfilter \"general world ui animation models objects sound movement\"") << endl; // Types of Errors to show
+	// 'Filters: general world ui animation models objects sound movement'
+	myfile << ("SET errors \"1\"") << endl; // Show errors
+	myfile << ("SET showerrors \"2\"") << endl; // Show errors
 
 
 	myfile.close();
