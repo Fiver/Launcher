@@ -731,7 +731,6 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Byte>(0)));
 				this->LauncherAlertBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(0)));
-				this->LauncherAlertBox->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"LauncherAlertBox.Image")));
 				this->LauncherAlertBox->LinkColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(0)));
 				this->LauncherAlertBox->Location = System::Drawing::Point(-3, 449);
