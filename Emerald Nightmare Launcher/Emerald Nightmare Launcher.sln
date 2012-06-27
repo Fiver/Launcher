@@ -4,10 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Emerald Nightmare Launcher", "Emerald Nightmare Launcher\Emerald Nightmare Launcher.vcxproj", "{F6DE7717-90A4-4734-BB11-87B39F8417CE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AutoUpdater", "Emerald Nightmare Launcher AutoUpdate\Emerald Nightmare Launcher AutoUpdate.vcxproj", "{DEB7B6D6-9F6C-4D70-AAF3-6665E50C8A06}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6DE7717-90A4-4734-BB11-87B39F8417CE} = {F6DE7717-90A4-4734-BB11-87B39F8417CE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WowError", "WowError\WowError.vcxproj", "{E7DD8B9B-951D-4B3F-906E-983820B0187D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6DE7717-90A4-4734-BB11-87B39F8417CE} = {F6DE7717-90A4-4734-BB11-87B39F8417CE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StormProxy", "Storm\StormLib_test.vcxproj", "{AA561A7B-26EA-49AF-90E8-C53C1FA2965D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6DE7717-90A4-4734-BB11-87B39F8417CE} = {F6DE7717-90A4-4734-BB11-87B39F8417CE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
