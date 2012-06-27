@@ -969,7 +969,8 @@ namespace EmeraldNightmareLauncher {
 						 {
 						 DeleteCacheCheckBox->Checked = TRUE;
 						 DeleteDirectoryLauncher("Cache");
-						 LauncherAlertBox->Text = "Deleted Cache...";
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "Cache Deleted.";
 						 }
 
 					 int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
@@ -977,8 +978,15 @@ namespace EmeraldNightmareLauncher {
 
 					 if (DebugOn == 1)
 						 {
-						 LauncherAlertBox->Text = "Debug mode is on...";
 						 TurnOnDebugging();
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "Debugging on.";
+						 }
+
+					 if (DebugOn && DeleteCache)
+					 {
+					 LauncherAlertBox->Text->Empty;
+					LauncherAlertBox->Text = "Cache Deleted... Debugging on.";
 						 }
 					 }
 		};
