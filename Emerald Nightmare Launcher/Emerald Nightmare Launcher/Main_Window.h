@@ -319,9 +319,11 @@ inline void TurnOnDebugging(void)
 	myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report
 	myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report
 	myfile << ("SET errorfilter \"general world ui animation models objects sound movement\"") << endl; // Types of Errors to show
-	// 'Filters: general world ui animation models objects sound movement'
+	//           Filters: general world ui animation models objects sound movement all
+	//			 use "except" to invert mask
+	//           i.e.: all except objects"
 	myfile << ("SET errors \"1\"") << endl; // Show errors
-	myfile << ("SET showerrors \"2\"") << endl; // Show errors
+	myfile << ("SET showerrors \"1\"") << endl; // Show errors
 
 
 	myfile.close();
