@@ -10,8 +10,8 @@ inline void UpdateEverything()
 	remove( "Emerald Nightmare Launcher.exe" );
 	remove( "StormProxy.exe" );
 	remove( "WowError.exe" );
-	remove( "WardenFix.exe" ); // NYI
-	remove( "LauncherVersion.ini" );
+	remove( "WardenFix.exe" ); // DND
+	remove( "LauncherVersion.ini" ); //DND
 
 
 	URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/Emerald%20Nightmare%20Launcher.exe"), _T("Emerald Nightmare Launcher.exe"), 0, NULL );

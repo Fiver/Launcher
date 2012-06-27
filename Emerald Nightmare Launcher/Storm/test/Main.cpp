@@ -1832,6 +1832,16 @@ inline void DeleteArchiveInterfaceFiles()
 
 	}
 
+inline void ExtractAddons()
+	{
+
+	}
+
+inline void ExtractClient()
+	{
+
+	}
+
 //-----------------------------------------------------------------------------
 // Main
 // 
@@ -1888,6 +1898,14 @@ int main(int argc, char *argv[])
 			if (strcmp( argv[i], "-RunDELETEARCHIVEINTERFACEFILES") == 0)
 				{
 				DeleteArchiveInterfaceFiles();
+				}
+			if (strcmp( argv[i], "-ExtractAddons") == 0)
+				{
+				ExtractAddons();
+				}
+			if (strcmp( argv[i], "-ExtractClient") == 0)
+				{
+				ExtractClient();
 				}
 		}
 	// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable

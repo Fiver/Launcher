@@ -116,7 +116,6 @@ using namespace std;
 
 #pragma warning(disable:4996)
 
-#include "Download_Window.h"
 #include "Server_Changer_Window.h"
 
 inline void CreateProcessLauncher(LPSTR ProcessName)
@@ -353,7 +352,6 @@ inline void SetCompatibleCVARs(void)
 
 	delete myfile;
 	}
-
 
 namespace EmeraldNightmareLauncher {
 
@@ -892,12 +890,16 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text = "Deleted Cache...";
 					 }
 		private: System::Void downloadReccomendedAddonsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 Download_Window^ download_window = gcnew Download_Window();
-					 download_window->Show();
+					 URLDownloadToFile ( NULL, _T("https://github.com/Marforius/Addons/zipball/master"), _T("Addons.zip"), 0, NULL );
+					 
+
+					 CreateProcessLauncher("StormProxy.exe -ExtractAddons");
 					 }
 		private: System::Void downloadMarforiusClientToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("AutoUpdater.exe -DownloadMarforiusClient");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 URLDownloadToFile ( NULL, _T("https://github.com/Marforius/Marforius-Client/zipball/master"), _T("Marforius-Client.zip"), 0, NULL );
+
+
+					 CreateProcessLauncher("StormProxy.exe -ExtractClient");
 					 }
 		private: System::Void editSavedServersToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 Server_Changer_Window^ server_changer_window = gcnew Server_Changer_Window();
