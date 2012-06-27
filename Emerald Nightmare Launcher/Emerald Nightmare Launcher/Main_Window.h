@@ -73,15 +73,48 @@
 // I put this in because people are asking questions and forking this ;) /
 ////////////////////////////////////////////////////////////////////////*/ 
 
+
+
+/*/////////////////////////////////////////////////////////////////////////
+// User/Project configure-able code settings                             /
+//////////////////////////////////////////////////////////////////////////
+
+// Uncomment these out and use all of them like I have or they will reset to default
+// Project name(s) */
+//#define PROJECT_NAME "Emerald Nightmare Launcher"
+// Developer name(s)
+//#define DEVELOPER_NAME "Marforius"
+// License summary string
+//#define LICENSE "Attribution-NonCommercial-NoDerivs 3.0 Unported"
+// Additional copyright rights
+//#define CR_RIGHTS "No permission is given to other projects."
+
+
+// Increase this to prevent new versions from being downloaded when the text file is changed on the server to create an update
+#define CURRENT_VERSION 3
+
+// PUT YOUR REALMLIST THAT YOU WANT PLAYERS TO LOGIN TO HERE
+// The client will reset to this realmlist ON EVERY LAUNCH
+
+//#define REALMLIST "AnExampleofAProperRealmlist.example"
+
+// Uncomment it out or IT WILL NOT APPLY
+
+//////////////////////////////////////////////////////////////////////////
+// End User/Project configure-able code settings                         /
+//////////////////////////////////////////////////////////////////////////
+// Modifying anything beyond this point without knowledge of what you are/
+// doing... you know already.                                            /
+//////////////////////////////////////////////////////////////////////////
+
+
+
 #include "stdafx.h"
 
 using namespace std;
 #pragma once
 
 #pragma warning(disable:4996)
-
-// Increase this to prevent new versions from being downloaded when the text file is changed on the server to create an update
-#define CURRENT_VERSION 3
 
 #include "Download_Window.h"
 #include "Server_Changer_Window.h"
@@ -100,7 +133,7 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 		NULL,            // Process handle not inheritable.
 		NULL,            // Thread handle not inheritable.
 		0,          // Set handle inheritance to FALSE.
-		ABOVE_NORMAL_PRIORITY_CLASS,               // Do not set Warcraft higher then this, kthx
+		ABOVE_NORMAL_PRIORITY_CLASS,               // Do not set Warcraft higher then this, you will cause thread problems
 		NULL,            // Use parent's environment block.
 		NULL,            // Use parent's starting directory.
 		&si,              // Pointer to STARTUPINFO structure.
@@ -122,9 +155,6 @@ inline void DeleteDirectoryLauncher(LPCTSTR lpszDir)
 	fileop.pFrom  = pszFrom;  // source file name as double null terminated string
 	fileop.pTo    = NULL;    // no destination needed
 	fileop.fFlags = FOF_NOCONFIRMATION|FOF_SILENT;  // do not prompt the user
-
-	// 	if(!noRecycleBin)
-	// 		fileop.fFlags |= FOF_ALLOWUNDO;
 
 	fileop.fAnyOperationsAborted = FALSE;
 	fileop.lpszProgressTitle     = NULL;
@@ -309,6 +339,12 @@ inline void SetCompatibleCVARs(void)
 	myfile << ("SET processaffinitymask \"255\"") << endl; // enables wow.exe to use all cores of a multi-processor machine
 	myfile << ("SET gxapi \"d3d9ex\"") << endl; // sets graphics API to d3d9 MM2.0 (much better performance)
 
+#ifdef REALMLIST
+	// Edit this above
+	myfile << ("SET realmlist \""REALMLIST"\"") << endl;
+	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
+#endif
+
 	myfile.close();
 
 	delete myfile;
@@ -364,7 +400,7 @@ namespace EmeraldNightmareLauncher {
 		private: System::Windows::Forms::ToolStripMenuItem^  deleteWarcraftsCacheToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  addOnsToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  downloadReccomendedAddonsToolStripMenuItem;
-		private: System::Windows::Forms::ToolStripMenuItem^  shareGathererDataAcrossAllAccountsToolStripMenuItem;
+
 
 		private: System::Windows::Forms::ToolStripMenuItem^  marforiusClientToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  downloadMarforiusClientToolStripMenuItem;
@@ -411,7 +447,6 @@ namespace EmeraldNightmareLauncher {
 				this->mD5CheckArchivesToolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->addOnsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->downloadReccomendedAddonsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-				this->shareGathererDataAcrossAllAccountsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->marforiusClientToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->downloadMarforiusClientToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->editSavedServersToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -582,8 +617,7 @@ namespace EmeraldNightmareLauncher {
 				// 
 				this->addOnsToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(44)), static_cast<System::Int32>(static_cast<System::Byte>(67)));
-				this->addOnsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->downloadReccomendedAddonsToolStripMenuItem, 
-					this->shareGathererDataAcrossAllAccountsToolStripMenuItem});
+				this->addOnsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->downloadReccomendedAddonsToolStripMenuItem});
 				this->addOnsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->addOnsToolStripMenuItem->ImageTransparentColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(15)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(21)), static_cast<System::Int32>(static_cast<System::Byte>(34)));
@@ -598,18 +632,9 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
 				this->downloadReccomendedAddonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->downloadReccomendedAddonsToolStripMenuItem->Name = L"downloadReccomendedAddonsToolStripMenuItem";
-				this->downloadReccomendedAddonsToolStripMenuItem->Size = System::Drawing::Size(286, 22);
+				this->downloadReccomendedAddonsToolStripMenuItem->Size = System::Drawing::Size(256, 22);
 				this->downloadReccomendedAddonsToolStripMenuItem->Text = L"Download Recommended Addons";
 				this->downloadReccomendedAddonsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::downloadReccomendedAddonsToolStripMenuItem_Click);
-				// 
-				// shareGathererDataAcrossAllAccountsToolStripMenuItem
-				// 
-				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(14)), 
-					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
-				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
-				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->Name = L"shareGathererDataAcrossAllAccountsToolStripMenuItem";
-				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->Size = System::Drawing::Size(286, 22);
-				this->shareGathererDataAcrossAllAccountsToolStripMenuItem->Text = L"Share Gatherer Data Across All Accounts";
 				// 
 				// marforiusClientToolStripMenuItem
 				// 
@@ -684,7 +709,7 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
 				this->toggleDebugToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->toggleDebugToolStripMenuItem->Name = L"toggleDebugToolStripMenuItem";
-				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(149, 22);
+				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 				this->toggleDebugToolStripMenuItem->Text = L"Toggle Debug";
 				this->toggleDebugToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::toggleDebugToolStripMenuItem_Click);
 				// 
@@ -800,12 +825,12 @@ namespace EmeraldNightmareLauncher {
 					 string VerofRemoteBeforeConvert;
 					 ifstream infile;
 					 infile.open ("LauncherVersion.temp");
-					 getline(infile,VerofRemoteBeforeConvert); // Saves the line in STRING.
+					 getline(infile,VerofRemoteBeforeConvert);
 					 infile.close();
 					 delete infile;
 					 remove( "LauncherVersion.temp" );
 
-					 int VersionOfRemoteIni = atoi( VerofRemoteBeforeConvert.c_str() ); // convert...
+					 int VersionOfRemoteIni = atoi( VerofRemoteBeforeConvert.c_str() );
 
 					 if(VersionOfRemoteIni > VersionAtCompile)
 						 {
@@ -897,12 +922,6 @@ namespace EmeraldNightmareLauncher {
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void toggleDebugToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-
-					 // toggle lfg debugging
-					 // toggle all debug outs
-					 // enable full UI debugging
-					 // ? open debugger w/bypass?
-
 					 if (MessageBox::Show("Debugging is obscure and is not recommended for you to turn on unless you are an addon developer, modifying the client, or changing packets.", "Debug", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 						 {
 
@@ -935,7 +954,19 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 LauncherAlertBox->Text->Empty;
+#ifndef LICENSE
 					 LauncherAlertBox->Text = "Launcher wrote by Marforius for the Emerald Nightmare/Marforius-Client projects. No authorization is given for use of this launcher or related tools in other projects' launchers or toolchains. Emerald Nightmare AND all related tools by Marforius are licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.";
+#endif
+#ifdef DEVELOPER_NAME
+#ifdef PROJECT_NAME
+#ifdef CR_RIGHTS
+#ifdef LICENSE
+					LauncherAlertBox->Text = "Launcher modified by "DEVELOPER_NAME" for the "PROJECT_NAME" project. "CR_RIGHTS" "PROJECT_NAME" by "DEVELOPER_NAME" is licensed under a "LICENSE" License.";
+#endif
+#endif
+#endif
+#endif
+
 					 }
 		private: System::Void DeleteCacheCheckBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 
@@ -994,5 +1025,3 @@ namespace EmeraldNightmareLauncher {
 
 
 // TODO: edit the contents of Marforius-Client's options file
-// TODO: Delete realmlist.wtf on launch and SET Emerald Nightmare's realmlist AS DEFAULT
-// 
