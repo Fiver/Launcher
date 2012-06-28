@@ -885,7 +885,6 @@ namespace EmeraldNightmareLauncher {
 					 if (MessageBox::Show("Should I delete the Cinematics folder? (About 540MB of data) The game will function without them - however you will not see any opening/expansion cinematics, nor the \"fall of the lich king\" video if you click on the fountain in Dalaran.", "Cinematic Folder", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 						 {
 						 DeleteDirectoryLauncher("Data\\enUS\\Interface\\Cinematics");
-						 DeleteDirectoryLauncher("DivxDecoder.dll");
 						 }
 
 					 }
