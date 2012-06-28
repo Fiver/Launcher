@@ -1704,6 +1704,8 @@ inline void VerifyMPQMD5(const char *szFileName)
 
 		case ERROR_VERIFY_FAILED:
 			cout << "Failed to verify signature." << endl;
+			cout << "Press any key to continue checking." << endl;
+			cin.get();
 			break;
 
 		case ERROR_WEAK_SIGNATURE_OK:
@@ -1712,6 +1714,8 @@ inline void VerifyMPQMD5(const char *szFileName)
 
 		case ERROR_WEAK_SIGNATURE_ERROR:
 			cout << "Weak signature mismatch." << endl;
+			cout << "Press any key to continue checking." << endl;
+			cin.get();
 			break;
 
 		case ERROR_STRONG_SIGNATURE_OK:
@@ -1720,17 +1724,26 @@ inline void VerifyMPQMD5(const char *szFileName)
 
 		case ERROR_STRONG_SIGNATURE_ERROR:
 			cout << "Strong signature mismatch." << endl;
+			cout << "Press any key to continue checking." << endl;
+			cin.get();
 			break;
 
 		case VERIFY_FILE_SECTOR_CRC_ERROR:
 			cout << "CRC error in file: \"" << szFileName << "\"" << endl;
+			cout << "Press any key to continue checking." << endl;
+			cin.get();
 			break;
+
 		case VERIFY_FILE_CHECKSUM_ERROR:
 			cout << "General file checksum error in file: \"" << szFileName << "\"" << endl;
+			cout << "Press any key to continue checking." << endl;
+			cin.get();
 			break;
 
 		case VERIFY_FILE_MD5_ERROR:
 			cout << "MD5 checksum error in file: \"" << szFileName << "\"" << endl;
+			cout << "Press any key to continue checking." << endl;
+			cin.get();
 			break;
 
 		default:
