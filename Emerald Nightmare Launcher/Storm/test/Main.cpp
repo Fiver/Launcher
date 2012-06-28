@@ -1905,18 +1905,6 @@ inline void ExtractClient()
 int main(int argc, char *argv[])
 	{
 
-	//current working directory
-	boost::filesystem::path full_path( boost::filesystem::current_path() );
-
-	//std::cout << full_path << std::endl;
-
-	std::string firstFile = boost::filesystem::path(full_path).string();
-
-	//cout << firstFile << endl;
-
-	//////////////////////////////////////////////////////////////////////////
-
-
 	boost::filesystem::path wowexe("wow.exe");
 
 	if( !boost::filesystem::exists(wowexe) )
@@ -1933,7 +1921,6 @@ int main(int argc, char *argv[])
 #endif  // defined(_MSC_VER) && defined(_DEBUG)
 
 	int i;
-
 	if (argc == 1)
 		{
 		cout << "This program must be called from the launcher." << endl;
