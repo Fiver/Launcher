@@ -3,17 +3,9 @@
 
 
 
-THIS IS NOT COMPLETE
+THIS IS NOT COMPLETE, but almost there.
 
 A "Preview" version is in the downloads, I am not done coding things I want into this. The generic launcher will be coded when I am done with this one's features.
-
-Basically it's missing everything advanced in the UI besides the basic launcher features like the "play button" and the cleanup options
-
-
-No estimate on when I get around to finishing this as it's not my highest priority.
-
-
-
 
 
 Simple implementation of repacker found in Marforius Client repo with aspects of a "official" launcher, this is the repository for hosting our released files and sourcecode.
@@ -43,7 +35,7 @@ No authorization is given for use of this launcher or related tools in other pro
 
 = Screens
 
-http://suxorz.com/i5/untitlcfc.png
+http://suxorz.com/i5/launchksk.png
 
 
 
