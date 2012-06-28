@@ -1694,44 +1694,61 @@ static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 
 inline void VerifyMPQMD5(const char *szFileName)
 	{
-	DWORD dwVerifyResult;
 	HANDLE hMpq = NULL;
 	cout << "Opening file \"" << szFileName << "\"" << " for MD5 verification ..." << endl;
-	dwVerifyResult = SFileVerifyFile(hMpq, szFileName, MPQ_ATTRIBUTE_CRC32 | MPQ_ATTRIBUTE_MD5);(hMpq, szFileName, SFILE_VERIFY_ALL);
 
-	if(dwVerifyResult & (VERIFY_FILE_SECTOR_CRC_ERROR))
+	if(SFileOpenArchive(szFileName, 0, 0, &hMpq))
 		{
-		cout << "CRC error in file: \"" << szFileName << "\"" << endl;
-		}
-	else if(dwVerifyResult & (VERIFY_FILE_CHECKSUM_ERROR))
-		{
-		cout << "General file checksum error in file: \"" << szFileName << "\"" << endl;
-		}
-	else if(dwVerifyResult & (VERIFY_FILE_MD5_ERROR))
-		{
-		cout << "MD5 checksum error in file: \"" << szFileName << "\"" << endl;
-		}
-	else if(dwVerifyResult & (VERIFY_OPEN_ERROR))
-		{
-		cout << "Error opening file, doesn't exist: \"" << szFileName << "\"" << endl;
-		}
-	else if(dwVerifyResult & (VERIFY_READ_ERROR))
-		{
-		cout << "Error opening file, machine is unstable, file is very corrupt, or doesn't exist: \"" << szFileName << "\"" << endl;
-		}
-	else if (dwVerifyResult & (!VERIFY_READ_ERROR || !VERIFY_FILE_SECTOR_CRC_ERROR || !VERIFY_FILE_CHECKSUM_ERROR || !VERIFY_OPEN_ERROR || !VERIFY_FILE_MD5_ERROR))
-		{
-		cout << "File" << szFileName << "integrity is good." << endl;
-		}
-	cin.get();
+		switch(SFileVerifyArchive(hMpq))
+			{
 
-	delete [] szFileName;
+		case ERROR_VERIFY_FAILED:
+			cout << "Failed to verify signature." << endl;
+			break;
+
+		case ERROR_WEAK_SIGNATURE_OK:
+			cout << "Weak signature is OK." << endl;
+			break;
+
+		case ERROR_WEAK_SIGNATURE_ERROR:
+			cout << "Weak signature mismatch." << endl;
+			break;
+
+		case ERROR_STRONG_SIGNATURE_OK:
+			cout << "Strong signature is OK." << endl;
+			break;
+
+		case ERROR_STRONG_SIGNATURE_ERROR:
+			cout << "Strong signature mismatch." << endl;
+			break;
+
+		case VERIFY_FILE_SECTOR_CRC_ERROR:
+			cout << "CRC error in file: \"" << szFileName << "\"" << endl;
+			break;
+		case VERIFY_FILE_CHECKSUM_ERROR:
+			cout << "General file checksum error in file: \"" << szFileName << "\"" << endl;
+			break;
+
+		case VERIFY_FILE_MD5_ERROR:
+			cout << "MD5 checksum error in file: \"" << szFileName << "\"" << endl;
+			break;
+
+		default:
+			cout << "File passed internal MPQ checks." << endl;
+			break;
+
+			}
+
+		SFileCloseArchive(hMpq);
+
+		delete [] szFileName;
+		}
 	}
 
 // Vanilla (3.3.5A) MD5 Hashes
 // 	\\data\\
-// 	17d340dbd0ac02569d56cd0d96b2c8b7 *common-2.MPQ
-// 	325452ce19054ee76f29acb14da85884 *common.MPQ
+// 	17d340dbd0ac02569d56cd0d96b2c8b7 *CommonMPQ-2.MPQ
+// 	325452ce19054ee76f29acb14da85884 *CommonMPQ.MPQ
 // 	c48af167bd3253f4762dd077112252af *expansion.MPQ
 // 	6c9f85caf621ee546dbfe8811315eb11 *lichking.MPQ
 // 	ab3a08a2993caec2db8c2c181f5f5065 *patch-2.MPQ
@@ -1755,8 +1772,8 @@ inline void VerifyMPQMD5(const char *szFileName)
 // 	(Using custom repacker tool, without textfile generation for signature, will not match current Repacker.exe output)
 // 	(HASHTABLES WERE SET TO MAXIMUM FOR THESE MD5s)
 // 	\\data\\
-// 	d7ae8eab68248604d640548f1a3b6527 *common.MPQ
-// 	5643de2e29ffedcadff3eb6b3febfe77 *common-2.MPQ
+// 	d7ae8eab68248604d640548f1a3b6527 *CommonMPQ.MPQ
+// 	5643de2e29ffedcadff3eb6b3febfe77 *CommonMPQ-2.MPQ
 // 	2b5f10292180ae8d9a378ab2051daa47 *expansion.MPQ
 // 	a270a7133f743ed6a0278b73463d3657 *lichking.MPQ
 // 	b63f05db29a2e659d92451f32934c6be *patch.MPQ
@@ -1772,52 +1789,75 @@ inline void VerifyMPQMD5(const char *szFileName)
 inline void VerifyMPQMD51()
 	{
 
-	boost::filesystem::path isrepacked("Data\\enUS\\patch-enUS-3.MPQ");
+	char buffer[MAX_PATH];
+	GetCurrentDirectory(sizeof(buffer),buffer);
+
+	std:: string CommonMPQ2 = std:: string(buffer) + "\\Data\\Common-2.MPQ";
+	std:: string CommonMPQ = std:: string(buffer) + "\\Data\\Common.MPQ";
+	std:: string ExpansionMPQ = std:: string(buffer) + "\\Data\\expansion.MPQ";
+	std:: string LichkingMPQ = std:: string(buffer) + "\\Data\\lichking.MPQ";
+	std:: string PatchMPQ = std:: string(buffer) + "\\Data\\patch.MPQ";
+	std:: string Patch2MPQ = std:: string(buffer) + "\\Data\\patch-2.MPQ";
+	std:: string Patch3MPQ = std:: string(buffer) + "\\Data\\patch-3.MPQ";
+	std:: string Patch4MPQ = std:: string(buffer) + "\\Data\\patch-4.MPQ";
+	std:: string BackupEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\backup-enUS.MPQ";
+	std:: string BaseEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\base-enUS.MPQ";
+	std:: string ExpansionLocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\expansion-locale-enUS.MPQ";
+	std:: string ExpansionSpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\expansion-speech-enUS.MPQ";
+	std:: string LichkingLocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\lichking-locale-enUS.MPQ";
+	std:: string LichkingSpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\lichking-speech-enUS.MPQ";
+	std:: string LocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\locale-enUS.MPQ";
+	std:: string PatchEnUS2MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-2.MPQ";
+	std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
+	std:: string PatchEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS.MPQ";
+	std:: string SpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\speech-enUS.MPQ";
 
 
+	boost::filesystem::path isrepacked(PatchEnUS3MPQ);
 	if( !boost::filesystem::exists(isrepacked) )
 		{
 		cout << "Detected files as being repacked." << endl;
 
-		VerifyMPQMD5(MAKE_PATH("Data\\common.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\common-2.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\expansion.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\lichking.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\patch.MPQ"));
+		VerifyMPQMD5(CommonMPQ.c_str());
+		VerifyMPQMD5(CommonMPQ2.c_str());
+		VerifyMPQMD5(ExpansionMPQ.c_str());
+		VerifyMPQMD5(LichkingMPQ.c_str());
+		VerifyMPQMD5(PatchMPQ.c_str());
 
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-locale-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-speech-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-locale-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-speech-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\locale-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\speech-enUS.MPQ"));
+		VerifyMPQMD5(ExpansionLocaleEnUSMPQ.c_str());
+		VerifyMPQMD5(ExpansionSpeechEnUSMPQ.c_str());
+		VerifyMPQMD5(LichkingLocaleEnUSMPQ.c_str());
+		VerifyMPQMD5(LichkingSpeechEnUSMPQ.c_str());
+		VerifyMPQMD5(LocaleEnUSMPQ.c_str());
+		VerifyMPQMD5(PatchEnUSMPQ.c_str());
+		VerifyMPQMD5(SpeechEnUSMPQ.c_str());
 		}
 	else if( boost::filesystem::exists(isrepacked) )
 		{
 		cout << "Detected files as being original 3.3.5A layout." << endl;
 
-		VerifyMPQMD5(MAKE_PATH("Data\\common-2.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\common.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\expansion.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\lichking.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\patch-2.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\patch-3.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\patch-4.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\patch.MPQ"));
+		VerifyMPQMD5(CommonMPQ2.c_str());
+		VerifyMPQMD5(CommonMPQ.c_str());
+		VerifyMPQMD5(ExpansionMPQ.c_str());
+		VerifyMPQMD5(LichkingMPQ.c_str());
+		VerifyMPQMD5(Patch2MPQ.c_str());
+		VerifyMPQMD5(Patch3MPQ.c_str());
+		VerifyMPQMD5(Patch4MPQ.c_str());
+		VerifyMPQMD5(PatchMPQ.c_str());
 
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\backup-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\base-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-locale-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\expansion-speech-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-locale-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\lichking-speech-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\locale-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS-2.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS-3.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\patch-enUS.MPQ"));
-		VerifyMPQMD5(MAKE_PATH("Data\\enUS\\speech-enUS.MPQ"));
+		VerifyMPQMD5(BackupEnUSMPQ.c_str());
+		VerifyMPQMD5(BaseEnUSMPQ.c_str());
+		VerifyMPQMD5(ExpansionLocaleEnUSMPQ.c_str());
+		VerifyMPQMD5(ExpansionSpeechEnUSMPQ.c_str());
+		VerifyMPQMD5(LichkingLocaleEnUSMPQ.c_str());
+		VerifyMPQMD5(LichkingSpeechEnUSMPQ.c_str());
+		VerifyMPQMD5(LocaleEnUSMPQ.c_str());
+		VerifyMPQMD5(PatchEnUS2MPQ.c_str());
+		VerifyMPQMD5(PatchEnUS3MPQ.c_str());
+		VerifyMPQMD5(PatchEnUSMPQ.c_str());
+		VerifyMPQMD5(SpeechEnUSMPQ.c_str());
 		}
+	cout << endl;
 	cout << "MD5 check complete. Press any key to exit." << endl;
 	cin.get();
 	}
@@ -1835,11 +1875,14 @@ inline void DeleteArchiveInterfaceFiles()
 inline void ExtractAddons()
 	{
 
+	cout << "StormProxy is currently extracting the addons zip, don't close this window." << endl;
 	}
 
 inline void ExtractClient()
 	{
 
+	cout << "StormProxy is currently extracting the client zip, don't close this window." << endl;
+	cout << "This may take a long while, be patient" << endl;
 	}
 
 //-----------------------------------------------------------------------------

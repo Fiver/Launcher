@@ -64,6 +64,8 @@
 // Thanks:                                                               /
 // Ladik(Ladislav Zezula)                                                /
 // Dfighter                                                              /
+// Subv (of TrinityCore)                                                 /
+// Nayd (of TrinityCore)                                                 /
 //////////////////////////////////////////////////////////////////////////
 // As I stated on the Github page this is not complete                   /
 // Also this launcher is made for the Emerald Nightmare Project, which   /
@@ -314,15 +316,16 @@ inline void TurnOnDebugging(void)
 
 
 	// note, too that the launcher automatically launches warcraft with the "-console" arg
-	myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (or something similar)
-	myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report
-	myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report
+	myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
+	// will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
+	myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
+	myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
 	myfile << ("SET errorfilter \"general world ui animation models objects sound movement\"") << endl; // Types of Errors to show
 	//           Filters: general world ui animation models objects sound movement all
 	//			 use "except" to invert mask
-	//           i.e.: all except objects"
-	myfile << ("SET errors \"1\"") << endl; // Show errors
-	myfile << ("SET showerrors \"1\"") << endl; // Show errors
+	//           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
+	myfile << ("SET errors \"1\"") << endl; // Show errors         > see below TODO: Marforius
+	myfile << ("SET showerrors \"1\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
 
 
 	myfile.close();
@@ -332,6 +335,7 @@ inline void TurnOnDebugging(void)
 
 
 // Since Marforius-Client has a ton of these already thrown in these are some that can be set on retail clients without any negative effects
+// called via the play button (as to make the wtf file invisible to the end-user)
 inline void SetCompatibleCVARs(void)
 	{
 	ofstream myfile;
@@ -881,6 +885,7 @@ namespace EmeraldNightmareLauncher {
 					 if (MessageBox::Show("Should I delete the Cinematics folder? (About 540MB of data) The game will function without them - however you will not see any opening/expansion cinematics, nor the \"fall of the lich king\" video if you click on the fountain in Dalaran.", "Cinematic Folder", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 						 {
 						 DeleteDirectoryLauncher("Data\\enUS\\Interface\\Cinematics");
+						 DeleteDirectoryLauncher("DivxDecoder.dll");
 						 }
 
 					 }
