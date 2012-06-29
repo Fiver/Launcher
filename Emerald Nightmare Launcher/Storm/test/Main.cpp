@@ -53,6 +53,8 @@ using namespace boost;
 using namespace boost::this_thread;
 namespace fs = boost::filesystem;
 
+#define countof( array ) ( sizeof( array )/sizeof( array[0] ) )
+
 
 
 // Unicode MPQ names
@@ -1698,7 +1700,7 @@ inline void VerifyMPQSignature(const char *szFileName)
 	{
 	HANDLE hMpq = NULL;
 	cout << endl;
-	cout << "Opening file \"" << szFileName << "\"" << " for signature verification ..." << endl;
+	cout << "Opening file \"" << szFileName << "\"" << "..." << endl;
 
 	if(SFileOpenArchive(szFileName, 0, 0, &hMpq))
 		{
@@ -1732,7 +1734,7 @@ inline void VerifyMPQSignature(const char *szFileName)
 			break;
 
 		default:
-			cout << "File passed internal signature checks." << endl;
+			cout << "File passed internal signature checks, if there were any." << endl;
 			break;
 
 			}
@@ -1742,7 +1744,54 @@ inline void VerifyMPQSignature(const char *szFileName)
 
 		MD5 md5 ;
 		cout << "Calculating MD5 of file, this may take time." << endl;
-		cout << md5.digestFile(szFileName) << endl;
+
+		// returns string, compare it with original or repacked MD5 - set MHT before function (if repacked)
+
+		char *EstablishedMD5s [] = {
+			// Original 3.3.5A (no mods)
+			"17d340dbd0ac02569d56cd0d96b2c8b7",
+			"325452ce19054ee76f29acb14da85884",
+			"c48af167bd3253f4762dd077112252af",
+			"6c9f85caf621ee546dbfe8811315eb11",
+			"ab3a08a2993caec2db8c2c181f5f5065",
+			"35733b76fcf0f95a0d8240d1f36cc5c3",
+			"88e4545c0074f9d6c1eced7e035bdf6e",
+			"6e099a82d9d2bb75c037625aecaa34aa",
+			"2aa2c2c6aa341977ec15ee75d13a2429",
+			"0423b93701903133e282247b74822364",
+			"c9b1786849ade7f399c57da8c61fe352",
+			"4077b16db9fe39f81fadbb2098ece280",
+			"af01bc97ca87104c589d4d84684d3b4e",
+			"be2a6737bb323b700c3d750ca9b72709",
+			"6a2d75fad8d317b0bedaa4f82f9340a5",
+			"2352dfdbb85174d80b748a1111c56ee9",
+			"5514621925fa8cd17e864fabcbf85b4a",
+			"273cc8a0137dbc6f978c74acaa809098",
+			"965021d466779f68407965f4759c5cc6"
+			// end original 3.3.5A (no mods)
+			};
+
+		bool ArchiveStatus=false;
+		string CalculatedArchiveMD5 = md5.digestFile(szFileName);
+
+		cout << CalculatedArchiveMD5 << endl;
+
+		for ( int n=0; n < countof(EstablishedMD5s); n++ )
+			{
+			if (CalculatedArchiveMD5 == EstablishedMD5s[n])
+				{
+				cout << "Archive integrity is good. MD5 matched."<< endl;
+				ArchiveStatus=true;
+				// stop iterating
+				n = countof(EstablishedMD5s);
+				}
+			}
+
+		if (ArchiveStatus == false)
+			{
+			cout << "File does NOT match any known MD5, archive is corrupt or changed!" << endl;
+			cin.get();
+			}
 
 		delete [] szFileName;
 		cout << endl;
