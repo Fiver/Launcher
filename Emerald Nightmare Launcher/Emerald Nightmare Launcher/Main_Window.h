@@ -1036,7 +1036,6 @@ namespace EmeraldNightmareLauncher {
 
 // TODO: edit the contents of Marforius-Client's options file
 // TODO: download Marforius-Client, addons, and GM addons
-// TODO: Finish StormProxy work with MD5s/CRCs and repacking operations
-// TODO: Don't forget to set HT
+// TODO: Finish StormProxy work with repacking operations
 // TODO: Delete interface/framexml/gluexml archive if Marforius-Client detected
 // TODO: Check interface for more buttons without backend

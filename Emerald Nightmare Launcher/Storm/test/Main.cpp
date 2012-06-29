@@ -1695,7 +1695,6 @@ static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 // any work at all into this thanks to you.
 //////////////////////////////////////////////////////////////////////////
 
-// SFileSetMaxFileCount(hMpq, 0x00080000);
 inline void VerifyMPQSignature(const char *szFileName)
 	{
 	HANDLE hMpq = NULL;
@@ -1739,6 +1738,15 @@ inline void VerifyMPQSignature(const char *szFileName)
 
 			}
 
+		// if repacked, set HT to max
+		char buffer[MAX_PATH];
+		GetCurrentDirectory(sizeof(buffer),buffer);
+		std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
+		boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
+		if( !boost::filesystem::exists(IsRepacked) )
+			{
+			SFileSetMaxFileCount(hMpq, 0x00080000);
+			}
 
 		SFileCloseArchive(hMpq);
 
