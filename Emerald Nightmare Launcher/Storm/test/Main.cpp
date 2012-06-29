@@ -1692,10 +1692,12 @@ static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 // any work at all into this thanks to you.
 //////////////////////////////////////////////////////////////////////////
 
-inline void VerifyMPQMD5(const char *szFileName)
+// SFileCloseArchive(hMpq);
+inline void VerifyMPQSignature(const char *szFileName)
 	{
 	HANDLE hMpq = NULL;
-	cout << "Opening file \"" << szFileName << "\"" << " for MD5 verification ..." << endl;
+	cout << endl;
+	cout << "Opening file \"" << szFileName << "\"" << " for signature verification ..." << endl;
 
 	if(SFileOpenArchive(szFileName, 0, 0, &hMpq))
 		{
@@ -1728,78 +1730,20 @@ inline void VerifyMPQMD5(const char *szFileName)
 			cin.get();
 			break;
 
-		case VERIFY_FILE_SECTOR_CRC_ERROR:
-			cout << "CRC error in file: \"" << szFileName << "\"" << endl;
-			cout << "Press any key to continue checking." << endl;
-			cin.get();
-			break;
-
-		case VERIFY_FILE_CHECKSUM_ERROR:
-			cout << "General file checksum error in file: \"" << szFileName << "\"" << endl;
-			cout << "Press any key to continue checking." << endl;
-			cin.get();
-			break;
-
-		case VERIFY_FILE_MD5_ERROR:
-			cout << "MD5 checksum error in file: \"" << szFileName << "\"" << endl;
-			cout << "Press any key to continue checking." << endl;
-			cin.get();
-			break;
-
 		default:
-			cout << "File passed internal MPQ checks." << endl;
+			cout << "File passed internal signature checks." << endl;
 			break;
 
 			}
 
-		SFileCloseArchive(hMpq);
+		SFileSetMaxFileCount(hMpq, 0x00080000);
 
 		delete [] szFileName;
+		cout << endl;
 		}
 	}
 
-// Vanilla (3.3.5A) MD5 Hashes
-// 	\\data\\
-// 	17d340dbd0ac02569d56cd0d96b2c8b7 *CommonMPQ-2.MPQ
-// 	325452ce19054ee76f29acb14da85884 *CommonMPQ.MPQ
-// 	c48af167bd3253f4762dd077112252af *expansion.MPQ
-// 	6c9f85caf621ee546dbfe8811315eb11 *lichking.MPQ
-// 	ab3a08a2993caec2db8c2c181f5f5065 *patch-2.MPQ
-// 	35733b76fcf0f95a0d8240d1f36cc5c3 *patch-3.MPQ
-// 	88e4545c0074f9d6c1eced7e035bdf6e *patch-4.MPQ
-// 	6e099a82d9d2bb75c037625aecaa34aa *patch.MPQ
-// 	\\data\\enUS\\
-// 	2aa2c2c6aa341977ec15ee75d13a2429 *backup-enUS.MPQ
-// 	0423b93701903133e282247b74822364 *base-enUS.MPQ
-// 	c9b1786849ade7f399c57da8c61fe352 *expansion-locale-enUS.MPQ
-// 	4077b16db9fe39f81fadbb2098ece280 *expansion-speech-enUS.MPQ
-// 	af01bc97ca87104c589d4d84684d3b4e *lichking-locale-enUS.MPQ
-// 	be2a6737bb323b700c3d750ca9b72709 *lichking-speech-enUS.MPQ
-// 	6a2d75fad8d317b0bedaa4f82f9340a5 *locale-enUS.MPQ
-// 	2352dfdbb85174d80b748a1111c56ee9 *patch-enUS-2.MPQ
-// 	5514621925fa8cd17e864fabcbf85b4a *patch-enUS-3.MPQ
-// 	273cc8a0137dbc6f978c74acaa809098 *patch-enUS.MPQ
-// 	965021d466779f68407965f4759c5cc6 *speech-enUS.MPQ
-// 
-// Packed or Repacked (3.3.5A) MD5 Hashes
-// 	(Using custom repacker tool, without textfile generation for signature, will not match current Repacker.exe output)
-// 	(HASHTABLES WERE SET TO MAXIMUM FOR THESE MD5s)
-// 	\\data\\
-// 	d7ae8eab68248604d640548f1a3b6527 *CommonMPQ.MPQ
-// 	5643de2e29ffedcadff3eb6b3febfe77 *CommonMPQ-2.MPQ
-// 	2b5f10292180ae8d9a378ab2051daa47 *expansion.MPQ
-// 	a270a7133f743ed6a0278b73463d3657 *lichking.MPQ
-// 	b63f05db29a2e659d92451f32934c6be *patch.MPQ
-// 	\\data\\enUS\\
-// 	7c9742cef1f777f9a92a0f911cf92a11 *expansion-locale-enUS.MPQ
-// 	aa506008faed178f2fa0abb9bcb86ccd *expansion-speech-enUS.MPQ
-// 	2d92f4a4f75347f9778e2b73a85087e4 *lichking-locale-enUS.MPQ
-// 	e7ec7cc3cad40a77fc2451872d381bdd *lichking-speech-enUS.MPQ
-// 	ba03e06f36572240e4e7e8185ff6a2cc *locale-enUS.MPQ
-// 	f6065bd0d0340edbd702023cc0d7f5f6 *patch-enUS.MPQ
-// 	443b1b20d16a0972e8c435e8d0bf45ea *speech-enUS.MPQ
-
-inline void VerifyMPQMD51()
+inline void VerifyMPQPipe()
 	{
 
 	char buffer[MAX_PATH];
@@ -1826,52 +1770,53 @@ inline void VerifyMPQMD51()
 	std:: string SpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\speech-enUS.MPQ";
 
 
-	boost::filesystem::path isrepacked(PatchEnUS3MPQ);
-	if( !boost::filesystem::exists(isrepacked) )
+	boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
+	if( !boost::filesystem::exists(IsRepacked) )
 		{
 		cout << "Detected files as being repacked." << endl;
 
-		VerifyMPQMD5(CommonMPQ.c_str());
-		VerifyMPQMD5(CommonMPQ2.c_str());
-		VerifyMPQMD5(ExpansionMPQ.c_str());
-		VerifyMPQMD5(LichkingMPQ.c_str());
-		VerifyMPQMD5(PatchMPQ.c_str());
+		// need to make these actually compare md5s of the archive or something
+		VerifyMPQSignature(CommonMPQ.c_str());
+		VerifyMPQSignature(CommonMPQ2.c_str());
+		VerifyMPQSignature(ExpansionMPQ.c_str());
+		VerifyMPQSignature(LichkingMPQ.c_str());
+		VerifyMPQSignature(PatchMPQ.c_str());
 
-		VerifyMPQMD5(ExpansionLocaleEnUSMPQ.c_str());
-		VerifyMPQMD5(ExpansionSpeechEnUSMPQ.c_str());
-		VerifyMPQMD5(LichkingLocaleEnUSMPQ.c_str());
-		VerifyMPQMD5(LichkingSpeechEnUSMPQ.c_str());
-		VerifyMPQMD5(LocaleEnUSMPQ.c_str());
-		VerifyMPQMD5(PatchEnUSMPQ.c_str());
-		VerifyMPQMD5(SpeechEnUSMPQ.c_str());
+		VerifyMPQSignature(ExpansionLocaleEnUSMPQ.c_str());
+		VerifyMPQSignature(ExpansionSpeechEnUSMPQ.c_str());
+		VerifyMPQSignature(LichkingLocaleEnUSMPQ.c_str());
+		VerifyMPQSignature(LichkingSpeechEnUSMPQ.c_str());
+		VerifyMPQSignature(LocaleEnUSMPQ.c_str());
+		VerifyMPQSignature(PatchEnUSMPQ.c_str());
+		VerifyMPQSignature(SpeechEnUSMPQ.c_str());
 		}
-	else if( boost::filesystem::exists(isrepacked) )
+	else if( boost::filesystem::exists(IsRepacked) )
 		{
 		cout << "Detected files as being original 3.3.5A layout." << endl;
 
-		VerifyMPQMD5(CommonMPQ2.c_str());
-		VerifyMPQMD5(CommonMPQ.c_str());
-		VerifyMPQMD5(ExpansionMPQ.c_str());
-		VerifyMPQMD5(LichkingMPQ.c_str());
-		VerifyMPQMD5(Patch2MPQ.c_str());
-		VerifyMPQMD5(Patch3MPQ.c_str());
-		VerifyMPQMD5(Patch4MPQ.c_str());
-		VerifyMPQMD5(PatchMPQ.c_str());
+		VerifyMPQSignature(CommonMPQ2.c_str());
+		VerifyMPQSignature(CommonMPQ.c_str());
+		VerifyMPQSignature(ExpansionMPQ.c_str());
+		VerifyMPQSignature(LichkingMPQ.c_str());
+		VerifyMPQSignature(Patch2MPQ.c_str());
+		VerifyMPQSignature(Patch3MPQ.c_str());
+		VerifyMPQSignature(Patch4MPQ.c_str());
+		VerifyMPQSignature(PatchMPQ.c_str());
 
-		VerifyMPQMD5(BackupEnUSMPQ.c_str());
-		VerifyMPQMD5(BaseEnUSMPQ.c_str());
-		VerifyMPQMD5(ExpansionLocaleEnUSMPQ.c_str());
-		VerifyMPQMD5(ExpansionSpeechEnUSMPQ.c_str());
-		VerifyMPQMD5(LichkingLocaleEnUSMPQ.c_str());
-		VerifyMPQMD5(LichkingSpeechEnUSMPQ.c_str());
-		VerifyMPQMD5(LocaleEnUSMPQ.c_str());
-		VerifyMPQMD5(PatchEnUS2MPQ.c_str());
-		VerifyMPQMD5(PatchEnUS3MPQ.c_str());
-		VerifyMPQMD5(PatchEnUSMPQ.c_str());
-		VerifyMPQMD5(SpeechEnUSMPQ.c_str());
+		VerifyMPQSignature(BackupEnUSMPQ.c_str());
+		VerifyMPQSignature(BaseEnUSMPQ.c_str());
+		VerifyMPQSignature(ExpansionLocaleEnUSMPQ.c_str());
+		VerifyMPQSignature(ExpansionSpeechEnUSMPQ.c_str());
+		VerifyMPQSignature(LichkingLocaleEnUSMPQ.c_str());
+		VerifyMPQSignature(LichkingSpeechEnUSMPQ.c_str());
+		VerifyMPQSignature(LocaleEnUSMPQ.c_str());
+		VerifyMPQSignature(PatchEnUS2MPQ.c_str());
+		VerifyMPQSignature(PatchEnUS3MPQ.c_str());
+		VerifyMPQSignature(PatchEnUSMPQ.c_str());
+		VerifyMPQSignature(SpeechEnUSMPQ.c_str());
 		}
 	cout << endl;
-	cout << "MD5 check complete. Press any key to exit." << endl;
+	cout << "Signature check complete. Press any key to exit." << endl;
 	cin.get();
 	}
 
@@ -1918,7 +1863,7 @@ int main(int argc, char *argv[])
 
 #if defined(_MSC_VER) && defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif  // defined(_MSC_VER) && defined(_DEBUG)
+#endif
 
 	int i;
 	if (argc == 1)
@@ -1932,7 +1877,7 @@ int main(int argc, char *argv[])
 		for (i = 1; i < argc; i++)
 			if (strcmp (argv[i], "-RunCHECKARCHIVES") == 0)
 				{
-				VerifyMPQMD51();
+				VerifyMPQPipe();
 				}
 			if (strcmp (argv[i], "-RunREPACKPATCHESINTOPARENTMPQ") == 0)
 				{
@@ -1953,143 +1898,12 @@ int main(int argc, char *argv[])
 		}
 	// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable
 
-	/* bool WINAPI SFileSetMaxFileCount(
-	HANDLE hMpq,                    // Handle to an open archive
-	DWORD dwMaxFileCount            // New limit of file count in the MPQ
-	);
-	// max hashtable is 524288 (0x00080000)
-	**/
 	// -RunDELETEARCHIVEINTERFACEFILES // DELETE ARCHIVED INTERFACE LUA/XML/TOC/SIG
 
 	cin.get();
 
-	delete [] argv; // put this at the end of the command line argument check
+	delete [] argv; 
 
-
-
-
-
-
-
-
-	//  FileStream_OpenEncrypted(_T("e:\\Multimedia\\MPQs\\2010 - Starcraft II\\Installer UI 2 deDE.MPQE"));
-
-	// Mix the random number generator
-	//  srand(GetTickCount());
-
-	// Test structure sizes
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestStructureSizes();
-
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestOpenLocalFile("C:\\autoexec.bat");
-
-	// Test reading partial file
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestPartFileRead(MAKE_PATH("2009 - PartialMPQs/patch.MPQ.part"));
-
-	// Test LZMA compression method against the code ripped from Starcraft II
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = CompareLzmaCompressions(MPQ_SECTOR_SIZE);
-
-	// Test compression methods
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestSectorCompress(MPQ_SECTOR_SIZE);
-
-	// Test the archive open and close
-	// if(nError == ERROR_SUCCESS)
-	//    nError = TestArchiveOpenAndClose(_T("e:\\Ladik\\Incoming\\Diablo III\\Diablo-III-8370-enGB-Installer\\Installer Tome 1.MPQE"));
-	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2011 - WoW BETA/wow-update-13202.MPQ"));
-	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2002 - Warcraft III/ProtectedMap_HashTable_FakeValid.w3x"));
-	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2010 - Starcraft II/Installer Tome 1 enGB.MPQE"));
-	//      nError = TestArchiveOpenAndClose(MAKE_PATH("1997 - Diablo I/DIABDAT_orig.MPQ"));
-	//      nError = TestArchiveOpenAndClose(MAKE_PATH("2004 - World of Warcraft/SoundCache-enUS.MPQ"));
-	//      nError = TestArchiveOpenAndClose(MAKE_PATH("smpq.mpq "));
-
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestFindFiles(MAKE_PATH("2002 - Warcraft III/HumanEd.mpq"));
-
-	// Create a big MPQ archive
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestCreateArchive_PaliRoharBug(MAKE_PATH("Test.mpq"));
-	//      nError = TestCreateArchive(MAKE_PATH("Test.mpq"));
-	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName1);
-	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName2);
-	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName3);
-	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName4);
-	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName5);
-	//      nError = TestCreateArchive((const TCHAR*)szUnicodeName6);
-
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestAddFilesToMpq(MAKE_PATH("wow-update-13202.MPQ"),
-	//                                 "c:\\Tools32\\Arj32.exe",
-	//                                 "c:\\Tools32\\autoruns.chm",
-	//                                 "c:\\Tools32\\CPUEater.exe",
-	//                                 "c:\\Tools32\\dumpbin.exe",
-	//                                 "c:\\Tools32\\editbin.exe",
-	//                                 "c:\\Tools32\\fsg.ini",
-	//                                 "c:\\Tools32\\hiew8.ini",
-	//                                 "c:\\Tools32\\ida.bat",
-	//                                 "c:\\Tools32\\mp3.ini",
-	//                                 NULL);
-
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestCreateArchiveFromMemory(MAKE_PATH("Test-leak.mpq"));
-
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestFileReadAndWrite(MAKE_PATH("2002 - Warcraft III/(10)DustwallowKeys.w3m"), "war3map.j");
-
-	// Verify the archive signature
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestSignatureVerify(MAKE_PATH("1998 - Starcraft/BW-1152.exe"));
-	//      nError = TestSignatureVerify(MAKE_PATH("2002 - Warcraft III/(10)DustwallowKeys.w3m"));
-	//      nError = TestSignatureVerify(MAKE_PATH("2002 - Warcraft III/War3TFT_121b_English.exe"));
-	//      nError = TestSignatureVerify(MAKE_PATH("2004 - World of Warcraft/WoW-2.3.3.7799-to-2.4.0.8089-enUS-patch.exe"));
-	//      nError = TestSignatureVerify(MAKE_PATH("2004 - World of Warcraft/standalone.MPQ"));
-
-	// Compact the archive        
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestMpqCompacting(MAKE_PATH("wow-update-base-14333.MPQ"));
-
-	// Create copy of the archive, appending some bytes before the MPQ header
-	//  if(nError == ERROR_SUCCESS)
-	//      nError = TestCreateArchiveCopy(MAKE_PATH("PartialMPQs/interface.MPQ.part"), MAKE_PATH("PartialMPQs/interface-copy.MPQ.part"), NULL);
-	/*
-	if(nError == ERROR_SUCCESS)
-	{
-	nError = TestCompareTwoArchives(MAKE_PATH("2011 - WoW-Cataclysm/wow-update-13189.MPQ"),
-	MAKE_PATH("wow-update-13189.MPQ"),
-	NULL,
-	0x1001);
-	}
-	*/
-
-	//  if(nError == ERROR_SUCCESS)
-	// {
-	//      nError = TestOpenPatchedArchive(MAKE_PATH("2004 - Wow 3.x/lichking.MPQ"),
-	//                                      MAKE_PATH("2011 - WoW 4.x/wow-update-13287.MPQ"),
-	//                                      NULL);
-	/*
-	nError = TestOpenPatchedArchive(MAKE_PATH("2011 - WoW 4.x/locale-enGB.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-13164.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-13205.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-13287.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-13329.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-13596.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-13623.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-13914.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14007.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14333.MPQ"),
-	MAKE_PATH("2011 - WoW 4.x/wow-update-enGB-14480.MPQ"),
-	NULL);
-	*/
-	//   }
-
-	// Remove the working directory
 	clreol();
-	if(nError != ERROR_SUCCESS)
-		printf("One or more errors occurred when executing StormLib\n");
-
-	printf("Work complete.\n");
 	return nError;
 	}
