@@ -1692,7 +1692,7 @@ static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 // any work at all into this thanks to you.
 //////////////////////////////////////////////////////////////////////////
 
-// SFileCloseArchive(hMpq);
+// SFileSetMaxFileCount(hMpq, 0x00080000);
 inline void VerifyMPQSignature(const char *szFileName)
 	{
 	HANDLE hMpq = NULL;
@@ -1736,7 +1736,8 @@ inline void VerifyMPQSignature(const char *szFileName)
 
 			}
 
-		SFileSetMaxFileCount(hMpq, 0x00080000);
+		
+		SFileCloseArchive(hMpq);
 
 		delete [] szFileName;
 		cout << endl;
