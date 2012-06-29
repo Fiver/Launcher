@@ -19,6 +19,7 @@
 
 #include "../src/StormLib.h"
 #include "../src/StormCommon.h"
+#include "../src/MD5_File.h"
 using namespace std;
 
 #ifdef _MSC_VER
@@ -1738,6 +1739,9 @@ inline void VerifyMPQSignature(const char *szFileName)
 
 		
 		SFileCloseArchive(hMpq);
+
+		MD5 md5 ;
+	  md5.digestFile(szFileName);
 
 		delete [] szFileName;
 		cout << endl;

@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="src\MD5_File.h" />
     <ClInclude Include="src\StormCommon.h" />
     <ClInclude Include="src\StormLib.h" />
     <ClInclude Include="src\StormPort.h" />

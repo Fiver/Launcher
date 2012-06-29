@@ -128,6 +128,9 @@
     <ClInclude Include="src\zlib\zutil.h">
       <Filter>Source Files\zlib</Filter>
     </ClInclude>
+    <ClInclude Include="src\MD5_File.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FileStream.cpp">
