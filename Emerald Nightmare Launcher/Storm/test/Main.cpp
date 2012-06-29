@@ -1737,11 +1737,12 @@ inline void VerifyMPQSignature(const char *szFileName)
 
 			}
 
-		
+
 		SFileCloseArchive(hMpq);
 
 		MD5 md5 ;
-	  md5.digestFile(szFileName);
+		cout << "Calculating MD5 of file, this may take time." << endl;
+		cout << md5.digestFile(szFileName) << endl;
 
 		delete [] szFileName;
 		cout << endl;
@@ -1821,7 +1822,7 @@ inline void VerifyMPQPipe()
 		VerifyMPQSignature(SpeechEnUSMPQ.c_str());
 		}
 	cout << endl;
-	cout << "Signature check complete. Press any key to exit." << endl;
+	cout << "Signature/MD5 check complete. Press any key to exit." << endl;
 	cin.get();
 	}
 
