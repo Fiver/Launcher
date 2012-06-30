@@ -146,7 +146,7 @@ static void PrintfTA(const TCHAR * szFormat, const TCHAR * szStrT, const char * 
 	_tprintf(szFormat, szStrT, szBuffer, lcLocale);
 	}
 
-static void MergeLocalPath(TCHAR * szBuffer, const TCHAR * szPart1, const char * szPart2)
+static void MergeLocalPath(TCHAR * szBuffer, const char * szPart1, const char * szPart2)
 	{
 	// Copy directory name
 	while(*szPart1 != 0)
@@ -1694,155 +1694,118 @@ static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 //////////////////////////////////////////////////////////////////////////
 // A very big thanks to Ladik for this great library, I hardly had to put
 // any work at all into this thanks to you.
-/////////////////////////////////////////////////////////////////////////*/
+/////////////////////////////////////////////////////////////////////////
 
-	//Repack operation blueprints
-	//Order of patches signifies master patch and order to roll
-	//data//
+//Repack operation blueprints
+//Order of patches signifies master patch and order to roll
+//data//
 
-	// ab3a08a2993caec2db8c2c181f5f5065 *patch-2.MPQ 5
-	// 35733b76fcf0f95a0d8240d1f36cc5c3 *patch-3.MPQ 5
-	// 88e4545c0074f9d6c1eced7e035bdf6e *patch-4.MPQ 5
-	// 6e099a82d9d2bb75c037625aecaa34aa *patch.MPQ 5
-	//locale//
-	// 2352dfdbb85174d80b748a1111c56ee9 *patch-enUS-2.MPQ 6
-	// 5514621925fa8cd17e864fabcbf85b4a *patch-enUS-3.MPQ 6
-	// 273cc8a0137dbc6f978c74acaa809098 *patch-enUS.MPQ 6
+// ab3a08a2993caec2db8c2c181f5f5065 *patch-2.MPQ 5
+// 35733b76fcf0f95a0d8240d1f36cc5c3 *patch-3.MPQ 5
+// 6e099a82d9d2bb75c037625aecaa34aa *patch.MPQ 5
+//locale//
+// 2352dfdbb85174d80b748a1111c56ee9 *patch-enUS-2.MPQ 6
+// 5514621925fa8cd17e864fabcbf85b4a *patch-enUS-3.MPQ 6
+// 273cc8a0137dbc6f978c74acaa809098 *patch-enUS.MPQ 6
+*/
 
-inline void RepackArchives()
+static int CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * szMpqCopyName, const char * szListFile)
 	{
-	cout << "test" << endl;
-	// 	char buffer[MAX_PATH];
-	// 	GetCurrentDirectory(sizeof(buffer),buffer);
-	// 
-	// 	std:: string PatchMPQ = std:: string(buffer) + "\\Data\\patch.MPQ";
-	// 	std:: string Patch2MPQ = std:: string(buffer) + "\\Data\\patch-2.MPQ";
-	// 	std:: string Patch3MPQ = std:: string(buffer) + "\\Data\\patch-3.MPQ";
-	// 	std:: string Patch4MPQ = std:: string(buffer) + "\\Data\\patch-4.MPQ";
-	// 	std:: string BackupEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\backup-enUS.MPQ";
-	// 	std:: string BaseEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\base-enUS.MPQ";
-	// 
-	// 	std:: string PatchEnUS2MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-2.MPQ";
-	// 	std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
-	// 	std:: string PatchEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS.MPQ";
-	// 
-	// 
-	// 	boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
-	// 	if( !boost::filesystem::exists(IsRepacked) )
-	// 		{
-	// 		cout << "Detected files as being repacked." << endl;
-	// 		cout << "Nothing to do." << endl;
-	// 		cin.get();
-	// 		}
-	// 	else if( boost::filesystem::exists(IsRepacked) )
-	// 		{
-	// 		TestCreateArchiveCopy(Patch2MPQ.c_str(), PatchMPQ.c_str(), NULL);
-	// 		TestCreateArchiveCopy(Patch3MPQ.c_str(), PatchMPQ.c_str(), NULL);
-	// 		TestCreateArchiveCopy(Patch4MPQ.c_str(), PatchMPQ.c_str(), NULL);
-	// 		TestCreateArchiveCopy(PatchEnUS2MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
-	// 		TestCreateArchiveCopy(PatchEnUS3MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
-	// 		remove(BackupEnUSMPQ.c_str());
-	// 		remove(BaseEnUSMPQ.c_str());
-	// 		}
-	// 	cout << endl;
-	// 	cout << "Repack complete, running MD5 check on repacked archives." << endl;
-	// 	VerifyMPQSignature(PatchMPQ.c_str());
-	// 	VerifyMPQSignature(PatchEnUSMPQ.c_str());
-	// 	cout << "If archives successfully verified to MD5s the operation was successful, press any key to exit" << endl;
-	// 	cin.get();
-	}
 
-// static int CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * szMpqCopyName, const char * szListFile)
-// 		{
-// 		TCHAR  szLocalFile[MAX_PATH];
-// 		HANDLE hMpq1 = NULL;                // Handle of existing archive
-// 		HANDLE hMpq2 = NULL;                // Handle of archive to copy to
-// 		int nError = ERROR_SUCCESS;
-// 
-// 		// If no listfile or an empty one, use NULL
-// 		if(szListFile == NULL || *szListFile == 0)
-// 			szListFile = NULL;
-// 
-// 		// Open the existing MPQ archive
-// 		if(nError == ERROR_SUCCESS)
-// 			{
-// 			_tprintf(_T("Opening %s ...\n"), szMpqName);
-// 			if(!SFileOpenArchive(szMpqName, 0, 0, &hMpq1))
-// 				nError = GetLastError();
-// 			}
-// 
-// 		// Open the archive to copy to
-// 		if(nError == ERROR_SUCCESS)
-// 			{
-// 			_tprintf(_T("Opening %s ...\n"), szMpqCopyName);
-// 			if(!SFileOpenArchive(szMpqCopyName, 0, 0, &hMpq2))
-// 				nError = GetLastError();
-// 			}
-// 
-// 		SFileSetMaxFileCount(hMpq2, 0x00080000);
-// 
-// 		// Copy all files from one archive to another
-// 		if(nError == ERROR_SUCCESS)
-// 			{
-// 			SFILE_FIND_DATA sf;
-// 			HANDLE hFind = SFileFindFirstFile(hMpq1, "*", &sf, szListFile);
-// 			bool bResult = true;
-// 
-// 			_tprintf(_T("Copying files ...\n"));
-// 
-// 			if(hFind != NULL)
-// 				{
-// 				while(bResult)
-// 					{
-// 					if(strcmp(sf.cFileName, LISTFILE_NAME) && strcmp(sf.cFileName, ATTRIBUTES_NAME))
-// 						{
-// 						SFileSetLocale(sf.lcLocale);
-// 
-// 						// Create the local file name
-// 						MergeLocalPath(szLocalFile, szWorkDir, sf.szPlainName);
-// 						if(SFileExtractFile(hMpq1, sf.cFileName, szLocalFile))
-// 							{
-// 							printf("Extracting %s ... OK\n", sf.cFileName);
-// 							if(!SFileAddFile(hMpq2, szLocalFile, sf.cFileName, sf.dwFileFlags))
-// 								{
-// 								nError = GetLastError();
-// 								printf("Adding %s ... Failed\n\n", sf.cFileName);
-// 								_tremove(szLocalFile);
-// 								break;
-// 								}
-// 							else
-// 								{
-// 								printf("Adding %s ... OK\n", sf.cFileName);
-// 								}
-// 							}
-// 						else
-// 							{
-// 							printf("Extracting %s ... Failed\n", sf.cFileName);
-// 							}
-// 
-// 						// Delete the added file
-// 						_tremove(szLocalFile);
-// 						}
-// 
-// 					// Find the next file
-// 					bResult = SFileFindNextFile(hFind, &sf);
-// 					}
-// 
-// 				// Close the search handle
-// 				SFileFindClose(hFind);
-// 				printf("\n");
-// 				}
-// 			}
-// 
-// 		// Close both archives
-// 		if(hMpq2 != NULL)
-// 			SFileCloseArchive(hMpq2);
-// 		if(hMpq1 != NULL)
-// 			SFileCloseArchive(hMpq1);
-// 
-// 		remove(szMpqName);
-// 		return nError;
-// 		}
+	char buffer[MAX_PATH];
+	GetCurrentDirectory(sizeof(buffer),buffer);
+
+	std:: string WorkDirForExtract = std:: string(buffer) + "\\Work";
+
+	TCHAR  szLocalFile[MAX_PATH];
+	HANDLE hMpq1 = NULL;                // Handle of existing archive
+	HANDLE hMpq2 = NULL;                // Handle of archive to copy to
+	int nError = ERROR_SUCCESS;
+
+	// If no listfile or an empty one, use NULL
+	if(szListFile == NULL || *szListFile == 0)
+		szListFile = NULL;
+
+	// Open the existing MPQ archive
+	if(nError == ERROR_SUCCESS)
+		{
+		_tprintf(_T("Opening %s ...\n"), szMpqName);
+		if(!SFileOpenArchive(szMpqName, 0, 0, &hMpq1))
+			nError = GetLastError();
+		}
+
+	// Open the archive to copy to
+	if(nError == ERROR_SUCCESS)
+		{
+		_tprintf(_T("Opening %s ...\n"), szMpqCopyName);
+		if(!SFileOpenArchive(szMpqCopyName, 0, 0, &hMpq2))
+			nError = GetLastError();
+		}
+
+	SFileSetMaxFileCount(hMpq2, 0x00080000);
+
+	// Copy all files from one archive to another
+	if(nError == ERROR_SUCCESS)
+		{
+		SFILE_FIND_DATA sf;
+		HANDLE hFind = SFileFindFirstFile(hMpq1, "*", &sf, szListFile);
+		bool bResult = true;
+
+		_tprintf(_T("Copying files ...\n"));
+
+		if(hFind != NULL)
+			{
+			while(bResult)
+				{
+				if(strcmp(sf.cFileName, LISTFILE_NAME) && strcmp(sf.cFileName, ATTRIBUTES_NAME))
+					{
+					SFileSetLocale(sf.lcLocale);
+
+					// Create the local file name
+					MergeLocalPath(szLocalFile, WorkDirForExtract.c_str(), sf.szPlainName);
+					if(SFileExtractFile(hMpq1, sf.cFileName, szLocalFile))
+						{
+						printf("Extracting %s ... OK\n", sf.cFileName);
+						if(!SFileAddFile(hMpq2, szLocalFile, sf.cFileName, sf.dwFileFlags))
+							{
+							nError = GetLastError();
+							printf("Adding %s ... Failed\n\n", sf.cFileName);
+							_tremove(szLocalFile);
+							break;
+							}
+						else
+							{
+							printf("Adding %s ... OK\n", sf.cFileName);
+							}
+						}
+					else
+						{
+						printf("Extracting %s ... Failed\n", sf.cFileName);
+						}
+
+					// Delete the added file
+					_tremove(szLocalFile);
+					}
+
+				// Find the next file
+				bResult = SFileFindNextFile(hFind, &sf);
+				}
+
+			// Close the search handle
+			SFileFindClose(hFind);
+			printf("\n");
+			}
+		}
+
+	// Close both archives
+	if(hMpq2 != NULL)
+		SFileCloseArchive(hMpq2);
+	if(hMpq1 != NULL)
+		SFileCloseArchive(hMpq1);
+
+	remove(szMpqName);
+	return nError;
+	}
 
 inline void VerifyMPQSignature(const char *szFileName)
 	{
@@ -2049,6 +2012,46 @@ inline void DeleteArchiveInterfaceFiles()
 		}
 	}
 
+inline void RepackArchives()
+	{
+	char buffer[MAX_PATH];
+	GetCurrentDirectory(sizeof(buffer),buffer);
+
+	std:: string PatchMPQ = std:: string(buffer) + "\\Data\\patch.MPQ";
+	std:: string Patch2MPQ = std:: string(buffer) + "\\Data\\patch-2.MPQ";
+	std:: string Patch3MPQ = std:: string(buffer) + "\\Data\\patch-3.MPQ";
+	std:: string BackupEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\backup-enUS.MPQ";
+	std:: string BaseEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\base-enUS.MPQ";
+
+	std:: string PatchEnUS2MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-2.MPQ";
+	std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
+	std:: string PatchEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS.MPQ";
+
+
+	boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
+	if( !boost::filesystem::exists(IsRepacked) )
+		{
+		cout << "Detected files as being repacked." << endl;
+		cout << "Nothing to do." << endl;
+		cin.get();
+		}
+	else if( boost::filesystem::exists(IsRepacked) )
+		{
+		CopyArchiveToArchive(Patch2MPQ.c_str(), PatchMPQ.c_str(), NULL);
+		CopyArchiveToArchive(Patch3MPQ.c_str(), PatchMPQ.c_str(), NULL);
+		CopyArchiveToArchive(PatchEnUS2MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
+		CopyArchiveToArchive(PatchEnUS3MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
+		remove(BackupEnUSMPQ.c_str());
+		remove(BaseEnUSMPQ.c_str());
+		}
+	cout << endl;
+	cout << "Repack complete, running MD5 check on repacked archives." << endl;
+	VerifyMPQSignature(PatchMPQ.c_str());
+	VerifyMPQSignature(PatchEnUSMPQ.c_str());
+	cout << "If archives successfully verified to MD5s the operation was successful, press any key to exit" << endl;
+	cin.get();
+	}
+
 
 int main(int argc, char *argv[])
 	{
@@ -2094,14 +2097,14 @@ int main(int argc, char *argv[])
 				{
 				DeleteArchiveInterfaceFiles();
 				}
-	}
-	// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable
+			}
+		// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable
 
-	// -RunDELETEARCHIVEINTERFACEFILES // DELETE ARCHIVED INTERFACE LUA/XML/TOC/SIG
+		// -RunDELETEARCHIVEINTERFACEFILES // DELETE ARCHIVED INTERFACE LUA/XML/TOC/SIG
 
-	cin.get();
+		cin.get();
 
-	clreol();
-	return nError;
-	}
+		clreol();
+		return nError;
+		}
 	}
