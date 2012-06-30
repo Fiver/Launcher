@@ -24,6 +24,7 @@ using namespace std;
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4505)              // 'XXX' : unreferenced local function has been removed
+#pragma warning(disable: 4706)              // assignment within conditional expression
 #endif
 
 //------------------------------------------------------------------------------
@@ -1790,7 +1791,7 @@ inline void VerifyMPQSignature(const char *szFileName)
 				{
 				cout << "Archive integrity is good. MD5 matched."<< endl;
 				ArchiveStatus=true;
-				// stop iterating
+				// stop iterating md5s
 				n = countof(EstablishedMD5s);
 				}
 			}
@@ -1893,19 +1894,6 @@ inline void DeleteArchiveInterfaceFiles()
 
 	}
 
-inline void ExtractAddons()
-	{
-
-	cout << "StormProxy is currently extracting the addons zip, don't close this window." << endl;
-	}
-
-inline void ExtractClient()
-	{
-
-	cout << "StormProxy is currently extracting the client zip, don't close this window." << endl;
-	cout << "This may take a long while, be patient" << endl;
-	}
-
 //-----------------------------------------------------------------------------
 // Main
 // 
@@ -1949,14 +1937,6 @@ int main(int argc, char *argv[])
 			if (strcmp( argv[i], "-RunDELETEARCHIVEINTERFACEFILES") == 0)
 				{
 				DeleteArchiveInterfaceFiles();
-				}
-			if (strcmp( argv[i], "-ExtractAddons") == 0)
-				{
-				ExtractAddons();
-				}
-			if (strcmp( argv[i], "-ExtractClient") == 0)
-				{
-				ExtractClient();
 				}
 		}
 	// -RunREPACKPATCHESINTOPARENTMPQ // Repack patches into parent (base) MPQ files, overwrite data, recompile patches, REMEMBER: set hashtable

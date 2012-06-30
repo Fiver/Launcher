@@ -64,6 +64,9 @@
     <Filter Include="Source Files\zlib">
       <UniqueIdentifier>{a4e674aa-e617-4411-8087-b9cb068c7bca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MD5">
+      <UniqueIdentifier>{16cea283-e9d7-4a72-abdb-6a303bdf9f48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\StormProxy\app.ico">
@@ -129,7 +132,7 @@
       <Filter>Source Files\zlib</Filter>
     </ClInclude>
     <ClInclude Include="src\MD5_File.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\MD5</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
