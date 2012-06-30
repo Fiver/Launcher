@@ -419,6 +419,8 @@ namespace EmeraldNightmareLauncher {
 		private: System::Windows::Forms::LinkLabel^  LauncherAlertBox;
 		private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
 		private: System::Windows::Forms::CheckBox^  DeleteCacheCheckBox;
+		private: System::Windows::Forms::ToolStripMenuItem^  addonsToolStripMenuItem;
+		private: System::Windows::Forms::ToolStripMenuItem^  downloadReccomendedAddonsToolStripMenuItem;
 
 
 
@@ -455,6 +457,8 @@ namespace EmeraldNightmareLauncher {
 				this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->LauncherAlertBox = (gcnew System::Windows::Forms::LinkLabel());
 				this->DeleteCacheCheckBox = (gcnew System::Windows::Forms::CheckBox());
+				this->addonsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+				this->downloadReccomendedAddonsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->menuStrip1->SuspendLayout();
 				this->SuspendLayout();
 				// 
@@ -499,9 +503,9 @@ namespace EmeraldNightmareLauncher {
 				// 
 				this->menuStrip1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(44)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(67)));
-				this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {this->test1ToolStripMenuItem, 
-					this->cleanupToolStripMenuItem, this->clientSystemChecksToolStripMenuItem, this->developerToolStripMenuItem, this->gMToolStripMenuItem, 
-					this->aboutToolStripMenuItem});
+				this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {this->test1ToolStripMenuItem, 
+					this->cleanupToolStripMenuItem, this->clientSystemChecksToolStripMenuItem, this->developerToolStripMenuItem, this->addonsToolStripMenuItem, 
+					this->gMToolStripMenuItem, this->aboutToolStripMenuItem});
 				this->menuStrip1->Location = System::Drawing::Point(0, 0);
 				this->menuStrip1->Name = L"menuStrip1";
 				this->menuStrip1->RenderMode = System::Windows::Forms::ToolStripRenderMode::Professional;
@@ -641,8 +645,8 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
 				this->downloadAddOnToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->downloadAddOnToolStripMenuItem->Name = L"downloadAddOnToolStripMenuItem";
-				this->downloadAddOnToolStripMenuItem->Size = System::Drawing::Size(169, 22);
-				this->downloadAddOnToolStripMenuItem->Text = L"Download AddOn";
+				this->downloadAddOnToolStripMenuItem->Size = System::Drawing::Size(252, 22);
+				this->downloadAddOnToolStripMenuItem->Text = L"Download AddOn (for trintiycore)";
 				this->downloadAddOnToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::downloadAddOnToolStripMenuItem_Click);
 				// 
 				// aboutToolStripMenuItem
@@ -684,6 +688,24 @@ namespace EmeraldNightmareLauncher {
 				this->DeleteCacheCheckBox->Text = L"Delete Cache";
 				this->DeleteCacheCheckBox->UseVisualStyleBackColor = false;
 				this->DeleteCacheCheckBox->CheckedChanged += gcnew System::EventHandler(this, &Main_Window::DeleteCacheCheckBox_CheckedChanged);
+				// 
+				// addonsToolStripMenuItem
+				// 
+				this->addonsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->downloadReccomendedAddonsToolStripMenuItem});
+				this->addonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
+				this->addonsToolStripMenuItem->Name = L"addonsToolStripMenuItem";
+				this->addonsToolStripMenuItem->Size = System::Drawing::Size(60, 20);
+				this->addonsToolStripMenuItem->Text = L"Addons";
+				// 
+				// downloadReccomendedAddonsToolStripMenuItem
+				// 
+				this->downloadReccomendedAddonsToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), 
+					static_cast<System::Int32>(static_cast<System::Byte>(44)), static_cast<System::Int32>(static_cast<System::Byte>(67)));
+				this->downloadReccomendedAddonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
+				this->downloadReccomendedAddonsToolStripMenuItem->Name = L"downloadReccomendedAddonsToolStripMenuItem";
+				this->downloadReccomendedAddonsToolStripMenuItem->Size = System::Drawing::Size(246, 22);
+				this->downloadReccomendedAddonsToolStripMenuItem->Text = L"Download reccomended addons";
+				this->downloadReccomendedAddonsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::downloadReccomendedAddonsToolStripMenuItem_Click);
 				// 
 				// Main_Window
 				// 
@@ -858,7 +880,7 @@ namespace EmeraldNightmareLauncher {
 #ifdef PROJECT_NAME
 #ifdef CR_RIGHTS
 #ifdef LICENSE
-					LauncherAlertBox->Text = "Launcher modified by "DEVELOPER_NAME" for the "PROJECT_NAME" project. "CR_RIGHTS" "PROJECT_NAME" by "DEVELOPER_NAME" is licensed under a "LICENSE" License.";
+					 LauncherAlertBox->Text = "Launcher modified by "DEVELOPER_NAME" for the "PROJECT_NAME" project. "CR_RIGHTS" "PROJECT_NAME" by "DEVELOPER_NAME" is licensed under a "LICENSE" License.";
 #endif
 #endif
 #endif
@@ -911,10 +933,14 @@ namespace EmeraldNightmareLauncher {
 						 }
 
 					 if (DebugOn && DeleteCache)
-					 {
-					 LauncherAlertBox->Text->Empty;
-					LauncherAlertBox->Text = "Cache Deleted... Debugging on.";
+						 {
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "Cache Deleted... Debugging on.";
 						 }
+					 }
+		private: System::Void downloadReccomendedAddonsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+					 ShellExecute(NULL, "open", "https://github.com/Marforius/Addons/zipball/master", NULL, NULL, SW_SHOWNORMAL);
+					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		};
 	}
