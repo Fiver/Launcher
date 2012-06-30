@@ -47,8 +47,6 @@ bool main(int argc, char *argv[])
 		}
 	myfile.close();
 
-	delete myfile;
-
 	cout << "\n\n" << endl;
 	cout << "World of Warcraft has crashed" << endl;
 	cout << "\n\n" << endl;
@@ -56,7 +54,6 @@ bool main(int argc, char *argv[])
 	cout << "\n\n" << endl;
 	cout << "This program does nothing but print these lines, as the default\nbugreporter(WowError.exe) carries a risk of reporting private server information to blizzard entertainment." << endl;
 	cout << "\n\n" << endl;
-	delete [] argv;
 	cin.get();
 	return(0);
 	}

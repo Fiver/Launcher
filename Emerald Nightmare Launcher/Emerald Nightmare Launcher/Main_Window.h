@@ -137,7 +137,6 @@ inline void CreateProcessLauncher(LPSTR ProcessName)
 		NULL,            // Use parent's starting directory.
 		&si,              // Pointer to STARTUPINFO structure.
 		&pi );
-	delete ProcessName;
 	}
 
 inline void DeleteDirectoryLauncher(LPCTSTR lpszDir)
@@ -160,10 +159,7 @@ inline void DeleteDirectoryLauncher(LPCTSTR lpszDir)
 	fileop.hNameMappings         = NULL;
 
 	SHFileOperation(&fileop);
-	delete &fileop;
 	delete [] pszFrom;
-	delete lpszDir;
-
 	}
 
 inline void DeleteNonEssentialFiles(void)
@@ -327,8 +323,6 @@ inline void TurnOnDebugging(void)
 
 
 	myfile.close();
-
-	delete myfile;
 	}
 
 
@@ -351,8 +345,6 @@ inline void SetCompatibleCVARs(void)
 #endif
 
 	myfile.close();
-
-	delete myfile;
 	}
 
 namespace EmeraldNightmareLauncher {
@@ -758,7 +750,6 @@ namespace EmeraldNightmareLauncher {
 					 infile.open ("LauncherVersion.temp");
 					 getline(infile,VerofRemoteBeforeConvert);
 					 infile.close();
-					 delete infile;
 					 remove( "LauncherVersion.temp" );
 
 					 int VersionOfRemoteIni = atoi( VerofRemoteBeforeConvert.c_str() );
