@@ -19,6 +19,5 @@
 #pragma comment(lib, "Shell32.lib")
 
 #include "Main_Window.h"
-#include "Server_Changer_Window.h"
 
 // TODO: reference additional headers your program requires here

@@ -146,9 +146,6 @@
     <ClInclude Include="Main_Window.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Server_Changer_Window.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,10 +154,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Main_Window.resX">
       <DependentUpon>Main_Window.h</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Server_Changer_Window.resx">
-      <DependentUpon>Server_Changer_Window.h</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

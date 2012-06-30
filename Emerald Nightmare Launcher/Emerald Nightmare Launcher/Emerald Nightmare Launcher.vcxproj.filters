@@ -35,9 +35,6 @@
     <ClInclude Include="Main_Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Server_Changer_Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
@@ -46,9 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Main_Window.resX">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Download_Window.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="Server_Changer_Window.resx">

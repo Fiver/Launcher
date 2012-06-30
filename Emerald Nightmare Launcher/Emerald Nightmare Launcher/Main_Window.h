@@ -118,8 +118,6 @@ using namespace std;
 
 #pragma warning(disable:4996)
 
-#include "Server_Changer_Window.h"
-
 inline void CreateProcessLauncher(LPSTR ProcessName)
 	{
 	STARTUPINFO si;
@@ -398,7 +396,7 @@ namespace EmeraldNightmareLauncher {
 
 
 		private: System::Windows::Forms::ToolStripMenuItem^  cleanupToolStripMenuItem;
-		private: System::Windows::Forms::ToolStripMenuItem^  consolidatePatchesToolStripMenuItem;
+
 		private: System::Windows::Forms::ToolStripMenuItem^  deleteSettingsToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  deleteNonessentialFilesToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  clientSystemChecksToolStripMenuItem;
@@ -408,16 +406,16 @@ namespace EmeraldNightmareLauncher {
 
 
 
-		private: System::Windows::Forms::ToolStripMenuItem^  marforiusClientToolStripMenuItem;
 
-		private: System::Windows::Forms::ToolStripMenuItem^  editSavedServersToolStripMenuItem;
+
+
 
 		private: System::Windows::Forms::ToolStripMenuItem^  developerToolStripMenuItem;
 
 		private: System::Windows::Forms::ToolStripMenuItem^  gMToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  toggleDebugToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  downloadAddOnToolStripMenuItem;
-		private: System::Windows::Forms::ToolStripMenuItem^  deleteARCHIVEFrameGlueAddOnsToolStripMenuItem;
+
 		private: System::Windows::Forms::LinkLabel^  LauncherAlertBox;
 		private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
 		private: System::Windows::Forms::CheckBox^  DeleteCacheCheckBox;
@@ -445,15 +443,11 @@ namespace EmeraldNightmareLauncher {
 				this->test1ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->forceLauncherUpdateToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->cleanupToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-				this->consolidatePatchesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->deleteSettingsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->deleteNonessentialFilesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->deleteWarcraftsCacheToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->clientSystemChecksToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->mD5CheckArchivesToolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
-				this->marforiusClientToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-				this->editSavedServersToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-				this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->developerToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->toggleDebugToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->gMToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -505,9 +499,9 @@ namespace EmeraldNightmareLauncher {
 				// 
 				this->menuStrip1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(44)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(67)));
-				this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {this->test1ToolStripMenuItem, 
-					this->cleanupToolStripMenuItem, this->clientSystemChecksToolStripMenuItem, this->marforiusClientToolStripMenuItem, this->developerToolStripMenuItem, 
-					this->gMToolStripMenuItem, this->aboutToolStripMenuItem});
+				this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {this->test1ToolStripMenuItem, 
+					this->cleanupToolStripMenuItem, this->clientSystemChecksToolStripMenuItem, this->developerToolStripMenuItem, this->gMToolStripMenuItem, 
+					this->aboutToolStripMenuItem});
 				this->menuStrip1->Location = System::Drawing::Point(0, 0);
 				this->menuStrip1->Name = L"menuStrip1";
 				this->menuStrip1->RenderMode = System::Windows::Forms::ToolStripRenderMode::Professional;
@@ -542,8 +536,8 @@ namespace EmeraldNightmareLauncher {
 				// 
 				this->cleanupToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(44)), static_cast<System::Int32>(static_cast<System::Byte>(67)));
-				this->cleanupToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {this->consolidatePatchesToolStripMenuItem, 
-					this->deleteSettingsToolStripMenuItem, this->deleteNonessentialFilesToolStripMenuItem, this->deleteWarcraftsCacheToolStripMenuItem});
+				this->cleanupToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {this->deleteSettingsToolStripMenuItem, 
+					this->deleteNonessentialFilesToolStripMenuItem, this->deleteWarcraftsCacheToolStripMenuItem});
 				this->cleanupToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->cleanupToolStripMenuItem->ImageTransparentColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(15)), 
 					static_cast<System::Int32>(static_cast<System::Byte>(21)), static_cast<System::Int32>(static_cast<System::Byte>(34)));
@@ -551,16 +545,6 @@ namespace EmeraldNightmareLauncher {
 				this->cleanupToolStripMenuItem->Size = System::Drawing::Size(63, 20);
 				this->cleanupToolStripMenuItem->Text = L"Cleanup";
 				this->cleanupToolStripMenuItem->TextImageRelation = System::Windows::Forms::TextImageRelation::TextAboveImage;
-				// 
-				// consolidatePatchesToolStripMenuItem
-				// 
-				this->consolidatePatchesToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(14)), 
-					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
-				this->consolidatePatchesToolStripMenuItem->ForeColor = System::Drawing::Color::White;
-				this->consolidatePatchesToolStripMenuItem->Name = L"consolidatePatchesToolStripMenuItem";
-				this->consolidatePatchesToolStripMenuItem->Size = System::Drawing::Size(209, 22);
-				this->consolidatePatchesToolStripMenuItem->Text = L"Consolidate Patches";
-				this->consolidatePatchesToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::consolidatePatchesToolStripMenuItem_Click);
 				// 
 				// deleteSettingsToolStripMenuItem
 				// 
@@ -614,40 +598,6 @@ namespace EmeraldNightmareLauncher {
 				this->mD5CheckArchivesToolStripMenuItem1->Size = System::Drawing::Size(204, 22);
 				this->mD5CheckArchivesToolStripMenuItem1->Text = L"Sig/MD5 Check Archives";
 				this->mD5CheckArchivesToolStripMenuItem1->Click += gcnew System::EventHandler(this, &Main_Window::mD5CheckArchivesToolStripMenuItem1_Click);
-				// 
-				// marforiusClientToolStripMenuItem
-				// 
-				this->marforiusClientToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), 
-					static_cast<System::Int32>(static_cast<System::Byte>(44)), static_cast<System::Int32>(static_cast<System::Byte>(67)));
-				this->marforiusClientToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->editSavedServersToolStripMenuItem, 
-					this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem});
-				this->marforiusClientToolStripMenuItem->ForeColor = System::Drawing::Color::White;
-				this->marforiusClientToolStripMenuItem->ImageTransparentColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(15)), 
-					static_cast<System::Int32>(static_cast<System::Byte>(21)), static_cast<System::Int32>(static_cast<System::Byte>(34)));
-				this->marforiusClientToolStripMenuItem->Name = L"marforiusClientToolStripMenuItem";
-				this->marforiusClientToolStripMenuItem->Size = System::Drawing::Size(106, 20);
-				this->marforiusClientToolStripMenuItem->Text = L"Marforius-Client";
-				this->marforiusClientToolStripMenuItem->TextImageRelation = System::Windows::Forms::TextImageRelation::TextAboveImage;
-				// 
-				// editSavedServersToolStripMenuItem
-				// 
-				this->editSavedServersToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(14)), 
-					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
-				this->editSavedServersToolStripMenuItem->ForeColor = System::Drawing::Color::White;
-				this->editSavedServersToolStripMenuItem->Name = L"editSavedServersToolStripMenuItem";
-				this->editSavedServersToolStripMenuItem->Size = System::Drawing::Size(271, 22);
-				this->editSavedServersToolStripMenuItem->Text = L"Edit Saved Servers";
-				this->editSavedServersToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::editSavedServersToolStripMenuItem_Click);
-				// 
-				// deleteARCHIVEFrameGlueAddOnsToolStripMenuItem
-				// 
-				this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(12)), 
-					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
-				this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
-				this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem->Name = L"deleteARCHIVEFrameGlueAddOnsToolStripMenuItem";
-				this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem->Size = System::Drawing::Size(271, 22);
-				this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem->Text = L"Delete ARCHIVE Frame/Glue/AddOns";
-				this->deleteARCHIVEFrameGlueAddOnsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::deleteARCHIVEFrameGlueAddOnsToolStripMenuItem_Click);
 				// 
 				// developerToolStripMenuItem
 				// 
@@ -846,10 +796,6 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text->Empty;
 					 LauncherAlertBox->Text = "Deleted Cache...";
 					 }
-		private: System::Void editSavedServersToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 Server_Changer_Window^ server_changer_window = gcnew Server_Changer_Window();
-					 server_changer_window->Show();
-					 }
 		private: System::Void clientSystemCheckToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
 					 EmeraldNightmareLauncher::Main_Window::Close();
@@ -900,7 +846,7 @@ namespace EmeraldNightmareLauncher {
 
 					 }
 		private: System::Void downloadAddOnToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("AutoUpdater.exe -DownloadNightmareAdmin");
+					 ShellExecute(NULL, "open", "https://github.com/Emerald-Nightmare/NightmareAdmin/zipball/master", NULL, NULL, SW_SHOWNORMAL);
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -973,9 +919,5 @@ namespace EmeraldNightmareLauncher {
 		};
 	}
 
-
-
-// TODO: edit the contents of Marforius-Client's options file
 // TODO: Finish StormProxy work with repacking operations
 // TODO: Delete interface/framexml/gluexml archive if Marforius-Client detected
-// TODO: Check interface for more buttons without backend

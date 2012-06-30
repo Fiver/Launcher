@@ -1,0 +1,97 @@
+
+9:45:29 AM repack started.
+
+9:45:29 AM base repack.
+
+9:45:29 AM prepare for repacking base
+9:45:29 AM initialize detailed progress status window
+9:45:30 AM patch files analyze...
+9:45:30 AM indexation...
+9:45:31 AM generation of virtual combined patch base
+9:45:31 AM analyzing files from patch.MPQ
+9:45:39 AM analyzing files from patch-2.MPQ
+9:45:44 AM analyzing files from patch-3.MPQ
+9:45:45 AM generation completed.
+9:45:45 AM correct number of patch files that will be used.
+
+9:45:45 AM repack base started.
+
+9:45:45 AM extract files from:common.MPQ
+9:55:27 AM extract files for:common.MPQ from:patch.MPQ
+9:55:45 AM extract files for:common.MPQ from:patch-2.MPQ
+9:55:48 AM extract files for:common.MPQ from:patch-3.MPQ
+9:55:49 AM extraction for common.MPQ completed.
+
+9:55:49 AM prepare for packing.
+9:55:49 AM creating filelist.
+9:56:13 AM start packing common.MPQ
+9:58:41 AM common.MPQ packing finished.
+9:58:41 AM delete extracted common.MPQ started.
+9:59:18 AM deleting extracted common.MPQ finished.
+
+9:59:18 AM extract files from:common-2.MPQ
+10:02:15 AM extract files for:common-2.MPQ from:patch.MPQ
+10:03:28 AM extract files for:common-2.MPQ from:patch-2.MPQ
+10:03:45 AM extract files for:common-2.MPQ from:patch-3.MPQ
+10:03:50 AM extraction for common-2.MPQ completed.
+
+10:03:50 AM prepare for packing.
+10:03:50 AM creating filelist.
+10:04:05 AM start packing common-2.MPQ
+10:06:16 AM common-2.MPQ packing finished.
+10:06:16 AM delete extracted common-2.MPQ started.
+10:06:32 AM deleting extracted common-2.MPQ finished.
+
+10:06:32 AM extract files from:expansion.MPQ
+10:08:12 AM extract files for:expansion.MPQ from:patch.MPQ
+10:08:47 AM extract files for:expansion.MPQ from:patch-2.MPQ
+10:08:51 AM extract files for:expansion.MPQ from:patch-3.MPQ
+10:08:51 AM extraction for expansion.MPQ completed.
+
+10:08:51 AM prepare for packing.
+10:08:51 AM creating filelist.
+10:08:56 AM start packing expansion.MPQ
+10:10:08 AM expansion.MPQ packing finished.
+10:10:08 AM delete extracted expansion.MPQ started.
+10:10:10 AM deleting extracted expansion.MPQ finished.
+
+10:10:10 AM extract files from:lichking.MPQ
+10:12:01 AM extract files for:lichking.MPQ from:patch.MPQ
+10:12:54 AM extract files for:lichking.MPQ from:patch-2.MPQ
+10:13:10 AM extract files for:lichking.MPQ from:patch-3.MPQ
+10:13:22 AM extraction for lichking.MPQ completed.
+
+10:13:22 AM prepare for packing.
+10:13:22 AM creating filelist.
+10:13:28 AM start packing lichking.MPQ
+10:15:10 AM lichking.MPQ packing finished.
+10:15:10 AM delete extracted lichking.MPQ started.
+10:15:13 AM deleting extracted lichking.MPQ finished.
+
+10:15:13 AM correct total files for output combined patch file (set to 22993)
+10:15:13 AM extract patch files not included in main files
+10:15:13 AM extract from:patch.MPQ
+10:17:33 AM extract from:patch-2.MPQ
+10:18:22 AM extract from:patch-3.MPQ
+10:18:38 AM patch files extraction completed.
+
+10:18:38 AM prepare for packing.
+10:18:38 AM creating filelist.
+10:18:47 AM start packing patch.MPQ
+10:19:52 AM patch.MPQ packing finished.
+10:19:52 AM delete extracted patch.MPQ started.
+10:19:56 AM delete extracted patch.MPQ finished.
+
+10:19:56 AM base repack finished.
+
+10:30:56 AM deleting temporary folder.
+10:30:56 AM deleting temporary folder was successfull.
+
+10:30:56 AM repack finished
+
+
+repacker finds files from all files in data and puts
+the files from the patch mpq archives into the master
+files
+
+at the end patch-2/patch-3 is rolled into patch.mpq
