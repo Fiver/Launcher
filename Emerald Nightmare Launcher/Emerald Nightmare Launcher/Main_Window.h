@@ -859,7 +859,7 @@ namespace EmeraldNightmareLauncher {
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void consolidatePatchesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("StormProxy.exe -RunREPACKPATCHESINTOPARENTMPQ");
+					 CreateProcessLauncher("StormProxy.exe -Repack");
 					 EmeraldNightmareLauncher::Main_Window::Close();
 					 }
 		private: System::Void deleteSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
