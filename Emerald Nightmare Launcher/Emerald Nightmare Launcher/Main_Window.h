@@ -369,6 +369,7 @@ namespace EmeraldNightmareLauncher {
 				}
 
 		protected:
+
 			/// <summary>
 			/// Clean up any resources being used.
 			/// </summary>
@@ -413,6 +414,7 @@ namespace EmeraldNightmareLauncher {
 		private: System::Windows::Forms::CheckBox^  DeleteCacheCheckBox;
 		private: System::Windows::Forms::ToolStripMenuItem^  addonsToolStripMenuItem;
 		private: System::Windows::Forms::ToolStripMenuItem^  downloadReccomendedAddonsToolStripMenuItem;
+		private: System::Windows::Forms::CheckBox^  IRCModeCheckBox;
 
 
 
@@ -422,6 +424,7 @@ namespace EmeraldNightmareLauncher {
 			/// Required designer variable.
 			/// </summary>
 			System::ComponentModel::Container ^components;
+						bool IRCMode;
 
 #pragma region Windows Form Designer generated code
 			/// <summary>
@@ -444,13 +447,14 @@ namespace EmeraldNightmareLauncher {
 				this->mD5CheckArchivesToolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->developerToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->toggleDebugToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+				this->addonsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+				this->downloadReccomendedAddonsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->gMToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->downloadAddOnToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				this->LauncherAlertBox = (gcnew System::Windows::Forms::LinkLabel());
 				this->DeleteCacheCheckBox = (gcnew System::Windows::Forms::CheckBox());
-				this->addonsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-				this->downloadReccomendedAddonsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+				this->IRCModeCheckBox = (gcnew System::Windows::Forms::CheckBox());
 				this->menuStrip1->SuspendLayout();
 				this->SuspendLayout();
 				// 
@@ -487,7 +491,7 @@ namespace EmeraldNightmareLauncher {
 				this->button1->Margin = System::Windows::Forms::Padding(0);
 				this->button1->Name = L"button1";
 				this->button1->Size = System::Drawing::Size(147, 90);
-				this->button1->TabIndex = 1;
+				this->button1->TabIndex = 0;
 				this->button1->UseVisualStyleBackColor = false;
 				this->button1->Click += gcnew System::EventHandler(this, &Main_Window::button1_Click);
 				// 
@@ -614,9 +618,26 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
 				this->toggleDebugToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->toggleDebugToolStripMenuItem->Name = L"toggleDebugToolStripMenuItem";
-				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+				this->toggleDebugToolStripMenuItem->Size = System::Drawing::Size(149, 22);
 				this->toggleDebugToolStripMenuItem->Text = L"Toggle Debug";
 				this->toggleDebugToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::toggleDebugToolStripMenuItem_Click);
+				// 
+				// addonsToolStripMenuItem
+				// 
+				this->addonsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->downloadReccomendedAddonsToolStripMenuItem});
+				this->addonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
+				this->addonsToolStripMenuItem->Name = L"addonsToolStripMenuItem";
+				this->addonsToolStripMenuItem->Size = System::Drawing::Size(60, 20);
+				this->addonsToolStripMenuItem->Text = L"Addons";
+				// 
+				// downloadReccomendedAddonsToolStripMenuItem
+				// 
+				this->downloadReccomendedAddonsToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(44)), static_cast<System::Int32>(static_cast<System::Byte>(67)));
+				this->downloadReccomendedAddonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
+				this->downloadReccomendedAddonsToolStripMenuItem->Name = L"downloadReccomendedAddonsToolStripMenuItem";
+				this->downloadReccomendedAddonsToolStripMenuItem->Size = System::Drawing::Size(246, 22);
+				this->downloadReccomendedAddonsToolStripMenuItem->Text = L"Download reccomended addons";
+				this->downloadReccomendedAddonsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::downloadReccomendedAddonsToolStripMenuItem_Click);
 				// 
 				// gMToolStripMenuItem
 				// 
@@ -681,27 +702,21 @@ namespace EmeraldNightmareLauncher {
 				this->DeleteCacheCheckBox->UseVisualStyleBackColor = false;
 				this->DeleteCacheCheckBox->CheckedChanged += gcnew System::EventHandler(this, &Main_Window::DeleteCacheCheckBox_CheckedChanged);
 				// 
-				// addonsToolStripMenuItem
+				// IRCModeCheckBox
 				// 
-				this->addonsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->downloadReccomendedAddonsToolStripMenuItem});
-				this->addonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
-				this->addonsToolStripMenuItem->Name = L"addonsToolStripMenuItem";
-				this->addonsToolStripMenuItem->Size = System::Drawing::Size(60, 20);
-				this->addonsToolStripMenuItem->Text = L"Addons";
-				// 
-				// downloadReccomendedAddonsToolStripMenuItem
-				// 
-				this->downloadReccomendedAddonsToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)), 
-					static_cast<System::Int32>(static_cast<System::Byte>(44)), static_cast<System::Int32>(static_cast<System::Byte>(67)));
-				this->downloadReccomendedAddonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
-				this->downloadReccomendedAddonsToolStripMenuItem->Name = L"downloadReccomendedAddonsToolStripMenuItem";
-				this->downloadReccomendedAddonsToolStripMenuItem->Size = System::Drawing::Size(246, 22);
-				this->downloadReccomendedAddonsToolStripMenuItem->Text = L"Download reccomended addons";
-				this->downloadReccomendedAddonsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::downloadReccomendedAddonsToolStripMenuItem_Click);
+				this->IRCModeCheckBox->AutoSize = true;
+				this->IRCModeCheckBox->BackColor = System::Drawing::Color::Transparent;
+				this->IRCModeCheckBox->ForeColor = System::Drawing::Color::White;
+				this->IRCModeCheckBox->Location = System::Drawing::Point(109, 429);
+				this->IRCModeCheckBox->Name = L"IRCModeCheckBox";
+				this->IRCModeCheckBox->Size = System::Drawing::Size(74, 17);
+				this->IRCModeCheckBox->TabIndex = 6;
+				this->IRCModeCheckBox->Text = L"IRC Mode";
+				this->IRCModeCheckBox->UseVisualStyleBackColor = false;
+				this->IRCModeCheckBox->CheckedChanged += gcnew System::EventHandler(this, &Main_Window::IRCModeCheckBox_CheckedChanged);
 				// 
 				// Main_Window
 				// 
-				this->AcceptButton = this->button1;
 				this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 				this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 				this->AutoSize = true;
@@ -709,6 +724,7 @@ namespace EmeraldNightmareLauncher {
 					static_cast<System::Int32>(static_cast<System::Byte>(20)));
 				this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"$this.BackgroundImage")));
 				this->ClientSize = System::Drawing::Size(636, 541);
+				this->Controls->Add(this->IRCModeCheckBox);
 				this->Controls->Add(this->DeleteCacheCheckBox);
 				this->Controls->Add(this->menuStrip1);
 				this->Controls->Add(this->button1);
@@ -778,18 +794,30 @@ namespace EmeraldNightmareLauncher {
 					 SetCompatibleCVARs(); // set here so it seems invisible to the user
 					 //PlaySound("%appdata%\\Marforius-Launcher\\launcher-launchbutton.mp3", NULL, SND_FILENAME | SND_ASYNCH); // todo: Marforius
 					 CreateProcessLauncher("wow.exe -console");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 if(!IRCMode)
+						 {
+						 EmeraldNightmareLauncher::Main_Window::Close();
+						 }
+
 					 }
 		private: System::Void forceLauncherUpdateToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
 					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/AutoUpdater.exe"), _T("AutoUpdater.exe"), 0, NULL );
 					 Sleep(1000);
 					 CreateProcessLauncher("AutoUpdater.exe -RunMain");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 if(!IRCMode)
+						 {
+						 EmeraldNightmareLauncher::Main_Window::Close();
+						 }
+
 					 }
 		private: System::Void mD5CheckArchivesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 if(!IRCMode)
+						 {
+						 EmeraldNightmareLauncher::Main_Window::Close();
+						 }
+
 					 }
 		private: System::Void deleteNonessentialFilesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -811,15 +839,25 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void clientSystemCheckToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 if(!IRCMode)
+						 {
+						 EmeraldNightmareLauncher::Main_Window::Close();
+						 }
+
 					 }
 		private: System::Void mD5CheckArchivesToolStripMenuItem1_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 if(!IRCMode)
+						 EmeraldNightmareLauncher::Main_Window::Close();
+
 					 }
 		private: System::Void consolidatePatchesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -Repack");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 if(!IRCMode)
+						 {
+						 EmeraldNightmareLauncher::Main_Window::Close();
+						 }
+
 					 }
 		private: System::Void deleteSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 DeleteDirectoryLauncher("WTF");
@@ -829,7 +867,11 @@ namespace EmeraldNightmareLauncher {
 					 }
 		private: System::Void deleteARCHIVEFrameGlueAddOnsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 CreateProcessLauncher("StormProxy.exe -RunDELETEARCHIVEINTERFACEFILES");
-					 EmeraldNightmareLauncher::Main_Window::Close();
+					 if(!IRCMode)
+						 {
+						 EmeraldNightmareLauncher::Main_Window::Close();
+						 }
+
 					 }
 		private: System::Void toggleDebugToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 if (MessageBox::Show("Debugging is obscure and is not recommended for you to turn on unless you are an addon developer, modifying the client, or changing packets.", "Debug", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
@@ -904,7 +946,6 @@ namespace EmeraldNightmareLauncher {
 					 strcat(buffer , "\\EN-Launcher.wtf");
 					 int DeleteCache = GetPrivateProfileInt("CACHE", "DeleteCache", 0, buffer);
 
-
 					 if (DeleteCache == 1)
 						 {
 						 DeleteCacheCheckBox->Checked = TRUE;
@@ -923,18 +964,61 @@ namespace EmeraldNightmareLauncher {
 						 LauncherAlertBox->Text = "Debugging on.";
 						 }
 
-					 if (DebugOn && DeleteCache)
+					 int IRCModeOn = GetPrivateProfileInt("General", "IrcMode", 0, buffer);
+					 if (IRCModeOn == 1)
+						 {
+						 IRCModeCheckBox->Checked = TRUE;
+						 IRCMode = true;
+						 }
+
+					 if (DebugOn && DeleteCache && IRCModeOn)
+						 {
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "Cache Deleted... Debugging on... Window staying open for IRC";
+						 }
+					 else if (DebugOn && DeleteCache && !IRCModeOn)
 						 {
 						 LauncherAlertBox->Text->Empty;
 						 LauncherAlertBox->Text = "Cache Deleted... Debugging on.";
 						 }
+					 else if (DeleteCache && IRCModeOn)
+						 {
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "Cache Deleted... Window staying open for IRC";
+						 }
+
 					 }
 		private: System::Void downloadReccomendedAddonsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 ShellExecute(NULL, "open", "https://github.com/Marforius/Addons/zipball/master", NULL, NULL, SW_SHOWNORMAL);
-					 EmeraldNightmareLauncher::Main_Window::Close();
+
+					 if(!IRCMode)
+						 {
+						 EmeraldNightmareLauncher::Main_Window::Close();
+						 }
+
+					 }
+		private: System::Void IRCModeCheckBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+					 char buffer[MAX_PATH];
+					 GetCurrentDirectory(sizeof(buffer),buffer);
+					 strcat(buffer , "\\EN-Launcher.wtf");
+
+					 if ( this->IRCModeCheckBox->Checked == true )
+						 {
+						 WritePrivateProfileString("General", "IrcMode", "1", buffer);
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "Window will now stay open for IRC.";
+						 IRCMode = true;
+						 }
+					 else if ( this->IRCModeCheckBox->Checked == false )
+						 {
+						 WritePrivateProfileString("General", "IrcMode", "0", buffer);
+						 LauncherAlertBox->Text->Empty;
+						 LauncherAlertBox->Text = "IRC mode is now off.";
+						 IRCMode = false;
+						 }
+
 					 }
 		};
-	}
-
+	};
 // TODO: Finish StormProxy work with repacking operations
 // TODO: Delete interface/framexml/gluexml archive if Marforius-Client detected
