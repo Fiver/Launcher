@@ -300,26 +300,52 @@ inline void DeleteNonEssentialFiles(void)
 
 	}
 
-inline void TurnOnDebugging(void)
+inline void ToggleWarcraftDebug(void)
 	{
+	char buffer[MAX_PATH];
+	GetCurrentDirectory(sizeof(buffer),buffer);
+	strcat(buffer , "\\EN-Launcher.wtf");
 	ofstream myfile;
-	myfile.open("WTF\\RunOnce-Development.wtf");
 
-	// http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgDebug does
-	myfile << ("SET lfgDebug \"1\"") << endl;
+	int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
 
 
-	// note, too that the launcher automatically launches warcraft with the "-console" arg
-	myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
-	// will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
-	myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
-	myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
-	myfile << ("SET errorfilter \"general world ui animation models objects sound movement\"") << endl; // Types of Errors to show
-	//           Filters: general world ui animation models objects sound movement all
-	//			 use "except" to invert mask
-	//           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
-	myfile << ("SET errors \"1\"") << endl; // Show errors         > see below TODO: Marforius
-	myfile << ("SET showerrors \"1\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
+
+	if (DebugOn)
+		{
+		myfile.open("WTF\\RunOnce-Development.wtf");
+
+		// http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgDebug does
+		myfile << ("SET lfgDebug \"1\"") << endl;
+
+
+		// note, too that the launcher automatically launches warcraft with the "-console" arg
+		myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
+		// will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
+		myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
+		myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
+		myfile << ("SET errorfilter \"general world ui animation models objects sound movement\"") << endl; // Types of Errors to show
+		//           Filters: general world ui animation models objects sound movement all
+		//			 use "except" to invert mask
+		//           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
+		myfile << ("SET errors \"1\"") << endl; // Show errors         > see below TODO: Marforius
+		myfile << ("SET showerrors \"1\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
+		}
+	else if (!DebugOn)
+		{
+		myfile << ("SET lfgDebug \"0\"") << endl;
+		// note, too that the launcher automatically launches warcraft with the "-console" arg
+		myfile << ("SET FrameXML_Debug \"0\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
+		// will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
+		myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
+		myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
+		myfile << ("SET errorfilter \"general\"") << endl; // Types of Errors to show
+		//           Filters: general world ui animation models objects sound movement all
+		//			 use "except" to invert mask
+		//           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
+		myfile << ("SET errors \"0\"") << endl; // Show errors         > see below TODO: Marforius
+		myfile << ("SET showerrors \"0\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
+		}
 
 
 	myfile.close();
@@ -424,7 +450,7 @@ namespace EmeraldNightmareLauncher {
 			/// Required designer variable.
 			/// </summary>
 			System::ComponentModel::Container ^components;
-						bool IRCMode;
+			bool IRCMode;
 
 #pragma region Windows Form Designer generated code
 			/// <summary>
@@ -636,7 +662,7 @@ namespace EmeraldNightmareLauncher {
 				this->downloadReccomendedAddonsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 				this->downloadReccomendedAddonsToolStripMenuItem->Name = L"downloadReccomendedAddonsToolStripMenuItem";
 				this->downloadReccomendedAddonsToolStripMenuItem->Size = System::Drawing::Size(246, 22);
-				this->downloadReccomendedAddonsToolStripMenuItem->Text = L"Download reccomended addons";
+				this->downloadReccomendedAddonsToolStripMenuItem->Text = L"Download recommended addons";
 				this->downloadReccomendedAddonsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main_Window::downloadReccomendedAddonsToolStripMenuItem_Click);
 				// 
 				// gMToolStripMenuItem
@@ -874,31 +900,31 @@ namespace EmeraldNightmareLauncher {
 
 					 }
 		private: System::Void toggleDebugToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 if (MessageBox::Show("Debugging is obscure and is not recommended for you to turn on unless you are an addon developer, modifying the client, or changing packets.", "Debug", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+					 char buffer[MAX_PATH];
+					 GetCurrentDirectory(sizeof(buffer),buffer);
+					 strcat(buffer , "\\EN-Launcher.wtf");
+					 int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
+
+					 if (DebugOn == 0)
 						 {
-
-						 char buffer[MAX_PATH];
-						 GetCurrentDirectory(sizeof(buffer),buffer);
-						 strcat(buffer , "\\EN-Launcher.wtf");
-						 int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
-
-
-						 if (DebugOn == 1)
+						 if (MessageBox::Show("Debugging is obscure and is not recommended for you to turn on unless you are an addon developer, modifying the client, or changing packets.", "Debug", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+							 {
+								 {
+								 WritePrivateProfileString("DEBUG", "DebugOn", "1", buffer);
+								 ToggleWarcraftDebug();
+								 }
+							 }
+						 }
+					 else if (DebugOn == 1)
+						 {
+						 if (MessageBox::Show("Turn off debugging?", "Debug", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 							 {
 							 WritePrivateProfileString("DEBUG", "DebugOn", "0", buffer);
+							 ToggleWarcraftDebug();
 							 }
-						 else
-							 {
-							 WritePrivateProfileString("DEBUG", "DebugOn", "1", buffer);
-							 TurnOnDebugging();
-							 }
-
-						 // do stuff in main load event, not here
-						 // this item only generates the proper settings
-
 						 }
-
-
+					 // do stuff in main load event, not here
+					 // this item only generates the proper settings
 					 }
 		private: System::Void downloadAddOnToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 					 ShellExecute(NULL, "open", "https://github.com/Emerald-Nightmare/NightmareAdmin/zipball/master", NULL, NULL, SW_SHOWNORMAL);
@@ -959,7 +985,7 @@ namespace EmeraldNightmareLauncher {
 
 					 if (DebugOn == 1)
 						 {
-						 TurnOnDebugging();
+						 ToggleWarcraftDebug();
 						 LauncherAlertBox->Text->Empty;
 						 LauncherAlertBox->Text = "Debugging on.";
 						 }
