@@ -3,7 +3,7 @@
 
 
 
-THIS IS NOT COMPLETE, but almost there.
+THIS IS NOT COMPLETE, but almost there. Stormproxy can't repack patches, yet - Launcher interface can't edit Marforius-Client server lists, yet. (Two missing features)
 
 A "Preview" version is in the downloads, I am not done coding things I want into this. The generic launcher will be coded when I am done with this one's features.
 
