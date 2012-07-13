@@ -16,6 +16,12 @@
     <Filter Include="Images">
       <UniqueIdentifier>{05c74efb-890b-4e70-8a43-aef51213fad5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{3f3a08a0-0716-48b6-b113-7badda138086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{c67df90f-9032-4753-b4bf-353ebac9fa63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Emerald Nightmare Launcher.cpp">
@@ -35,6 +41,12 @@
     <ClInclude Include="Main_Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Code.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
@@ -43,9 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Main_Window.resX">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Server_Changer_Window.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>
@@ -61,6 +70,9 @@
     </None>
     <None Include="app.ico">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MainWindow.ui">
+      <Filter>Interface</Filter>
     </None>
   </ItemGroup>
 </Project>

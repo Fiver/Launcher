@@ -6,6 +6,16 @@
 
 using namespace std;
 
+//************************************
+// Method:    main
+// FullName:  main
+// Access:    public 
+// Returns:   bool
+// Qualifier:
+// Parameter: int argc
+// Parameter: char * argv[]
+// Comment: Called from WoW.exe, prints error text (from command line) and saves it to file under Errors\WowError.exe.log (directory created by wow.exe)
+//************************************
 bool main(int argc, char *argv[])
 	{
 

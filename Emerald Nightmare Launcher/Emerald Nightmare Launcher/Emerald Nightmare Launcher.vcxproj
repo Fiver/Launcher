@@ -143,6 +143,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="Main_Window.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -160,6 +162,7 @@
   <ItemGroup>
     <None Include="app.ico" />
     <None Include="BackGround.png" />
+    <None Include="MainWindow.ui" />
     <None Include="PLAY.png" />
     <None Include="TOPBARGRADIENT.png" />
   </ItemGroup>

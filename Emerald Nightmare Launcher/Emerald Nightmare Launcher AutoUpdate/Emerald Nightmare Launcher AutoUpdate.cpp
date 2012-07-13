@@ -1,12 +1,27 @@
 #include "stdafx.h"
+using namespace std; 
 
-using namespace System;
-using namespace std;
+/*
+// The following is a model of the update process:
+// Download LauncherVersion.temp
+// Open and store value in string
+// Compare VersionAtCompile and VersionOfRemoteIni
+// if remote greater then version at compile, 
+//			then delete current autoupdater and download new version of it (if any)
+//				then call autoupdater.exe -RunMain :: Autoupdater will then update with whatever is in the remote /updates/ directory
+// fin, really simple update system
+*/
 
-
+//************************************
+// Method:    UpdateEverything
+// FullName:  UpdateEverything
+// Access:    public 
+// Returns:   void
+// Qualifier:
+// Comment: called from program being called by -RunMain
+//************************************
 inline void UpdateEverything()
 	{
-	Sleep(1000); // Trying to prevent any possible lock problems - 1 second
 	remove( "Emerald Nightmare Launcher.exe" );
 	remove( "StormProxy.exe" );
 	remove( "WowError.exe" );
@@ -19,6 +34,16 @@ inline void UpdateEverything()
 	URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/WowError.exe"), _T("WowError.exe"), 0, NULL );
 	}
 
+//************************************
+// Method:    main
+// FullName:  main
+// Access:    public 
+// Returns:   int
+// Qualifier:
+// Parameter: int argc
+// Parameter: char * argv[]
+// Args: -RunMain
+//************************************
 int main(int argc, char *argv[])
 	{
 	int i;
