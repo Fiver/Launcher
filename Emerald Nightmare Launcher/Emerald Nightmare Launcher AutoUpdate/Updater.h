@@ -10,7 +10,7 @@ using namespace std;
 // Compare VersionAtCompile and VersionOfRemoteIni
 // if remote greater then version at compile, 
 //			then delete current autoupdater and download new version of it (if any)
-//				then call autoupdater.exe -RunMain :: Autoupdater will then update with whatever is in the remote /updates/ directory
+//				then call autoupdater.exe --RunMain :: Autoupdater will then update with whatever is in the remote /updates/ directory
 // fin, really simple update system
 */
 

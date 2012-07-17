@@ -438,7 +438,7 @@ namespace EmeraldNightmareLauncher {
 							 VerofRemoteBeforeConvert.clear();
 							 VersionAtCompile = NULL;
 							 VersionOfRemoteIni = NULL;
-							 CreateProcessLauncher("AutoUpdater.exe -RunMain");
+							 CreateProcessLauncher("AutoUpdater.exe --RunMain");
 							 EmeraldNightmareLauncher::Main_Window::Close();
 							 }
 
@@ -462,7 +462,7 @@ namespace EmeraldNightmareLauncher {
 
 					 URLDownloadToFile ( NULL, _T("http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/AutoUpdater.exe"), _T("AutoUpdater.exe"), 0, NULL );
 					 Sleep(1000);
-					 CreateProcessLauncher("AutoUpdater.exe -RunMain");
+					 CreateProcessLauncher("AutoUpdater.exe --RunMain");
 					 if(!IRCMode)
 						 {
 						 EmeraldNightmareLauncher::Main_Window::Close();
@@ -470,7 +470,7 @@ namespace EmeraldNightmareLauncher {
 
 					 }
 		private: System::Void mD5CheckArchivesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
+					 CreateProcessLauncher("StormProxy.exe --RunCHECKARCHIVES");
 					 if(!IRCMode)
 						 {
 						 EmeraldNightmareLauncher::Main_Window::Close();
@@ -496,7 +496,7 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text = "Deleted Cache...";
 					 }
 		private: System::Void clientSystemCheckToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
+					 CreateProcessLauncher("StormProxy.exe --RunCHECKARCHIVES");
 					 if(!IRCMode)
 						 {
 						 EmeraldNightmareLauncher::Main_Window::Close();
@@ -504,13 +504,13 @@ namespace EmeraldNightmareLauncher {
 
 					 }
 		private: System::Void mD5CheckArchivesToolStripMenuItem1_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("StormProxy.exe -RunCHECKARCHIVES");
+					 CreateProcessLauncher("StormProxy.exe --RunCHECKARCHIVES");
 					 if(!IRCMode)
 						 EmeraldNightmareLauncher::Main_Window::Close();
 
 					 }
 		private: System::Void consolidatePatchesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("StormProxy.exe -Repack");
+					 CreateProcessLauncher("StormProxy.exe --Repack");
 					 if(!IRCMode)
 						 {
 						 EmeraldNightmareLauncher::Main_Window::Close();
@@ -524,7 +524,7 @@ namespace EmeraldNightmareLauncher {
 					 LauncherAlertBox->Text = "Deleted Cache and Settings...";
 					 }
 		private: System::Void deleteARCHIVEFrameGlueAddOnsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-					 CreateProcessLauncher("StormProxy.exe -RunDELETEARCHIVEINTERFACEFILES");
+					 CreateProcessLauncher("StormProxy.exe --RunDELETEARCHIVEINTERFACEFILES");
 					 if(!IRCMode)
 						 {
 						 EmeraldNightmareLauncher::Main_Window::Close();
