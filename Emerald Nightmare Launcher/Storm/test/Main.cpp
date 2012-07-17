@@ -1898,7 +1898,7 @@ inline void VerifyMPQSignature(const char *szFileName)
 			// end original 3.3.5A (no mods)
 			};
 
-		bool ArchiveStatus=false;
+		bool IsKnownArchive=false;
 		string CalculatedArchiveMD5 = md5.digestFile(szFileName);
 
 		cout << CalculatedArchiveMD5 << endl;
@@ -1908,13 +1908,13 @@ inline void VerifyMPQSignature(const char *szFileName)
 			if (CalculatedArchiveMD5 == EstablishedMD5s[n])
 				{
 				cout << "Archive integrity is good. MD5 matched."<< endl;
-				ArchiveStatus=true;
+				IsKnownArchive=true;
 				// stop iterating md5s
 				n = countof(EstablishedMD5s);
 				}
 			}
 
-		if (ArchiveStatus == false)
+		if (IsKnownArchive == false)
 			{
 			cout << "File does NOT match any known MD5, archive is corrupt or changed!" << endl;
 			cin.get();
@@ -1956,8 +1956,6 @@ inline void VerifyMPQPipe()
 	if( !boost::filesystem::exists(IsRepacked) )
 		{
 		cout << "Detected files as being repacked." << endl;
-
-		// need to make these actually compare md5s of the archive or something
 		VerifyMPQSignature(CommonMPQ.c_str());
 		VerifyMPQSignature(CommonMPQ2.c_str());
 		VerifyMPQSignature(ExpansionMPQ.c_str());
@@ -2068,6 +2066,7 @@ inline void RepackArchives()
 	// 		}
 	// 	cout << endl;
 	// 	cout << "Repack complete, running MD5 check on repacked archives." << endl;
+	// investigate
 	// 	VerifyMPQSignature(PatchMPQ.c_str());
 	// 	VerifyMPQSignature(PatchEnUSMPQ.c_str());
 	// 	cout << "If archives successfully verified to MD5s the operation was successful, press any key to exit" << endl;
@@ -2111,7 +2110,6 @@ int main(int argc, char *argv[])
 
 			if (strcmp (argv[i], "-Repack") == 0)
 				{
-				cout << "test2" << endl;
 				RepackArchives();
 				}
 
