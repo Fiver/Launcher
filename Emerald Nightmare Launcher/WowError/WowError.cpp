@@ -5,6 +5,7 @@
 #include <iostream>
 
 using namespace std;
+namespace bfs = boost::filesystem;
 
 //************************************
 // Method:    main
@@ -20,9 +21,9 @@ bool main(int argc, char *argv[])
 	{
 
 #if (!_DEBUG)
-	boost::filesystem::path wowexe("wow.exe");
+	bfs::path wowexe("wow.exe");
 
-	if( !boost::filesystem::exists(wowexe) )
+	if( !bfs::exists(wowexe) )
 		{
 		cout << "This program must called from wow.exe!" << endl;
 		cin.get();
@@ -32,7 +33,7 @@ bool main(int argc, char *argv[])
 
 #if (_DEBUG)
 
-	OutputDebugString("Wow.exe check skipped in debug.\n");
+	OutputDebugString("\nWow.exe check skipped in debug.\n");
 
 #endif
 
@@ -40,7 +41,6 @@ bool main(int argc, char *argv[])
 	if (argc == 1)
 		{
 		cout << "This program must called from wow.exe!" << endl;
-		cin.get();
 		return 0;
 		}
 	else for (i = 0; i < argc; i++)
@@ -60,7 +60,7 @@ bool main(int argc, char *argv[])
 	cout << "\n\n" << endl;
 	cout << "World of Warcraft has crashed" << endl;
 	cout << "\n\n" << endl;
-	cout << "A crash report has been saved in \"World of Warcraft\\Errors\"\n\nupload this file to mediafire if you are able to reproduce this bug\nand make a report,\nlinking this crashdump on our Marforius-Client github \"issues\" section." << endl;
+	cout << "A crash report has been saved in \"World of Warcraft\\Errors\"\n\nupload this file (and the related client made dump file) to mediafire if you are able to reproduce this bug\nand make a report,\nlinking this crashdump on our Marforius-Client github \"issues\" section." << endl;
 	cout << "\n\n" << endl;
 	cout << "This program does nothing but print these lines, as the default\nbugreporter(WowError.exe) carries a risk of reporting private server information to blizzard entertainment." << endl;
 	cout << "\n\n" << endl;

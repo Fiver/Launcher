@@ -23,6 +23,8 @@
 #include <boost/program_options.hpp>
 #include "boost/exception/exception.hpp"
 using namespace std;
+namespace bfs = boost::filesystem;
+namespace bpo = boost::program_options;
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4505)              // 'XXX' : unreferenced local function has been removed
@@ -2005,19 +2007,19 @@ inline void VerifyMPQPipe()
 
 inline void DeleteArchiveInterfaceFiles()
 	{
-	// 	char buffer[MAX_PATH];
-	// 	GetCurrentDirectory(sizeof(buffer),buffer);
-	// 	std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
-	// 	boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
-	// 	if( !boost::filesystem::exists(IsRepacked) )
-	// 		{
-	// 		// do work
-	// 		}
-	// 	else if( boost::filesystem::exists(IsRepacked) )
-	// 		{
-	// 		cout << "If you were to delete your interface files you would damage your version of warcraft, aborting." << endl;
-	// 		cout << "If you want to play with this function, download Marforius-Client and repack your client's master patch files." << endl;
-	// 		}
+	char buffer[MAX_PATH];
+	GetCurrentDirectory(sizeof(buffer),buffer);
+	std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
+	boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
+	if( !boost::filesystem::exists(IsRepacked) )
+		{
+		// do work
+		}
+	else if( boost::filesystem::exists(IsRepacked) )
+		{
+		cout << "If you were to delete your interface files you would damage your version of warcraft, aborting." << endl;
+		cout << "If you want to play with this function, download Marforius-Client and repack your client's master patch files." << endl;
+		}
 	}
 
 inline void RepackArchives()
@@ -2080,9 +2082,9 @@ inline void RepackArchives()
 int main(int ac, char* av[])
 	{
 
-	boost::filesystem::path wowexe("wow.exe");
+	bfs::path wowexe("wow.exe");
 
-	if( !boost::filesystem::exists(wowexe) )
+	if( !bfs::exists(wowexe) )
 		{
 		cout << "Wow.exe not detected, nothing will work - exiting" << endl;
 		cin.get();
@@ -2096,21 +2098,18 @@ int main(int ac, char* av[])
 		return 0;
 		}
 
-	namespace bpo = boost::program_options;
-
-
 	bpo::options_description options("command line options");
 	options.add_options() ("help", "Use -h or --help to list all arguments")
 		("RunCHECKARCHIVES", "Check MD5 and signature of MPQ archives")
 		("Repack", "Repack patch MPQ files into parent files")
 		("RunDELETEARCHIVEINTERFACEFILES", "Delete archived interface/xml/lua/toc folders - only usable on Marforius-Client");
+
 	bpo::variables_map vmap;
+
 	try{
 		bpo::store(
 			bpo::parse_command_line(ac, av, options), vmap);
 		bpo::notify(vmap);
-
-
 
 		if (vmap.count("help")) {
 			cout << options << endl;
