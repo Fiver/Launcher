@@ -20,11 +20,14 @@
 #include "../src/StormLib.h"
 #include "../src/StormCommon.h"
 #include "../src/MD5_File.h"
+#include <boost/program_options.hpp>
+#include "boost/exception/exception.hpp"
 using namespace std;
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4505)              // 'XXX' : unreferenced local function has been removed
 #pragma warning(disable: 4706)              // assignment within conditional expression
+#pragma warning(disable: 4512)              // assignment operator could not be generated
 #endif
 
 //------------------------------------------------------------------------------
@@ -2074,7 +2077,7 @@ inline void RepackArchives()
 	}
 
 
-int main(int argc, char *argv[])
+int main(int ac, char* av[])
 	{
 
 	boost::filesystem::path wowexe("wow.exe");
@@ -2086,42 +2089,49 @@ int main(int argc, char *argv[])
 		return 1;
 		}
 
-	int nError = ERROR_SUCCESS;
-
-#if defined(_MSC_VER) && defined(_DEBUG)
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif
-
-	int i;
-	if (argc == 1)
+	if (ac == 1)
 		{
 		cout << "This program must be called from the launcher." << endl;
 		cin.get();
 		return 0;
 		}
-	else
-		{
-		for (i = 1; i < argc; i++) {
 
-			if (strcmp (argv[i], "-RunCHECKARCHIVES") == 0)
-				{
-				VerifyMPQPipe();
-				}
+	namespace bpo = boost::program_options;
 
-			if (strcmp (argv[i], "-Repack") == 0)
-				{
-				RepackArchives();
-				}
 
-			if (strcmp( argv[i], "-RunDELETEARCHIVEINTERFACEFILES") == 0)
-				{
-				DeleteArchiveInterfaceFiles();
-				}
+	bpo::options_description options("command line options");
+	options.add_options() ("help", "Use -h or --help to list all arguments")
+		("RunCHECKARCHIVES", "Check MD5 and signature of MPQ archives")
+		("Repack", "Repack patch MPQ files into parent files")
+		("RunDELETEARCHIVEINTERFACEFILES", "Delete archived interface/xml/lua/toc folders - only usable on Marforius-Client");
+	bpo::variables_map vmap;
+	try{
+		bpo::store(
+			bpo::parse_command_line(ac, av, options), vmap);
+		bpo::notify(vmap);
+
+
+
+		if (vmap.count("help")) {
+			cout << options << endl;
 			}
 
-		cin.get();
+		if (vmap.count("RunCHECKARCHIVES")) {
+			VerifyMPQPipe();
+			}
+
+		if (vmap.count("Repack")) {
+			RepackArchives();
+			}
+
+		if (vmap.count("RunDELETEARCHIVEINTERFACEFILES")) {
+			DeleteArchiveInterfaceFiles();
+			}
+		}catch ( std::exception e ) // Not a valid arg
+		{
+		cout << options << endl;
+			}
 
 		clreol();
-		return nError;
-		}
+		return 0;
 	}

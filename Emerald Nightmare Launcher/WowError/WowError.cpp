@@ -1,8 +1,8 @@
 // WowError.cpp : main project file.
 
-#include "stdafx.h"
 #include "boost\filesystem\path.hpp"
 #include "boost\filesystem\operations.hpp"
+#include <iostream>
 
 using namespace std;
 
