@@ -20,17 +20,16 @@
 #include "../src/StormLib.h"
 #include "../src/StormCommon.h"
 #include "../src/MD5_File.h"
-#include <boost/program_options.hpp>
-#include "boost/exception/exception.hpp"
+#include "boost/program_options.hpp"
+
 using namespace std;
 namespace bfs = boost::filesystem;
 namespace bpo = boost::program_options;
 
-#ifdef _MSC_VER
 #pragma warning(disable: 4505)              // 'XXX' : unreferenced local function has been removed
 #pragma warning(disable: 4706)              // assignment within conditional expression
+#pragma warning(disable: 4996)
 #pragma warning(disable: 4512)              // assignment operator could not be generated
-#endif
 
 //------------------------------------------------------------------------------
 // Defines
@@ -2019,63 +2018,62 @@ inline void DeleteArchiveInterfaceFiles()
 		{
 		cout << "If you were to delete your interface files you would damage your version of warcraft, aborting." << endl;
 		cout << "If you want to play with this function, download Marforius-Client and repack your client's master patch files." << endl;
+		cin.get();
 		}
 	}
 
 inline void RepackArchives()
 	{
-	//repacker finds files from all files in data and puts
-	//the files from the patch mpq archives into the master files
+	// repacker finds files from all files in data and puts
+	// the files from the patch mpq archives into the master files
 	// I was just combining the patch files here and I decided to stop coding this for a bit
 	// i'll come back to this later
-	//
-	// 	char buffer[MAX_PATH];
-	// 	GetCurrentDirectory(sizeof(buffer),buffer);
-	// 
-	// std:: string CommonMPQ2 = std:: string(buffer) + "\\Data\\Common-2.MPQ";
-	//  std:: string CommonMPQ = std:: string(buffer) + "\\Data\\Common.MPQ";
-	//  std:: string ExpansionMPQ = std:: string(buffer) + "\\Data\\expansion.MPQ";
-	//  std:: string LichkingMPQ = std:: string(buffer) + "\\Data\\lichking.MPQ";
-	//  std:: string PatchMPQ = std:: string(buffer) + "\\Data\\patch.MPQ";
-	//  std:: string Patch2MPQ = std:: string(buffer) + "\\Data\\patch-2.MPQ";
-	//  std:: string Patch3MPQ = std:: string(buffer) + "\\Data\\patch-3.MPQ";
-	//  std:: string Patch4MPQ = std:: string(buffer) + "\\Data\\patch-4.MPQ";
-	//  std:: string BackupEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\backup-enUS.MPQ";
-	//  std:: string BaseEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\base-enUS.MPQ";
-	//  std:: string ExpansionLocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\expansion-locale-enUS.MPQ";
-	//  std:: string ExpansionSpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\expansion-speech-enUS.MPQ";
-	//  std:: string LichkingLocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\lichking-locale-enUS.MPQ";
-	//  std:: string LichkingSpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\lichking-speech-enUS.MPQ";
-	//  std:: string LocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\locale-enUS.MPQ";
-	//  std:: string PatchEnUS2MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-2.MPQ";
-	//  std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
-	//  std:: string PatchEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS.MPQ";
-	//  std:: string SpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\speech-enUS.MPQ";
-	// 
-	// 
-	// 	boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
-	// 	if( !boost::filesystem::exists(IsRepacked) )
-	// 		{
-	// 		cout << "Detected files as being repacked." << endl;
-	// 		cout << "Nothing to do." << endl;
-	// 		cin.get();
-	// 		}
-	// 	else if( boost::filesystem::exists(IsRepacked) )
-	// 		{
-	// 		CopyArchiveToArchive(Patch2MPQ.c_str(), PatchMPQ.c_str(), NULL);
-	// 		CopyArchiveToArchive(Patch3MPQ.c_str(), PatchMPQ.c_str(), NULL);
-	// 		CopyArchiveToArchive(PatchEnUS2MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
-	// 		CopyArchiveToArchive(PatchEnUS3MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
-	// 		remove(BackupEnUSMPQ.c_str());
-	// 		remove(BaseEnUSMPQ.c_str());
-	// 		}
-	// 	cout << endl;
-	// 	cout << "Repack complete, running MD5 check on repacked archives." << endl;
+
+	char buffer[MAX_PATH];
+	GetCurrentDirectory(sizeof(buffer),buffer);
+
+	std:: string CommonMPQ2 = std:: string(buffer) + "\\Data\\Common-2.MPQ";
+	std:: string CommonMPQ = std:: string(buffer) + "\\Data\\Common.MPQ";
+	std:: string ExpansionMPQ = std:: string(buffer) + "\\Data\\expansion.MPQ";
+	std:: string LichkingMPQ = std:: string(buffer) + "\\Data\\lichking.MPQ";
+	std:: string PatchMPQ = std:: string(buffer) + "\\Data\\patch.MPQ";
+	std:: string Patch2MPQ = std:: string(buffer) + "\\Data\\patch-2.MPQ";
+	std:: string Patch3MPQ = std:: string(buffer) + "\\Data\\patch-3.MPQ";
+	std:: string Patch4MPQ = std:: string(buffer) + "\\Data\\patch-4.MPQ";
+	std:: string BackupEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\backup-enUS.MPQ";
+	std:: string BaseEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\base-enUS.MPQ";
+	std:: string ExpansionLocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\expansion-locale-enUS.MPQ";
+	std:: string ExpansionSpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\expansion-speech-enUS.MPQ";
+	std:: string LichkingLocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\lichking-locale-enUS.MPQ";
+	std:: string LichkingSpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\lichking-speech-enUS.MPQ";
+	std:: string LocaleEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\locale-enUS.MPQ";
+	std:: string PatchEnUS2MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-2.MPQ";
+	std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
+	std:: string PatchEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS.MPQ";
+	std:: string SpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\speech-enUS.MPQ";
+
+	boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
+	if( !boost::filesystem::exists(IsRepacked) )
+		{
+		cout << "Detected files as being repacked." << endl;
+		cout << "Nothing to do." << endl;
+		cin.get();
+		}
+	else if( boost::filesystem::exists(IsRepacked) )
+		{
+		CopyArchiveToArchive(Patch2MPQ.c_str(), PatchMPQ.c_str(), NULL);
+		CopyArchiveToArchive(Patch3MPQ.c_str(), PatchMPQ.c_str(), NULL);
+		CopyArchiveToArchive(PatchEnUS2MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
+		CopyArchiveToArchive(PatchEnUS3MPQ.c_str(), PatchEnUSMPQ.c_str(), NULL);
+		remove(BackupEnUSMPQ.c_str());
+		remove(BaseEnUSMPQ.c_str());
+		}
+	cout << endl;
+	cout << "Repack complete, running MD5 check on repacked archives." << endl;
 	// investigate
-	// 	VerifyMPQSignature(PatchMPQ.c_str());
-	// 	VerifyMPQSignature(PatchEnUSMPQ.c_str());
-	// 	cout << "If archives successfully verified to MD5s the operation was successful, press any key to exit" << endl;
-	// 	cin.get();
+	VerifyMPQSignature(PatchMPQ.c_str());
+	VerifyMPQSignature(PatchEnUSMPQ.c_str());
+	// Add code to verify if matches MD5 to continue repacking after combining archives 
 	}
 
 

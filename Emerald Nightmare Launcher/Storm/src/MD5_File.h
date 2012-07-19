@@ -2,6 +2,7 @@
 #define MD5_H
 
 #pragma warning(disable: 4706)              // assignment within conditional expression
+#pragma warning(disable: 4996)
 // Copyright (C) 1991-2, RSA Data Security, Inc. Created 1991. All
 // rights reserved.
 
@@ -29,7 +30,9 @@
 // This version has dependency on stdio.h for file input and
 // string.h for memcpy.
 #include <stdio.h>
-#include <string.h>
+#include <iostream>
+#include <ostream>
+using namespace std;
 
 #pragma region MD5 defines
 // Constants for MD5Transform routine.
@@ -324,7 +327,7 @@ class MD5
 			int pos ;
 
 			for( pos = 0 ; pos < 16 ; pos++ )
-				sprintf( digestChars+(pos*2), "%02x", digestRaw[pos] ) ;
+				cout << ( digestChars+(pos*2), "%02x", digestRaw[pos] ) << endl;
 			}
 
 
@@ -348,7 +351,7 @@ class MD5
 			unsigned char buffer[1024] ;
 
 			if( (file = fopen (filename, "rb")) == NULL )
-				printf( "%s can't be opened\n", filename ) ;
+				cout << ( "%s can't be opened\n", filename ) << endl;
 			else
 				{
 				while( len = fread( buffer, 1, 1024, file ) )

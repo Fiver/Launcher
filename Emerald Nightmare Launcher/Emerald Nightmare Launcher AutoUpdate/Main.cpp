@@ -3,6 +3,8 @@
 #include "Updater.h"
 #include <iostream>
 using namespace std;
+namespace bpo = boost::program_options;
+
 //************************************
 // Method:    main
 // FullName:  main
@@ -20,9 +22,6 @@ int main(int ac, char* av[])
 		cout << "This program must be called by the launcher." << endl;
 		return 0;
 		}
-
-	namespace bpo = boost::program_options;
-
 
 	bpo::options_description options("command line options");
 	options.add_options() ("help", "Use -h or --help to list all arguments")
