@@ -730,8 +730,6 @@ bool WINAPI SFileWriteFile(
         if(dwCompression & LOSSY_COMPRESSION_MASK)
             nError = ERROR_INVALID_PARAMETER;
     }
-
-
     // Write the data to the file
     if(nError == ERROR_SUCCESS)
         nError = SFileAddFile_Write(hf, pvData, dwSize, dwCompression);

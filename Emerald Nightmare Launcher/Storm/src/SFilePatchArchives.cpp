@@ -306,8 +306,6 @@ static int ApplyMpqPatch_BSD0(
     hf->cbFileData = dwNewSize;
     return ERROR_SUCCESS;
 }
-
-
 static int LoadMpqPatch(TMPQFile * hf)
 {
     TPatchHeader PatchHeader;

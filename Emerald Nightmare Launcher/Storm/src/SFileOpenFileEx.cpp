@@ -278,8 +278,6 @@ bool WINAPI SFileHasFile(HANDLE hMpq, const char * szFileName)
     SetLastError(nError);
     return false;
 }
-
-
 //-----------------------------------------------------------------------------
 // SFileOpenFileEx
 //

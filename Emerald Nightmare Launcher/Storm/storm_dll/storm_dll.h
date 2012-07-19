@@ -28,8 +28,6 @@
 #define SFILE(Name) SFile##Name
 #define SCOMP(Name) SComp##Name
 #endif
-
-
 // Just in case anyone is still using C out there
 #ifdef __cplusplus
 extern "C" {
@@ -54,8 +52,6 @@ extern "C" {
 // Storm (de)compression functions
     BOOL  WINAPI SCOMP(Compress)  (char * pbOutBuffer, int * pdwOutLength, char * pbInBuffer, int dwInLength, int uCmp, int uCmpType, int nCmpLevel);
     BOOL  WINAPI SCOMP(Decompress)(char * pbOutBuffer, int * pdwOutLength, char * pbInBuffer, int dwInLength);
-
-
 #if defined(_MSC_VER) && !defined(BUILDING_STORM_CPP)
 #pragma comment(lib, "Storm.lib")    // Force linking Storm.lib and thus Storm.dll
 #endif

@@ -408,8 +408,6 @@ static int CopyMpqFiles(TMPQArchive * ha, LPDWORD pFileKeys, TFileStream * pNewS
         FreeMPQFile(hf);
     return nError;
 }
-
-
 /*****************************************************************************/
 /* Public functions                                                          */
 /*****************************************************************************/

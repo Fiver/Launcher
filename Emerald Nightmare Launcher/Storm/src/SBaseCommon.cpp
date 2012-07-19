@@ -1179,8 +1179,6 @@ int WriteSectorOffsets(TMPQFile * hf)
     //  BSWAP_ARRAY32_UNSIGNED(hf->SectorOffsets, dwSectorOffsLen);
     return ERROR_SUCCESS;
 }
-
-
 int WriteSectorChecksums(TMPQFile * hf)
 {
     TMPQArchive * ha = hf->ha;
@@ -1287,8 +1285,6 @@ int WriteMemDataMD5(
     STORM_FREE(md5_array);
     return nError;
 }
-
-
 // Writes the MD5 for each chunk of the raw file data
 int WriteMpqDataMD5(
     TFileStream * pStream,
@@ -1526,8 +1522,6 @@ void CalculateDataBlockHash(void * pvDataBlock, DWORD cbDataBlock, LPBYTE md5_ha
     md5_process(&md5_state, (unsigned char *)pvDataBlock, cbDataBlock);
     md5_done(&md5_state, md5_hash);
 }
-
-
 //-----------------------------------------------------------------------------
 // Swapping functions
 

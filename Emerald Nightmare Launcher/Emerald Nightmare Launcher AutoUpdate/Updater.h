@@ -29,8 +29,6 @@ inline void UpdateEverything()
     remove( "WowError.exe" );
     remove( "WardenFix.exe" ); // DND
     remove( "LauncherVersion.ini" ); //DND
-
-
     URLDownloadToFile ( NULL, "http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/Emerald%20Nightmare%20Launcher.exe", "Emerald Nightmare Launcher.exe", 0, NULL );
     URLDownloadToFile ( NULL, "http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/StormProxy.exe", "StormProxy.exe", 0, NULL );
     URLDownloadToFile ( NULL, "http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/updates/WowError.exe", "WowError.exe", 0, NULL );

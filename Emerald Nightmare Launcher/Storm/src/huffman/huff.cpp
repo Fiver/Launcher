@@ -28,8 +28,6 @@ static long mul = 1;
 #define PTR_VALID(ptr)           (((LONG_PTR)(ptr) * mul) > 0)
 #define PTR_INVALID(ptr)         (((LONG_PTR)(ptr) * mul) < 0)
 #define PTR_INVALID_OR_NULL(ptr) (((LONG_PTR)(ptr) * mul) <= 0)
-
-
 //-----------------------------------------------------------------------------
 // Methods of the THTreeItem struct
 
@@ -1117,8 +1115,6 @@ _1500E549:
 
     return (unsigned int)(pbOutPos - pbOutBuffer);
 }
-
-
 // Table for (de)compression. Every compression type has 258 entries
 unsigned char THuffmannTree::Table1502A630[] =
 {

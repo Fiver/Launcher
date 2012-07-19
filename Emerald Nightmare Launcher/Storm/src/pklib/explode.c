@@ -465,8 +465,6 @@ static unsigned long Expand(TDcmpStruct * pWork)
     pWork->write_buf((char *)&pWork->out_buff[0x1000], &copyBytes, pWork->param);
     return result;
 }
-
-
 //-----------------------------------------------------------------------------
 // Main exploding function.
 

@@ -209,8 +209,6 @@ uint32_t hashword(
     /*------------------------------------------------------ report the result */
     return c;
 }
-
-
 /*
 --------------------------------------------------------------------
 hashword2() -- same as hashword(), but take two seeds and return two
@@ -259,8 +257,6 @@ void hashword2 (
     *pc=c;
     *pb=b;
 }
-
-
 /*
 -------------------------------------------------------------------------------
 hashlittle() -- hash a variable-length key into a 32-bit value
@@ -542,8 +538,6 @@ uint32_t hashlittle( const void *key, size_t length, uint32_t initval)
     final(a,b,c);
     return c;
 }
-
-
 /*
  * hashlittle2: return 2 32-bit hash values
  *
@@ -823,8 +817,6 @@ void hashlittle2(
     *pb=b;
 }
 
-
-
 /*
  * hashbig():
  * This is the same as hashword() on big-endian machines.  It is different
@@ -1025,8 +1017,6 @@ uint32_t hashbig( const void *key, size_t length, uint32_t initval)
     final(a,b,c);
     return c;
 }
-
-
 #ifdef SELF_TEST
 
 /* used for timings */
@@ -1220,8 +1210,6 @@ void driver4()
 {
     uint8_t buf[1];
     uint32_t h,i,state[HASHSTATE];
-
-
     buf[0] = ~0;
     for (i=0; i<HASHSTATE; ++i) state[i] = 1;
     printf("These should all be different\n");
@@ -1252,8 +1240,6 @@ void driver5()
     c = hashlittle("Four score and seven years ago", 30, 1);
     printf("hash is %.8lx\n", c);   /* cd628161 */
 }
-
-
 int main()
 {
     driver1();   /* test that the key is hashed: used for timings */

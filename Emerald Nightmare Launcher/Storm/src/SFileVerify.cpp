@@ -810,8 +810,6 @@ bool WINAPI SFileGetFileChecksums(HANDLE hMpq, const char * szFileName, LPDWORD 
 
     return true;
 }
-
-
 DWORD WINAPI SFileVerifyFile(HANDLE hMpq, const char * szFileName, DWORD dwFlags)
 {
     return VerifyFile(hMpq,
@@ -892,8 +890,6 @@ int WINAPI SFileVerifyRawData(HANDLE hMpq, DWORD dwWhatToVerify, const char * sz
 
     return ERROR_INVALID_PARAMETER;
 }
-
-
 // Verifies the archive against the signature
 DWORD WINAPI SFileVerifyArchive(HANDLE hMpq)
 {

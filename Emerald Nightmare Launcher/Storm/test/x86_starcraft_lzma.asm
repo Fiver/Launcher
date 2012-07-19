@@ -201,8 +201,6 @@ dword_5535C0    dd ?                    ; DATA XREF: sub_4CF900:loc_4CF98Fo
 dword_5535C4    dd ?                    ; DATA XREF: .text:004DAEF7w
 dword_5535C8    dd ?                    ; DATA XREF: .text:004DAEFCw
 dword_5535CC    dd ?                    ; DATA XREF: .text:004DAF01w
-
-
 dword_526DD0    dd 0                    ; DATA XREF: .text:loc_4CF6CBo
 dd 0
 dd 0
@@ -287,8 +285,6 @@ j__free         proc near               ; CODE XREF: sub_401048+16p
 ; .text:004010CFp ...
 jmp     _free
 j__free         endp
-
-
 ; ---------------------------------------------------------------------------
 
 ; int __cdecl unknown_libname_324(void *Buf1, void *Buf2)
@@ -361,8 +357,6 @@ retn
 sub_4A98B8      endp
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CAEC0      proc near               ; CODE XREF: CEncoder_GetOptimum+514p
 
 arg_0           = dword ptr  4
@@ -565,8 +559,6 @@ xor     eax, eax
 pop     esi
 retn
 sub_4CAFC0      endp
-
-
 ICompressSetCoderProperties_SetCoderProperties      proc near               ; DATA XREF: .rdata:00517ADCo
 
 var_4           = dword ptr -4
@@ -1970,8 +1962,6 @@ sub_4CBC80      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CBD20      proc near               ; CODE XREF: sub_4CBD50+26p
 
 arg_0           = dword ptr  4
@@ -2385,8 +2375,6 @@ sub_4CBEC0      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CC040      proc near               ; CODE XREF: sub_4CC220+F8p
 ; sub_4CC3B0+173p ...
 
@@ -5143,8 +5131,6 @@ sub_4CD940      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CD9B0      proc near               ; CODE XREF: CEncoder_GetOptimum+436p
 ; CEncoder_GetOptimum+AE1p
 
@@ -5210,8 +5196,6 @@ sub_4CD9B0      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CDA70      proc near               ; CODE XREF: CEncoder_CodeReal+10Cp
 ; CEncoder_CodeReal+134p ...
 push    esi
@@ -5246,8 +5230,6 @@ sub_4CDA70      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CDAC0      proc near               ; CODE XREF: CEncoder_GetOptimum+2C4p
 ; CEncoder_GetOptimum+7ACp ...
 
@@ -5567,8 +5549,6 @@ sub_4CDD70      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 ; int __cdecl sub_4CDD90(void * lpAddress)
 sub_4CDD90      proc near               ; CODE XREF: sub_4CF810+53p
 ; sub_4CF810+73p
@@ -5591,8 +5571,6 @@ sub_4CDD90      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CDDB0      proc near               ; DATA XREF: .rdata:00517AC8o
 
 var_10          = dword ptr -10h
@@ -5705,8 +5683,6 @@ sub_4CDE70      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CDEA0      proc near               ; CODE XREF: CEncoder_SetStreams+3Cp
 
 var_4           = dword ptr -4
@@ -5961,8 +5937,6 @@ sub_4CF450      endp
 
 ; ---------------------------------------------------------------------------
 align 10h
-
-
 ; ---------------------------------------------------------------------------
 
 ; int __stdcall Interface1_QueryInterface(int, void *Buf1, int)
@@ -6197,8 +6171,6 @@ int     3
 db 2 dup(0CCh)
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CF6E0      proc near               ; CODE XREF: sub_4D0770+FBp
 ; CEncoder_CodeOneBlock+6C5p
 
@@ -8261,8 +8233,6 @@ sub_4CF900      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CF9D0      proc near               ; CODE XREF: ICompressSetCoderProperties_AddRef+5j
 ; sub_4CFA10+5j ...
 
@@ -8278,8 +8248,6 @@ sub_4CF9D0      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CF9E0      proc near               ; CODE XREF: sub_4CFA40+5j
 ; ICompressSetCoderProperties_Release+5j ...
 
@@ -8303,8 +8271,6 @@ sub_4CF9E0      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 ICompressSetCoderProperties_AddRef      proc near               ; DATA XREF: .rdata:00517AD4o
 
 arg_0           = dword ptr  4
@@ -8317,8 +8283,6 @@ ICompressSetCoderProperties_AddRef      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFA10      proc near               ; DATA XREF: .rdata:00517AC0o
 
 arg_0           = dword ptr  4
@@ -8331,8 +8295,6 @@ sub_4CFA10      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFA20      proc near               ; DATA XREF: .rdata:NCompress_NLZMA_CEncoder_vftable_ICompressSetOutStreamo
 
 arg_0           = dword ptr  4
@@ -8345,8 +8307,6 @@ sub_4CFA20      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 ICompressSetCoderProperties_QueryInterface      proc near               ; DATA XREF: .rdata:NCompress_NLZMA_CEncoder_vftable_ICompressSetCoderPropertieso
 
 arg_0           = dword ptr  4
@@ -8359,8 +8319,6 @@ ICompressSetCoderProperties_QueryInterface      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFA40      proc near               ; DATA XREF: .rdata:00517AECo
 
 arg_0           = dword ptr  4
@@ -8373,8 +8331,6 @@ sub_4CFA40      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFA50      proc near               ; DATA XREF: .rdata:NCompress_NLZMA_CEncoder_vftable_ICompressWriteCoderPropertieso
 
 arg_0           = dword ptr  4
@@ -8389,8 +8345,6 @@ sub_4CFA50      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 ICompressSetCoderProperties_Release      proc near               ; DATA XREF: .rdata:00517AD8o
 
 arg_0           = dword ptr  4
@@ -8403,8 +8357,6 @@ ICompressSetCoderProperties_Release      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFA70      proc near               ; DATA XREF: .rdata:00517AC4o
 
 arg_0           = dword ptr  4
@@ -8417,8 +8369,6 @@ sub_4CFA70      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFA80      proc near               ; DATA XREF: .rdata:00517AE8o
 
 arg_0           = dword ptr  4
@@ -8431,8 +8381,6 @@ sub_4CFA80      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFA90      proc near               ; DATA XREF: .rdata:00517AF0o
 
 arg_0           = dword ptr  4
@@ -8520,8 +8468,6 @@ sub_4CFAC0      endp
 ; ---------------------------------------------------------------------------
 align 10h
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFB20      proc near               ; CODE XREF: sub_4D0020+52p
 ; sub_4D0020+E4p
 
@@ -8597,8 +8543,6 @@ sub_4CFB20      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFBC0      proc near               ; CODE XREF: sub_4D0020+136p
 
 arg_0           = dword ptr  4
@@ -8673,8 +8617,6 @@ sub_4CFBC0      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFC60      proc near               ; CODE XREF: sub_4D0770+EDp
 ; CEncoder_CodeOneBlock+67Cp
 
@@ -8750,8 +8692,6 @@ sub_4CFC60      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFD00      proc near               ; CODE XREF: sub_4D0770+109p
 ; CEncoder_CodeOneBlock+6D5p
 
@@ -8818,11 +8758,7 @@ pop     ebp
 pop     ebx
 retn    8
 sub_4CFD00      endp
-
-
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFD90      proc near               ; CODE XREF: CEncoder_CodeOneBlock+6AFp
 
 arg_0           = dword ptr  4
@@ -8900,8 +8836,6 @@ sub_4CFD90      endp
 align 10h
 
 ; =============== S U B R O U T I N E =======================================
-
-
 sub_4CFE30      proc near               ; CODE XREF: CEncoder_CodeOneBlock+190p
 ; CEncoder_CodeOneBlock+2CCp
 

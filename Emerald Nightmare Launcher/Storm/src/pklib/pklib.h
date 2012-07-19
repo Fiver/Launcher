@@ -76,8 +76,6 @@ typedef struct
 
 #define CMP_BUFFER_SIZE  sizeof(TCmpStruct) // Size of compression structure.
 // Defined as 36312 in pkware header file
-
-
 // Decompression structure
 typedef struct
 {
@@ -129,8 +127,6 @@ extern "C" {
         void         *param,
         unsigned int *type,
         unsigned int *dsize);
-
-
     unsigned int PKEXPORT explode(
         unsigned int (*read_buf)(char *buf, unsigned  int *size, void *param),
         void         (*write_buf)(char *buf, unsigned  int *size, void *param),

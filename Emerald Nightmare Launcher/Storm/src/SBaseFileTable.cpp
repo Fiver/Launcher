@@ -252,8 +252,6 @@ void TBitArray::SetBits(
         }
     }
 }
-
-
 //-----------------------------------------------------------------------------
 // Support for hash table
 
@@ -1427,8 +1425,6 @@ void AllocateFileName(TFileEntry * pFileEntry, const char * szFileName)
             strcpy(pFileEntry->szFileName, szFileName);
     }
 }
-
-
 // Finds a free file entry. Does NOT increment table size.
 TFileEntry * FindFreeFileEntry(TMPQArchive * ha)
 {
@@ -1464,8 +1460,6 @@ TFileEntry * FindFreeFileEntry(TMPQArchive * ha)
     assert(ha->dwFileTableSize == ha->dwMaxFileCount);
     return NULL;
 }
-
-
 TFileEntry * AllocateFileEntry(TMPQArchive * ha, const char * szFileName, LCID lcLocale)
 {
     TFileEntry * pFileEntry = NULL;
@@ -2180,8 +2174,6 @@ int BuildFileTable_HetBet(
                                pBetTable->dwBitCount_CmpSize,
                                &pFileEntry->dwCmpSize,
                                4);
-
-
             // Read the flag index
             if(pBetTable->dwFlagCount != 0)
             {

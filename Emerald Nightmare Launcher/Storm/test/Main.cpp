@@ -14,8 +14,6 @@
 // A very big thanks to Ladik for this great library, I hardly had to put
 // any work at all into this thanks to you.
 ////////////////////////////////////////////////////////////////////////*/
-
-
 #define _CRT_SECURE_NO_DEPRECATE
 #define __INCLUDE_CRYPTOGRAPHY__
 #define __STORMLIB_SELF__                   // Don't use StormLib.lib
@@ -108,8 +106,6 @@ static int inline CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * sz
                 if(strcmp(sf.cFileName, LISTFILE_NAME) && strcmp(sf.cFileName, ATTRIBUTES_NAME))
                 {
                     SFileSetLocale(sf.lcLocale);
-
-
 
                     // Create the local file name
                     MergeLocalPath(szLocalFile, WorkDirForExtract.c_str(), sf.szPlainName);
@@ -299,8 +295,6 @@ inline void VerifyMPQPipe()
     std:: string PatchEnUS3MPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS-3.MPQ";
     std:: string PatchEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\patch-enUS.MPQ";
     std:: string SpeechEnUSMPQ = std:: string(buffer) + "\\Data\\enUS\\speech-enUS.MPQ";
-
-
     boost::filesystem::path IsRepacked(PatchEnUS3MPQ);
     if( !boost::filesystem::exists(IsRepacked) )
     {
@@ -421,8 +415,6 @@ inline void RepackArchives()
     VerifyMPQSignature(PatchEnUSMPQ.c_str());
     // Add code to verify if matches MD5 to continue repacking after combining archives
 }
-
-
 int main(int ac, char* av[])
 {
 

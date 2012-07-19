@@ -49,8 +49,6 @@ private:
     System::Windows::Forms::ToolStripMenuItem^  test1ToolStripMenuItem;
 private:
     System::Windows::Forms::ToolStripMenuItem^  forceLauncherUpdateToolStripMenuItem;
-
-
 private:
     System::Windows::Forms::ToolStripMenuItem^  cleanupToolStripMenuItem;
 
@@ -64,14 +62,6 @@ private:
     System::Windows::Forms::ToolStripMenuItem^  mD5CheckArchivesToolStripMenuItem1;
 private:
     System::Windows::Forms::ToolStripMenuItem^  deleteWarcraftsCacheToolStripMenuItem;
-
-
-
-
-
-
-
-
 private:
     System::Windows::Forms::ToolStripMenuItem^  developerToolStripMenuItem;
 
@@ -94,10 +84,6 @@ private:
     System::Windows::Forms::ToolStripMenuItem^  downloadReccomendedAddonsToolStripMenuItem;
 private:
     System::Windows::Forms::CheckBox^  IRCModeCheckBox;
-
-
-
-
 private:
     /// <summary>
     /// Required designer variable.
@@ -477,8 +463,6 @@ private:
                 CreateProcessLauncher("AutoUpdater.exe --RunMain");
                 EmeraldNightmareLauncher::Main_Window::Close();
             }
-
-
         }
         VerofRemoteBeforeConvert.clear();
         VersionAtCompile = NULL;
@@ -664,8 +648,6 @@ private:
         }
 
         int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
-
-
         if (DebugOn == 1)
         {
             ToggleWarcraftDebug();

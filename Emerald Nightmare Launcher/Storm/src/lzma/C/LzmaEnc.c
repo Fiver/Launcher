@@ -82,8 +82,6 @@ UInt32 LzmaEncProps_GetDictSize(const CLzmaEncProps *props2)
 
 /* #define LZMA_LOG_BSR */
 /* Define it for Intel's CPU */
-
-
 #ifdef LZMA_LOG_BSR
 
 #define kDicLogSizeMaxCompress 30
@@ -133,8 +131,6 @@ void LzmaEnc_FastPosInit(Byte *g_FastPos)
 #define GetPosSlot(pos, res) { if (pos < kNumFullDistances) res = p->g_FastPos[pos]; else BSR2_RET(pos, res); }
 
 #endif
-
-
 #define LZMA_NUM_REPS 4
 
 typedef unsigned CState;
@@ -162,8 +158,6 @@ typedef struct
 #define kDicLogSizeMin 0
 #define kDicLogSizeMax 32
 #define kDistTableSizeMax (kDicLogSizeMax * 2)
-
-
 #define kNumAlignBits 4
 #define kAlignTableSize (1 << kNumAlignBits)
 #define kAlignMask (kAlignTableSize - 1)
@@ -185,8 +179,6 @@ typedef struct
 #define LZMA_LP_MAX 4
 
 #define LZMA_NUM_PB_STATES_MAX (1 << LZMA_PB_MAX)
-
-
 #define kLenNumLowBits 3
 #define kLenNumLowSymbols (1 << kLenNumLowBits)
 #define kLenNumMidBits 3
@@ -619,8 +611,6 @@ void LzmaEnc_InitPriceTables(UInt32 *ProbPrices)
         ProbPrices[i >> kNumMoveReducingBits] = ((kNumBitModelTotalBits << kCyclesBits) - 15 - bitCount);
     }
 }
-
-
 #define GET_PRICE(prob, symbol) \
   p->ProbPrices[((prob) ^ (((-(int)(symbol))) & (kBitModelTotal - 1))) >> kNumMoveReducingBits];
 
@@ -661,8 +651,6 @@ static UInt32 LitEnc_GetPriceMatched(const CLzmaProb *probs, UInt32 symbol, UInt
     while (symbol < 0x10000);
     return price;
 }
-
-
 static void RcTree_Encode(CRangeEnc *rc, CLzmaProb *probs, int numBitLevels, UInt32 symbol)
 {
     UInt32 m = 1;
@@ -716,8 +704,6 @@ static UInt32 RcTree_ReverseGetPrice(const CLzmaProb *probs, int numBitLevels, U
     }
     return price;
 }
-
-
 static void LenEnc_Init(CLenEnc *p)
 {
     unsigned i;
@@ -796,10 +782,6 @@ static void LenEnc_Encode2(CLenPriceEnc *p, CRangeEnc *rc, UInt32 symbol, UInt32
         if (--p->counters[posState] == 0)
             LenPriceEnc_UpdateTable(p, posState, ProbPrices);
 }
-
-
-
-
 static void MovePos(CLzmaEnc *p, UInt32 num)
 {
 #ifdef SHOW_STAT
@@ -847,8 +829,6 @@ static UInt32 ReadMatchDistances(CLzmaEnc *p, UInt32 *numDistancePairsRes)
     *numDistancePairsRes = numPairs;
     return lenRes;
 }
-
-
 #define MakeAsChar(p) (p)->backPrev = (UInt32)(-1); (p)->prev1IsChar = False;
 #define MakeAsShortRep(p) (p)->backPrev = 0; (p)->prev1IsChar = False;
 #define IsShortRep(p) ((p)->backPrev == 0)
@@ -1952,8 +1932,6 @@ void LzmaEnc_Init(CLzmaEnc *p)
         p->reps[i] = 0;
 
     RangeEnc_Init(&p->rc);
-
-
     for (i = 0; i < kNumStates; i++)
     {
         UInt32 j;
@@ -2103,8 +2081,6 @@ static size_t MyWrite(void *pp, const void *data, size_t size)
     p->data += size;
     return size;
 }
-
-
 UInt32 LzmaEnc_GetNumAvailableBytes(CLzmaEncHandle pp)
 {
     const CLzmaEnc *p = (CLzmaEnc *)pp;

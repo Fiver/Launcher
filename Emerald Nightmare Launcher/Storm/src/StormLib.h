@@ -549,8 +549,6 @@ extern "C" {
         unsigned char MD5_MpqHeader[MD5_DIGEST_SIZE];       // MD5 of the MPQ header from signature to (including) MD5_HetTable
     };
 #pragma pack(pop)
-
-
     // Hash entry. All files in the archive are searched by their hashes.
     struct TMPQHash
     {
@@ -586,8 +584,6 @@ extern "C" {
         //               Does not terminate searches for a given file.
         DWORD dwBlockIndex;
     };
-
-
     // File description block contains informations about the file
     struct TMPQBlock
     {

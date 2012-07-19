@@ -62,8 +62,6 @@ typedef struct
     unsigned long uMask;                // Decompression bit
     DECOMPRESS    Decompress;           // Decompression function
 } TDecompressTable;
-
-
 /*****************************************************************************/
 /*                                                                           */
 /*  Support for Huffman compression (0x01)                                   */

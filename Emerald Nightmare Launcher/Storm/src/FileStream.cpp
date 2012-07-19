@@ -1034,8 +1034,6 @@ static void DecryptFileChunk(
         dwLength -= MPQE_CHUNK_SIZE;
     }
 }
-
-
 static bool DetectFileKey(TEncryptedStream * pStream)
 {
     ULONGLONG ByteOffset = 0;
@@ -1447,8 +1445,6 @@ bool FileStream_Write(TFileStream * pStream, ULONGLONG * pByteOffset, const void
 
     return pStream->StreamWrite(pStream, pByteOffset, pvBuffer, dwBytesToWrite);
 }
-
-
 /**
 * Returns the last write time of a file
 *

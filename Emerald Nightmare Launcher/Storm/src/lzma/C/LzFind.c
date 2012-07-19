@@ -523,8 +523,6 @@ static UInt32 Bt3_MatchFinder_GetMatches(CMatchFinder *p, UInt32 *distances)
 
     p->hash[hash2Value] =
         p->hash[kFix3HashSize + hashValue] = p->pos;
-
-
     maxLen = 2;
     offset = 0;
     if (delta2 < p->cyclicBufferSize && *(cur - delta2) == *cur)

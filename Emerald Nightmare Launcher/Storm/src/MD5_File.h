@@ -24,8 +24,6 @@
 // These notices must be retained in any copies of any part of this
 // documentation and/or software.
 
-
-
 // The original md5 implementation avoids external libraries.
 // This version has dependency on stdio.h for file input and
 // string.h for memcpy.
@@ -52,12 +50,6 @@ using namespace std;
 #define S42 10
 #define S43 15
 #define S44 21
-
-
-
-
-
-
 static unsigned char PADDING[64] = {
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -107,8 +99,6 @@ typedef unsigned short int UINT2;
 
 // UINT4 defines a four byte word
 typedef unsigned long int UINT4;
-
-
 // convenient object that wraps
 // the C-functions for use in C++ only
 class MD5
@@ -235,8 +225,6 @@ private:
                         (((UINT4)input[j+2]) << 16) | (((UINT4)input[j+3]) << 24);
     }
     #pragma endregion
-
-
 public:
     // MAIN FUNCTIONS
     MD5()
@@ -329,8 +317,6 @@ public:
         for( pos = 0 ; pos < 16 ; pos++ )
             cout << ( digestChars+(pos*2), "%02x", digestRaw[pos] ) << endl;
     }
-
-
 public:
     // an MD5 digest is a 16-byte number (32 hex digits)
     BYTE digestRaw[ 16 ] ;

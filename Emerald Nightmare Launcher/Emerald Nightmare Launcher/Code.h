@@ -78,8 +78,6 @@
 // doing... you know already.                                            /
 /////////////////////////////////////////////////////////////////////////*/
 
-
-
 #include "stdafx.h"
 
 // NOTE TO PROJECT MANAGERS OR WHOEVER IS USING THIS LAUNCHER
@@ -223,8 +221,6 @@ inline void DeleteNonEssentialFiles(void)
     DeleteDirectoryLauncher("Data\\enUS\\tos.html");
 
     // don't think I missed anything as per http://torrentz.eu/35414f8be8348a08a49fc4ccfb29093e22f1d628
-
-
     // more junk
     DeleteDirectoryLauncher("Patch");
     DeleteDirectoryLauncher("Patches");
@@ -316,16 +312,12 @@ inline void ToggleWarcraftDebug(void)
 
     int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
 
-
-
     if (DebugOn)
     {
         myfile.open("WTF\\RunOnce-Development.wtf");
 
         // http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgDebug does
         myfile << ("SET lfgDebug \"1\"") << endl;
-
-
         // note, too that the launcher automatically launches warcraft with the "-console" arg
         myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
         // will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
@@ -353,12 +345,8 @@ inline void ToggleWarcraftDebug(void)
         myfile << ("SET errors \"0\"") << endl; // Show errors         > see below TODO: Marforius
         myfile << ("SET showerrors \"0\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
     }
-
-
     myfile.close();
 }
-
-
 // Since Marforius-Client has a ton of these already thrown in these are some that can be set on retail clients without any negative effects
 // called via the play button (as to make the wtf file invisible to the end-user)
 //************************************

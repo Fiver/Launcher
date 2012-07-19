@@ -11,8 +11,6 @@
 //#define LICENSE "Attribution-NonCommercial-NoDerivs 3.0 Unported"
 // Additional copyright rights
 //#define CR_RIGHTS "No permission is given to other projects."
-
-
 // Increase this to prevent new versions from being downloaded when the text file is changed on the server to create an update
 #define CURRENT_VERSION 3
 

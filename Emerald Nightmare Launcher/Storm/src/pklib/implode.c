@@ -735,8 +735,6 @@ unsigned int PKEXPORT implode(
             nChCode = (nChCode & 0x0000FFFF) + 2;
         }
         break;
-
-
     case CMP_ASCII: // We will compress data with ASCII compression type
         for(nCount = 0; nCount < 0x100; nCount++)
         {

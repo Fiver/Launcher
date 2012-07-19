@@ -146,8 +146,6 @@ xor     eax, eax
 xor     edx, edx
 retn
 _aullshr        endp
-
-
 ;
 =============== S U B R O U T I N E =======================================
 
@@ -1221,8 +1219,6 @@ mov     esp, ebp
 pop     ebp
 retn    4
 sub_6D0210      endp
-
-
 sub_6CEBE0      proc near               ;
 CODE XREF:
 sub_4A72D0+49p
@@ -1341,8 +1337,6 @@ ESI = pointer to MPQ Header
       pop     ebp
       retn
       SFileVerifyMpqHeaderMD5 endp
-
-
       _wow_SFileVerifyMpqHeaderMD5 proc
       push    ebp
       mov     ebp, esp

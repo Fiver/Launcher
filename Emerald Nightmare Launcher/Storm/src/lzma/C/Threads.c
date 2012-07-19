@@ -71,8 +71,6 @@ WRes ManualResetEvent_CreateNotSignaled(CManualResetEvent *p) {
 WRes AutoResetEvent_CreateNotSignaled(CAutoResetEvent *p) {
     return AutoResetEvent_Create(p, 0);
 }
-
-
 WRes Semaphore_Create(CSemaphore *p, UInt32 initCount, UInt32 maxCount)
 {
     *p = CreateSemaphore(NULL, (LONG)initCount, (LONG)maxCount, NULL);
