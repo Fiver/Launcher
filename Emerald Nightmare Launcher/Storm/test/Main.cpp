@@ -19,11 +19,6 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #define __INCLUDE_CRYPTOGRAPHY__
 #define __STORMLIB_SELF__                   // Don't use StormLib.lib
-#include <stdio.h>
-
-#ifdef _MSC_VER
-#include <crtdbg.h>
-#endif
 
 #include "../src/StormLib.h"
 #include "../src/StormCommon.h"
@@ -34,8 +29,6 @@ using namespace std;
 namespace bfs = boost::filesystem;
 namespace bpo = boost::program_options;
 using namespace boost::this_thread;
-namespace fs = boost::filesystem;
-
 
 #pragma warning(disable: 4505)              // 'XXX' : unreferenced local function has been removed
 #pragma warning(disable: 4706)              // assignment within conditional expression
@@ -60,9 +53,8 @@ static void MergeLocalPath(TCHAR * szBuffer, const char * szPart1, const char * 
 	*szBuffer = 0;
 	}
 
-static int CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * szMpqCopyName, const char * szListFile)
+static int inline CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * szMpqCopyName, const char * szListFile)
 	{
-
 	char buffer[MAX_PATH];
 	GetCurrentDirectory(sizeof(buffer),buffer);
 
@@ -259,7 +251,7 @@ inline void VerifyMPQSignature(const char *szFileName)
 			if (CalculatedArchiveMD5 == EstablishedMD5s[n])
 				{
 				cout << "Archive integrity is good. MD5 matched."<< endl;
-				IsKnownArchive=true;
+				IsKnownArchive=true; // this is set to true to prevent the error message from coming up which is below
 				// stop iterating md5s
 				n = countof(EstablishedMD5s);
 				}
