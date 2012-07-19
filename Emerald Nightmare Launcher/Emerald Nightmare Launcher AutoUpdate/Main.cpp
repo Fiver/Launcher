@@ -32,12 +32,6 @@ int main(int ac, char* av[])
 			bpo::parse_command_line(ac, av, options), vmap);
 		bpo::notify(vmap);
 
-
-
-		if (vmap.count("help")) {
-			cout << options << endl;
-			}
-
 		if (vmap.count("RunMain")) {
 			UpdateEverything();
 			}
