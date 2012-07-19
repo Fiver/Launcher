@@ -260,6 +260,12 @@ inline void VerifyMPQSignature(const char *szFileName)
         if (IsKnownArchive == false)
         {
             cout << "File does NOT match any known MD5, archive is corrupt or changed!" << endl;
+			// write to log, for lazy saving of MD5s later on when I add more to the list of valid MD5s
+			ofstream myfile;
+			myfile.open("Logs\\MD5-Check.log");
+			myfile << "A MD5 was unmatched:" << endl;
+			myfile << ("%s", CalculatedArchiveMD5) << endl << endl;
+			myfile.close();
             cin.get();
         }
 

@@ -16,7 +16,7 @@ int main()
 
     if( !my_file.is_open() )
     {
-        if (MessageBox::Show("This launcher MUST be in the World of Warcraft directory for any functions to work properly.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error) == DialogResult::OK)
+        if (MessageBox::Show("This launcher and all the tools that go with it MUST be in the World of Warcraft directory for any functions to work properly.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error) == DialogResult::OK)
         {
             return 0;
         }
