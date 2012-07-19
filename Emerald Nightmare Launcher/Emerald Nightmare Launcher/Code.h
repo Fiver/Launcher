@@ -73,7 +73,7 @@
 // with a much less.. limiting license when I am done coding this version/
 //////////////////////////////////////////////////////////////////////////
 // I put this in because people are asking questions and forking this ;) /
-///////////////////////////////////////////////////////////////////////// 
+/////////////////////////////////////////////////////////////////////////
 // Modifying anything beyond this point without knowledge of what you are/
 // doing... you know already.                                            /
 /////////////////////////////////////////////////////////////////////////*/
@@ -94,269 +94,269 @@ using namespace std;
 //************************************
 // Method:    CreateProcessLauncher
 // FullName:  CreateProcessLauncher
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:
 // Parameter: LPSTR ProcessName (Include call to executable and follow it with command line args like so: ("WoW.exe -console"))
 //************************************
 inline void CreateProcessLauncher(LPSTR ProcessName)
-	{
-	STARTUPINFO si;
-	PROCESS_INFORMATION pi;
-	int spi=sizeof(pi);
-	int ssi= sizeof(si);
-	ZeroMemory( &si, sizeof(si) );
-	si.cb=sizeof(STARTUPINFO); //sizeof(si);
-	ZeroMemory( &pi, sizeof(pi) );
-	CreateProcess( NULL,
-		ProcessName,    // Command line.
-		NULL,            // Process handle not inheritable.
-		NULL,            // Thread handle not inheritable.
-		0,          // Set handle inheritance to FALSE.
-		ABOVE_NORMAL_PRIORITY_CLASS,               // Do not set Warcraft higher then this, you will cause thread problems
-		NULL,            // Use parent's environment block.
-		NULL,            // Use parent's starting directory.
-		&si,              // Pointer to STARTUPINFO structure.
-		&pi );
-	}
+{
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+    int spi=sizeof(pi);
+    int ssi= sizeof(si);
+    ZeroMemory( &si, sizeof(si) );
+    si.cb=sizeof(STARTUPINFO); //sizeof(si);
+    ZeroMemory( &pi, sizeof(pi) );
+    CreateProcess( NULL,
+                   ProcessName,    // Command line.
+                   NULL,            // Process handle not inheritable.
+                   NULL,            // Thread handle not inheritable.
+                   0,          // Set handle inheritance to FALSE.
+                   ABOVE_NORMAL_PRIORITY_CLASS,               // Do not set Warcraft higher then this, you will cause thread problems
+                   NULL,            // Use parent's environment block.
+                   NULL,            // Use parent's starting directory.
+                   &si,              // Pointer to STARTUPINFO structure.
+                   &pi );
+}
 
 //************************************
 // Method:    DeleteDirectoryLauncher
 // FullName:  DeleteDirectoryLauncher
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:
 // Parameter: LPCTSTR lpszDir (Deletes file or directory, nothing special to do; accepts full path or working directory)
 //************************************
 inline void DeleteDirectoryLauncher(LPCTSTR lpszDir)
-	{
-	int len = _tcslen(lpszDir);
-	TCHAR *pszFrom = new TCHAR[len+2];
-	_tcscpy(pszFrom, lpszDir);
-	pszFrom[len] = 0;
-	pszFrom[len+1] = 0;
+{
+    int len = _tcslen(lpszDir);
+    TCHAR *pszFrom = new TCHAR[len+2];
+    _tcscpy(pszFrom, lpszDir);
+    pszFrom[len] = 0;
+    pszFrom[len+1] = 0;
 
-	SHFILEOPSTRUCT fileop;
-	fileop.hwnd   = NULL;    // no status display
-	fileop.wFunc  = FO_DELETE;  // delete operation
-	fileop.pFrom  = pszFrom;  // source file name as double null terminated string
-	fileop.pTo    = NULL;    // no destination needed
-	fileop.fFlags = FOF_NOCONFIRMATION|FOF_SILENT;  // do not prompt the user
+    SHFILEOPSTRUCT fileop;
+    fileop.hwnd   = NULL;    // no status display
+    fileop.wFunc  = FO_DELETE;  // delete operation
+    fileop.pFrom  = pszFrom;  // source file name as double null terminated string
+    fileop.pTo    = NULL;    // no destination needed
+    fileop.fFlags = FOF_NOCONFIRMATION|FOF_SILENT;  // do not prompt the user
 
-	fileop.fAnyOperationsAborted = FALSE;
-	fileop.lpszProgressTitle     = NULL;
-	fileop.hNameMappings         = NULL;
+    fileop.fAnyOperationsAborted = FALSE;
+    fileop.lpszProgressTitle     = NULL;
+    fileop.hNameMappings         = NULL;
 
-	SHFileOperation(&fileop);
-	delete [] pszFrom;
-	}
+    SHFileOperation(&fileop);
+    delete [] pszFrom;
+}
 
 //************************************
 // Method:    DeleteNonEssentialFiles
 // FullName:  DeleteNonEssentialFiles
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:
 // Parameter: void
 // Comment: Deletes files using DeleteDirectoryLauncher, called by user selecting "Delete Non-Essential Files"
 //************************************
 inline void DeleteNonEssentialFiles(void)
-	{
-	// main directory
-	DeleteDirectoryLauncher("Cache");
-	DeleteDirectoryLauncher("Logger.exe");
-	DeleteDirectoryLauncher("Util.dll");
-	DeleteDirectoryLauncher("Battle.net.dll");
-	DeleteDirectoryLauncher("Changelog.URL");
-	DeleteDirectoryLauncher("Create Account.URL");
-	//"DivxDecoder.dll"); // see below why this is commented
-	DeleteDirectoryLauncher("Features.URL");
-	DeleteDirectoryLauncher("Molten Official Website.URL");
-	DeleteDirectoryLauncher("Repair.exe");
-	DeleteDirectoryLauncher("dbghelp.dll");
-	DeleteDirectoryLauncher("ijl15.dll");
-	DeleteDirectoryLauncher("msvcr80.dll");
-	DeleteDirectoryLauncher("unicows.dll");
+{
+    // main directory
+    DeleteDirectoryLauncher("Cache");
+    DeleteDirectoryLauncher("Logger.exe");
+    DeleteDirectoryLauncher("Util.dll");
+    DeleteDirectoryLauncher("Battle.net.dll");
+    DeleteDirectoryLauncher("Changelog.URL");
+    DeleteDirectoryLauncher("Create Account.URL");
+    //"DivxDecoder.dll"); // see below why this is commented
+    DeleteDirectoryLauncher("Features.URL");
+    DeleteDirectoryLauncher("Molten Official Website.URL");
+    DeleteDirectoryLauncher("Repair.exe");
+    DeleteDirectoryLauncher("dbghelp.dll");
+    DeleteDirectoryLauncher("ijl15.dll");
+    DeleteDirectoryLauncher("msvcr80.dll");
+    DeleteDirectoryLauncher("unicows.dll");
 
-	// interface\\addons directory
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AchievementUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ArenaUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AuctionUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BarbershopUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BattlefieldMinimap");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BindingUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_Calendar");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatLog");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatText");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_DebugTools");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMChatUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMSurveyUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GlyphUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GuildBankUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_InspectUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ItemSocketingUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_MacroUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_RaidUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TalentUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TimeManager");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TokenUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TradeSkillUI");
-	DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TrainerUI");
+    // interface\\addons directory
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AchievementUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ArenaUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_AuctionUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BarbershopUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BattlefieldMinimap");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_BindingUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_Calendar");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatLog");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_CombatText");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_DebugTools");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMChatUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GMSurveyUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GlyphUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_GuildBankUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_InspectUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_ItemSocketingUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_MacroUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_RaidUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TalentUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TimeManager");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TokenUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TradeSkillUI");
+    DeleteDirectoryLauncher("Interface\\AddOns\\Blizzard_TrainerUI");
 
-	// under data\\enUS directory
-	DeleteDirectoryLauncher("Data\\enUS\\Documentation");
+    // under data\\enUS directory
+    DeleteDirectoryLauncher("Data\\enUS\\Documentation");
 
-	//"Data\\enUS\\Interface");
+    //"Data\\enUS\\Interface");
 
-	// movies, divx codec - this functionality still exists in Marforius-Client however the client will crash if movies are played WITHOUT
-	// divx codec in directory, Marforius-Client just is smart enough to launch without the divx codec needed being there,
-	// official client however will not load without the dll
+    // movies, divx codec - this functionality still exists in Marforius-Client however the client will crash if movies are played WITHOUT
+    // divx codec in directory, Marforius-Client just is smart enough to launch without the divx codec needed being there,
+    // official client however will not load without the dll
 
-	DeleteDirectoryLauncher("Data\\enUS\\AccountBilling.url");
-	DeleteDirectoryLauncher("Data\\enUS\\Credits.html");
-	DeleteDirectoryLauncher("Data\\enUS\\Credits_BC.html");
-	DeleteDirectoryLauncher("Data\\enUS\\Credits_LK.html");
-	DeleteDirectoryLauncher("Data\\enUS\\TechSupport.url");
-	DeleteDirectoryLauncher("Data\\enUS\\connection-help.html");
-	DeleteDirectoryLauncher("Data\\enUS\\eula.html");
-	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
-	DeleteDirectoryLauncher("Data\\enUS\\tos.html");
+    DeleteDirectoryLauncher("Data\\enUS\\AccountBilling.url");
+    DeleteDirectoryLauncher("Data\\enUS\\Credits.html");
+    DeleteDirectoryLauncher("Data\\enUS\\Credits_BC.html");
+    DeleteDirectoryLauncher("Data\\enUS\\Credits_LK.html");
+    DeleteDirectoryLauncher("Data\\enUS\\TechSupport.url");
+    DeleteDirectoryLauncher("Data\\enUS\\connection-help.html");
+    DeleteDirectoryLauncher("Data\\enUS\\eula.html");
+    DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
+    DeleteDirectoryLauncher("Data\\enUS\\tos.html");
 
-	// don't think I missed anything as per http://torrentz.eu/35414f8be8348a08a49fc4ccfb29093e22f1d628
+    // don't think I missed anything as per http://torrentz.eu/35414f8be8348a08a49fc4ccfb29093e22f1d628
 
 
-	// more junk
-	DeleteDirectoryLauncher("Patch");
-	DeleteDirectoryLauncher("Patches");
-	DeleteDirectoryLauncher("Old");
-	DeleteDirectoryLauncher("Logs");
-	DeleteDirectoryLauncher("Errors");
-	DeleteDirectoryLauncher("pgort100.dll");
-	DeleteDirectoryLauncher("Logger.exe");
-	DeleteDirectoryLauncher("Util.dll");
-	DeleteDirectoryLauncher(".curseclient");
-	DeleteDirectoryLauncher("LauncherVersion.ini");
-	DeleteDirectoryLauncher("DeveloperStreamingControl.ini");
-	DeleteDirectoryLauncher("wow.ini");
-	DeleteDirectoryLauncher("Data\\allfiles.md5");
-	DeleteDirectoryLauncher("Data\\enUS\\allfiles.md5");
+    // more junk
+    DeleteDirectoryLauncher("Patch");
+    DeleteDirectoryLauncher("Patches");
+    DeleteDirectoryLauncher("Old");
+    DeleteDirectoryLauncher("Logs");
+    DeleteDirectoryLauncher("Errors");
+    DeleteDirectoryLauncher("pgort100.dll");
+    DeleteDirectoryLauncher("Logger.exe");
+    DeleteDirectoryLauncher("Util.dll");
+    DeleteDirectoryLauncher(".curseclient");
+    DeleteDirectoryLauncher("LauncherVersion.ini");
+    DeleteDirectoryLauncher("DeveloperStreamingControl.ini");
+    DeleteDirectoryLauncher("wow.ini");
+    DeleteDirectoryLauncher("Data\\allfiles.md5");
+    DeleteDirectoryLauncher("Data\\enUS\\allfiles.md5");
 
-	// should really rig something up to grab dev archive
-	DeleteDirectoryLauncher("streamingloc.MPQ");
-	DeleteDirectoryLauncher("streaming.MPQ");
-	DeleteDirectoryLauncher("development.MPQ");
-	DeleteDirectoryLauncher("lichkingloc.MPQ");
-	DeleteDirectoryLauncher("expansionloc.MPQ");
-	DeleteDirectoryLauncher("dbc.MPQ");
-	DeleteDirectoryLauncher("fonts.MPQ");
-	DeleteDirectoryLauncher("sound.MPQ");
-	DeleteDirectoryLauncher("wmo.MPQ");
-	DeleteDirectoryLauncher("terrain.MPQ");
-	DeleteDirectoryLauncher("texture.MPQ");
-	DeleteDirectoryLauncher("model.MPQ");
-	DeleteDirectoryLauncher("misc.MPQ");
-	DeleteDirectoryLauncher("interface.MPQ");
-	DeleteDirectoryLauncher("alternate.MPQ");
-	DeleteDirectoryLauncher("Start.MPQ");
-	DeleteDirectoryLauncher("Installer Tome.MPQ");
-	DeleteDirectoryLauncher("Movies.MPQ");
-	DeleteDirectoryLauncher("agreements.mpq");
-	DeleteDirectoryLauncher("wow-patch.mpq");
-	DeleteDirectoryLauncher("Data\\base.MPQ");
+    // should really rig something up to grab dev archive
+    DeleteDirectoryLauncher("streamingloc.MPQ");
+    DeleteDirectoryLauncher("streaming.MPQ");
+    DeleteDirectoryLauncher("development.MPQ");
+    DeleteDirectoryLauncher("lichkingloc.MPQ");
+    DeleteDirectoryLauncher("expansionloc.MPQ");
+    DeleteDirectoryLauncher("dbc.MPQ");
+    DeleteDirectoryLauncher("fonts.MPQ");
+    DeleteDirectoryLauncher("sound.MPQ");
+    DeleteDirectoryLauncher("wmo.MPQ");
+    DeleteDirectoryLauncher("terrain.MPQ");
+    DeleteDirectoryLauncher("texture.MPQ");
+    DeleteDirectoryLauncher("model.MPQ");
+    DeleteDirectoryLauncher("misc.MPQ");
+    DeleteDirectoryLauncher("interface.MPQ");
+    DeleteDirectoryLauncher("alternate.MPQ");
+    DeleteDirectoryLauncher("Start.MPQ");
+    DeleteDirectoryLauncher("Installer Tome.MPQ");
+    DeleteDirectoryLauncher("Movies.MPQ");
+    DeleteDirectoryLauncher("agreements.mpq");
+    DeleteDirectoryLauncher("wow-patch.mpq");
+    DeleteDirectoryLauncher("Data\\base.MPQ");
 
-	DeleteDirectoryLauncher("Data\\streamingloc.MPQ");
-	DeleteDirectoryLauncher("Data\\streaming.MPQ");
-	DeleteDirectoryLauncher("Data\\development.MPQ");
-	DeleteDirectoryLauncher("Data\\lichkingloc.MPQ");
-	DeleteDirectoryLauncher("Data\\expansionloc.MPQ");
-	DeleteDirectoryLauncher("Data\\dbc.MPQ");
-	DeleteDirectoryLauncher("Data\\fonts.MPQ");
-	DeleteDirectoryLauncher("Data\\sound.MPQ");
-	DeleteDirectoryLauncher("Data\\wmo.MPQ");
-	DeleteDirectoryLauncher("Data\\terrain.MPQ");
-	DeleteDirectoryLauncher("Data\\texture.MPQ");
-	DeleteDirectoryLauncher("Data\\model.MPQ");
-	DeleteDirectoryLauncher("Data\\misc.MPQ");
-	DeleteDirectoryLauncher("Data\\interface.MPQ");
-	DeleteDirectoryLauncher("Data\\alternate.MPQ");
-	DeleteDirectoryLauncher("Data\\Start.MPQ");
-	DeleteDirectoryLauncher("Data\\Installer Tome.MPQ");
-	DeleteDirectoryLauncher("Data\\Movies.MPQ");
-	DeleteDirectoryLauncher("Data\\agreements.mpq");
-	DeleteDirectoryLauncher("Data\\wow-patch.mpq");
-	DeleteDirectoryLauncher("Data\\base.MPQ");
-	DeleteDirectoryLauncher("Data\\realmlist.wtf");
-	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
+    DeleteDirectoryLauncher("Data\\streamingloc.MPQ");
+    DeleteDirectoryLauncher("Data\\streaming.MPQ");
+    DeleteDirectoryLauncher("Data\\development.MPQ");
+    DeleteDirectoryLauncher("Data\\lichkingloc.MPQ");
+    DeleteDirectoryLauncher("Data\\expansionloc.MPQ");
+    DeleteDirectoryLauncher("Data\\dbc.MPQ");
+    DeleteDirectoryLauncher("Data\\fonts.MPQ");
+    DeleteDirectoryLauncher("Data\\sound.MPQ");
+    DeleteDirectoryLauncher("Data\\wmo.MPQ");
+    DeleteDirectoryLauncher("Data\\terrain.MPQ");
+    DeleteDirectoryLauncher("Data\\texture.MPQ");
+    DeleteDirectoryLauncher("Data\\model.MPQ");
+    DeleteDirectoryLauncher("Data\\misc.MPQ");
+    DeleteDirectoryLauncher("Data\\interface.MPQ");
+    DeleteDirectoryLauncher("Data\\alternate.MPQ");
+    DeleteDirectoryLauncher("Data\\Start.MPQ");
+    DeleteDirectoryLauncher("Data\\Installer Tome.MPQ");
+    DeleteDirectoryLauncher("Data\\Movies.MPQ");
+    DeleteDirectoryLauncher("Data\\agreements.mpq");
+    DeleteDirectoryLauncher("Data\\wow-patch.mpq");
+    DeleteDirectoryLauncher("Data\\base.MPQ");
+    DeleteDirectoryLauncher("Data\\realmlist.wtf");
+    DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
 
-	// some private server stuff that's common and cleanup after myself, so that I can call this function (or a clone of) after downloading my client with the UI
+    // some private server stuff that's common and cleanup after myself, so that I can call this function (or a clone of) after downloading my client with the UI
 
-	DeleteDirectoryLauncher("Buildings");
-	DeleteDirectoryLauncher("Repacker");
-	DeleteDirectoryLauncher("World of Warcraft.app"); // no love for mac
-	DeleteDirectoryLauncher("maps");
-	DeleteDirectoryLauncher("vmaps");
+    DeleteDirectoryLauncher("Buildings");
+    DeleteDirectoryLauncher("Repacker");
+    DeleteDirectoryLauncher("World of Warcraft.app"); // no love for mac
+    DeleteDirectoryLauncher("maps");
+    DeleteDirectoryLauncher("vmaps");
 
-	}
+}
 
 //************************************
 // Method:    ToggleWarcraftDebug
 // FullName:  ToggleWarcraftDebug
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:
 // Parameter: void
 // Comment: Toggles Warcraft's debug CVARs based on setting in EN-Launcher.wtf, can be called at any time but is called on checkbox changed and on mainwindow load
 //************************************
 inline void ToggleWarcraftDebug(void)
-	{
-	char buffer[MAX_PATH];
-	GetCurrentDirectory(sizeof(buffer),buffer);
-	strcat(buffer , "\\EN-Launcher.wtf");
-	ofstream myfile;
+{
+    char buffer[MAX_PATH];
+    GetCurrentDirectory(sizeof(buffer),buffer);
+    strcat(buffer , "\\EN-Launcher.wtf");
+    ofstream myfile;
 
-	int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
-
-
-
-	if (DebugOn)
-		{
-		myfile.open("WTF\\RunOnce-Development.wtf");
-
-		// http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgDebug does
-		myfile << ("SET lfgDebug \"1\"") << endl;
+    int DebugOn = GetPrivateProfileInt("DEBUG", "DebugOn", 0, buffer);
 
 
-		// note, too that the launcher automatically launches warcraft with the "-console" arg
-		myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
-		// will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
-		myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
-		myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
-		myfile << ("SET errorfilter \"general world ui animation models objects sound movement\"") << endl; // Types of Errors to show
-		//           Filters: general world ui animation models objects sound movement all
-		//			 use "except" to invert mask
-		//           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
-		myfile << ("SET errors \"1\"") << endl; // Show errors         > see below TODO: Marforius
-		myfile << ("SET showerrors \"1\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
-		}
-	else if (!DebugOn)
-		{
-		myfile << ("SET lfgDebug \"0\"") << endl;
-		// note, too that the launcher automatically launches warcraft with the "-console" arg
-		myfile << ("SET FrameXML_Debug \"0\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
-		// will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
-		myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
-		myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
-		myfile << ("SET errorfilter \"general\"") << endl; // Types of Errors to show
-		//           Filters: general world ui animation models objects sound movement all
-		//			 use "except" to invert mask
-		//           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
-		myfile << ("SET errors \"0\"") << endl; // Show errors         > see below TODO: Marforius
-		myfile << ("SET showerrors \"0\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
-		}
+
+    if (DebugOn)
+    {
+        myfile.open("WTF\\RunOnce-Development.wtf");
+
+        // http://wow.go-hero.net/framexml/15005/LFGFrame.lua#8 see this as to what lfgDebug does
+        myfile << ("SET lfgDebug \"1\"") << endl;
 
 
-	myfile.close();
-	}
+        // note, too that the launcher automatically launches warcraft with the "-console" arg
+        myfile << ("SET FrameXML_Debug \"1\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
+        // will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
+        myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
+        myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
+        myfile << ("SET errorfilter \"general world ui animation models objects sound movement\"") << endl; // Types of Errors to show
+        //           Filters: general world ui animation models objects sound movement all
+        //			 use "except" to invert mask
+        //           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
+        myfile << ("SET errors \"1\"") << endl; // Show errors         > see below TODO: Marforius
+        myfile << ("SET showerrors \"1\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
+    }
+    else if (!DebugOn)
+    {
+        myfile << ("SET lfgDebug \"0\"") << endl;
+        // note, too that the launcher automatically launches warcraft with the "-console" arg
+        myfile << ("SET FrameXML_Debug \"0\"") << endl; // Saves detailed reports under /Logs/Framexml.log (may not be settable via cvar)
+        // will code an addon later to make this cvar apply to the LuaAPI equiv, FrameXML_Debug(1);  todo: Marforius
+        myfile << ("SET errorlevelmin \"0\"") << endl; // Error level minimum to report (0 = all)
+        myfile << ("SET errorlevelmax \"3\"") << endl; // Error level maximum to report (3 = all)
+        myfile << ("SET errorfilter \"general\"") << endl; // Types of Errors to show
+        //           Filters: general world ui animation models objects sound movement all
+        //			 use "except" to invert mask
+        //           i.e.: all except objects"  : note that all seems not to generate any report (or see below)
+        myfile << ("SET errors \"0\"") << endl; // Show errors         > see below TODO: Marforius
+        myfile << ("SET showerrors \"0\"") << endl; // Show errors (may also be 2 or something weird, see disasm)
+    }
+
+
+    myfile.close();
+}
 
 
 // Since Marforius-Client has a ton of these already thrown in these are some that can be set on retail clients without any negative effects
@@ -364,26 +364,26 @@ inline void ToggleWarcraftDebug(void)
 //************************************
 // Method:    SetCompatibleCVARs
 // FullName:  SetCompatibleCVARs
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:
 // Parameter: void
 //************************************
 inline void SetCompatibleCVARs(void)
-	{
-	ofstream myfile;
-	myfile.open("WTF\\RunOnce-Compatibles.wtf");
+{
+    ofstream myfile;
+    myfile.open("WTF\\RunOnce-Compatibles.wtf");
 
-	myfile << ("SET expansionMovie \"0\"") << endl; // skips expansion movie on first launch
-	myfile << ("SET readEULA \"1\"") << endl; // skips reading eula on first launch
-	myfile << ("SET processaffinitymask \"255\"") << endl; // enables wow.exe to use all cores of a multi-processor machine
-	myfile << ("SET gxapi \"d3d9ex\"") << endl; // sets graphics API to d3d9 MM2.0 (much better performance)
+    myfile << ("SET expansionMovie \"0\"") << endl; // skips expansion movie on first launch
+    myfile << ("SET readEULA \"1\"") << endl; // skips reading eula on first launch
+    myfile << ("SET processaffinitymask \"255\"") << endl; // enables wow.exe to use all cores of a multi-processor machine
+    myfile << ("SET gxapi \"d3d9ex\"") << endl; // sets graphics API to d3d9 MM2.0 (much better performance)
 
 #ifdef REALMLIST
-	// Edit this above
-	myfile << ("SET realmlist \""REALMLIST"\"") << endl;
-	DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
+    // Edit this above
+    myfile << ("SET realmlist \""REALMLIST"\"") << endl;
+    DeleteDirectoryLauncher("Data\\enUS\\realmlist.wtf");
 #endif
 
-	myfile.close();
-	}
+    myfile.close();
+}

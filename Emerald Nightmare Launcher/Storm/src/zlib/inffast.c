@@ -89,7 +89,7 @@ unsigned start;         /* inflate()'s starting value for strm->avail_out */
     unsigned dmask;             /* mask for first level of distance codes */
     code this;                  /* retrieved table entry */
     unsigned op;                /* code bits, operation, extra bits, or */
-                                /*  window position, window bytes to copy */
+    /*  window position, window bytes to copy */
     unsigned len;               /* match length, unused bytes */
     unsigned dist;              /* match distance */
     unsigned char FAR *from;    /* where to copy match from */
@@ -125,15 +125,15 @@ unsigned start;         /* inflate()'s starting value for strm->avail_out */
             bits += 8;
         }
         this = lcode[hold & lmask];
-      dolen:
+dolen:
         op = (unsigned)(this.bits);
         hold >>= op;
         bits -= op;
         op = (unsigned)(this.op);
         if (op == 0) {                          /* literal */
             Tracevv((stderr, this.val >= 0x20 && this.val < 0x7f ?
-                    "inflate:         literal '%c'\n" :
-                    "inflate:         literal 0x%02x\n", this.val));
+                     "inflate:         literal '%c'\n" :
+                     "inflate:         literal 0x%02x\n", this.val));
             PUP(out) = (unsigned char)(this.val);
         }
         else if (op & 16) {                     /* length base */
@@ -156,7 +156,7 @@ unsigned start;         /* inflate()'s starting value for strm->avail_out */
                 bits += 8;
             }
             this = dcode[hold & dmask];
-          dodist:
+dodist:
             op = (unsigned)(this.bits);
             hold >>= op;
             bits -= op;

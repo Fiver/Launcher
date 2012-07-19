@@ -7,59 +7,59 @@
 // /* --------  ----  ---  -------                                              */
 // /* 25.03.03  1.00  Lad  The first version of StormLibTest.cpp                */
 // /*****************************************************************************/
-// 
+//
 // #define _CRT_SECURE_NO_DEPRECATE
 // #define __INCLUDE_CRYPTOGRAPHY__
 // #define __STORMLIB_SELF__                   // Don't use StormLib.lib
 // #include <stdio.h>
-// 
+//
 // #ifdef _MSC_VER
 // #include <crtdbg.h>
 // #endif
-// 
+//
 // #include "../src/StormLib.h"
 // #include "../src/StormCommon.h"
 // #include "../src/MD5_File.h"
 // #include "boost/program_options.hpp"
-// 
+//
 // using namespace std;
 // namespace bfs = boost::filesystem;
 // namespace bpo = boost::program_options;
 // using namespace boost::this_thread;
 // namespace fs = boost::filesystem;
-// 
-// 
+//
+//
 // #pragma warning(disable: 4505)              // 'XXX' : unreferenced local function has been removed
 // #pragma warning(disable: 4706)              // assignment within conditional expression
 // #pragma warning(disable: 4996)
 // #pragma warning(disable: 4512)              // assignment operator could not be generated
-// 
+//
 // //------------------------------------------------------------------------------
 // // Defines
-// 
+//
 // #ifdef PLATFORM_WINDOWS
 // #define WORK_PATH_ROOT "E:\\Multimedia\\MPQs\\"
 // #endif
-// 
+//
 // #ifdef PLATFORM_LINUX
 // #define WORK_PATH_ROOT "/home/user/MPQs/"
 // #endif
-// 
+//
 // #ifdef PLATFORM_MAC
 // #define WORK_PATH_ROOT "/Users/sam/Downloads/"
 // #endif
-// 
+//
 // #ifndef LANG_CZECH
 // #define LANG_CZECH 0x0405
 // #endif
-// 
+//
 // #define MPQ_SECTOR_SIZE 0x1000
-// 
+//
 // #define MAKE_PATH(path) _T(WORK_PATH_ROOT) _T(path)
 // #define countof( array ) ( sizeof( array )/sizeof( array[0] ) )
-// 
-// 
-// 
+//
+//
+//
 // // Unicode MPQ names
 // /* Czech    */ static const wchar_t szUnicodeName1[] = {0x010C, 0x0065, 0x0073, 0x006B, 0x00FD, _T('.'), _T('m'), _T('p'), _T('q'), 0};
 // /* Russian  */ static const wchar_t szUnicodeName2[] = {0x0420, 0x0443, 0x0441, 0x0441, 0x043A, 0x0438, 0x0439, _T('.'), _T('m'), _T('p'), _T('q'), 0};
@@ -67,13 +67,13 @@
 // /* Chinese  */ static const wchar_t szUnicodeName4[] = {0x65E5, 0x672C, 0x8A9E, _T('.'), _T('m'), _T('p'), _T('q'), 0};
 // /* Japanese */ static const wchar_t szUnicodeName5[] = {0x7B80, 0x4F53, 0x4E2D, 0x6587, _T('.'), _T('m'), _T('p'), _T('q'), 0};
 // /* Arabic */   static const wchar_t szUnicodeName6[] = {0x0627, 0x0644, 0x0639, 0x0639, 0x0631, 0x0628, 0x064A, 0x0629, _T('.'), _T('m'), _T('p'), _T('q'), 0};
-// 
+//
 // //-----------------------------------------------------------------------------
 // // Constants
-// 
+//
 // static const TCHAR * szWorkDir = MAKE_PATH("Work");
-// 
-// static unsigned int AddFlags[] = 
+//
+// static unsigned int AddFlags[] =
 // 	{
 // 	//  Compression          Encryption             Fixed key           Single Unit            Sector CRC
 // 	0                 |  0                   |  0                 | 0                    | 0,
@@ -102,10 +102,10 @@
 // 	MPQ_FILE_COMPRESS |  MPQ_FILE_ENCRYPTED  |  MPQ_FILE_FIX_KEY  | 0                    | MPQ_FILE_SECTOR_CRC,
 // 	0xFFFFFFFF
 // 	};
-// 
+//
 // //-----------------------------------------------------------------------------
 // // Local testing functions
-// 
+//
 // static void clreol()
 // 	{
 // #ifdef PLATFORM_WINDOWS
@@ -114,7 +114,7 @@
 // 	LPTSTR szConsoleLine;
 // 	int nConsoleChars;
 // 	int i = 0;
-// 
+//
 // 	GetConsoleScreenBufferInfo(hConsole, &ScreenInfo);
 // 	nConsoleChars = (ScreenInfo.srWindow.Right - ScreenInfo.srWindow.Left);
 // 	if(nConsoleChars > 0)
@@ -127,50 +127,50 @@
 // 				szConsoleLine[i] = ' ';
 // 			szConsoleLine[i++] = '\r';
 // 			szConsoleLine[i] = 0;
-// 
+//
 // 			_tprintf(szConsoleLine);
 // 			delete []  szConsoleLine;
 // 			}
 // 		}
 // #endif // PLATFORM_WINDOWS
 // 	}
-// 
+//
 // static void PrintfTA(const TCHAR * szFormat, const TCHAR * szStrT, const char * szStrA, int lcLocale = 0)
 // 	{
 // 	TCHAR * szTemp;
 // 	TCHAR szBuffer[MAX_PATH];
-// 
+//
 // 	// Convert ANSI string to TCHAR
 // 	for(szTemp = szBuffer; *szStrA != 0; szTemp++, szStrA++)
 // 		szTemp[0] = szStrA[0];
 // 	szTemp[0] = 0;
-// 
+//
 // 	_tprintf(szFormat, szStrT, szBuffer, lcLocale);
 // 	}
-// 
+//
 // static void MergeLocalPath(TCHAR * szBuffer, const char * szPart1, const char * szPart2)
 // 	{
 // 	// Copy directory name
 // 	while(*szPart1 != 0)
 // 		*szBuffer++ = *szPart1++;
-// 
+//
 // 	// Add separator
 // 	*szBuffer++ = _T('/');
-// 
+//
 // 	// Copy file name
 // 	while(*szPart2 != 0)
 // 		*szBuffer++ = *szPart2++;
-// 
+//
 // 	// Terminate the string
 // 	*szBuffer = 0;
 // 	}
-// 
+//
 // int GetFirstDiffer(void * ptr1, void * ptr2, int nSize)
 // 	{
 // 	char * buff1 = (char *)ptr1;
 // 	char * buff2 = (char *)ptr2;
 // 	int nDiffer;
-// 
+//
 // 	for(nDiffer = 0; nDiffer < nSize; nDiffer++)
 // 		{
 // 		if(*buff1++ != *buff2++)
@@ -178,36 +178,36 @@
 // 		}
 // 	return -1;
 // 	}
-// 
+//
 // static void WINAPI CompactCB(void * /* lpParam */, DWORD dwWork, ULONGLONG BytesDone, ULONGLONG TotalBytes)
 // 	{
 // 	clreol();
-// 
+//
 // 	_tprintf(_T("%u of %u "), (DWORD)BytesDone, (DWORD)TotalBytes);
 // 	switch(dwWork)
 // 		{
 // 	case CCB_CHECKING_FILES:
 // 		_tprintf(_T("Checking files in archive ...\r"));
 // 		break;
-// 
+//
 // 	case CCB_CHECKING_HASH_TABLE:
 // 		_tprintf(_T("Checking hash table ...\r"));
 // 		break;
-// 
+//
 // 	case CCB_COPYING_NON_MPQ_DATA:
 // 		_tprintf(_T("Copying non-MPQ data ...\r"));
 // 		break;
-// 
+//
 // 	case CCB_COMPACTING_FILES:
 // 		_tprintf(_T("Compacting archive ...\r"));
 // 		break;
-// 
+//
 // 	case CCB_CLOSING_ARCHIVE:
 // 		_tprintf(_T("Closing archive ...\r"));
 // 		break;
 // 		}
 // 	}
-// 
+//
 // static void GenerateRandomDataBlock(LPBYTE pbBuffer, DWORD cbBuffer)
 // 	{
 // 	LPBYTE pbBufferEnd = pbBuffer + cbBuffer;
@@ -215,7 +215,7 @@
 // 	DWORD cbBytesToPut = 0;
 // 	BYTE ByteToPut = 0;
 // 	bool bRandomData = false;
-// 
+//
 // 	while(pbPtr < pbBufferEnd)
 // 		{
 // 		// If there are no bytes to put, we will generate new byte and length
@@ -228,49 +228,49 @@
 // 				cbBytesToPut = rand() % 0x08;
 // 				ByteToPut = 0;
 // 				break;
-// 
+//
 // 			case 1:     // A long sequence of zeros
 // 				cbBytesToPut = rand() % 0x80;
 // 				ByteToPut = 0;
 // 				break;
-// 
+//
 // 			case 2:     // A short sequence of non-zeros
 // 				cbBytesToPut = rand() % 0x08;
 // 				ByteToPut = (BYTE)(rand() % 0x100);
 // 				break;
-// 
+//
 // 			case 3:     // A long sequence of non-zeros
 // 				cbBytesToPut = rand() % 0x80;
 // 				ByteToPut = (BYTE)(rand() % 0x100);
 // 				break;
-// 
+//
 // 			case 4:     // A short random data
 // 				cbBytesToPut = rand() % 0x08;
 // 				bRandomData = true;
 // 				break;
-// 
+//
 // 			case 5:     // A long random data
 // 				cbBytesToPut = rand() % 0x80;
 // 				bRandomData = true;
 // 				break;
-// 
+//
 // 			default:    // A single random byte
 // 				cbBytesToPut = 1;
 // 				ByteToPut = (BYTE)(rand() % 0x100);
 // 				break;
 // 				}
 // 			}
-// 
+//
 // 		// Generate random byte, if needed
 // 		if(bRandomData)
 // 			ByteToPut = (BYTE)(rand() % 0x100);
-// 
+//
 // 		// Put next byte to the output buffer
 // 		*pbPtr++ = ByteToPut;
 // 		cbBytesToPut--;
 // 		}
 // 	}
-// 
+//
 // static bool CompareArchivedFiles(const char * szFileName, HANDLE hFile1, HANDLE hFile2, DWORD dwBlockSize)
 // 	{
 // 	LPBYTE pbBuffer1 = NULL;
@@ -281,13 +281,13 @@
 // 	bool bResult2 = false;              // Result from StormLib
 // 	bool bResult = true;
 // 	int nDiff;
-// 
+//
 // 	szFileName = szFileName;
-// 
+//
 // 	// Allocate buffers
 // 	pbBuffer1 = new BYTE[dwBlockSize];
 // 	pbBuffer2 = new BYTE[dwBlockSize];
-// 
+//
 // 	for(;;)
 // 		{
 // 		// Read the file's content by both methods and compare the result
@@ -301,7 +301,7 @@
 // 			bResult = false;
 // 			break;
 // 			}
-// 
+//
 // 		// Test the number of bytes read
 // 		if(dwRead1 != dwRead2)
 // 			{
@@ -309,11 +309,11 @@
 // 			bResult = false;
 // 			break;
 // 			}
-// 
+//
 // 		// No more bytes ==> OK
 // 		if(dwRead1 == 0)
 // 			break;
-// 
+//
 // 		// Test the content
 // 		if((nDiff = GetFirstDiffer(pbBuffer1, pbBuffer2, dwRead1)) != -1)
 // 			{
@@ -321,12 +321,12 @@
 // 			break;
 // 			}
 // 		}
-// 
+//
 // 	delete [] pbBuffer2;
 // 	delete [] pbBuffer1;
 // 	return bResult;
 // 	}
-// 
+//
 // // Random read version
 // static bool CompareArchivedFilesRR(const char * /* szFileName */, HANDLE hFile1, HANDLE hFile2, DWORD dwBlockSize)
 // 	{
@@ -340,7 +340,7 @@
 // 	bool bResult1 = false;              // Result from Storm.dll
 // 	bool bResult2 = false;              // Result from StormLib
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// Test the file size
 // 	dwFileSize1 = SFileGetFileSize(hFile1, NULL);
 // 	dwFileSize2 = SFileGetFileSize(hFile2, NULL);
@@ -349,7 +349,7 @@
 // 		_tprintf(_T("Different size from SFileGetFileSize (file1: %u, file2: %u)\n"), dwFileSize1, dwFileSize2);
 // 		return false;
 // 		}
-// 
+//
 // 	if(dwFileSize1 != 0)
 // 		{
 // 		for(int i = 0; i < 10000; i++)
@@ -357,19 +357,19 @@
 // 			DWORD dwRandom     = rand() * rand();
 // 			DWORD dwMoveMethod = dwRandom % 3;
 // 			DWORD dwPosition   = dwRandom % dwFileSize1;
-// 			DWORD dwToRead     = dwRandom % dwBlockSize; 
-// 
+// 			DWORD dwToRead     = dwRandom % dwBlockSize;
+//
 // 			// Also test negative seek
 // 			if(rand() & 1)
 // 				{
 // 				int nPosition = (int)dwPosition;
 // 				dwPosition = (DWORD)(-nPosition);
 // 				}
-// 
+//
 // 			// Allocate buffers
 // 			pbBuffer1 = new BYTE[dwToRead];
 // 			pbBuffer2 = new BYTE[dwToRead];
-// 
+//
 // 			// Set the file pointer
 // 			_tprintf(_T("RndRead (%u): pos %8i from %s, size %u ...\r"), i, dwPosition, szPositions[dwMoveMethod], dwToRead);
 // 			dwRead1 = SFileSetFilePointer(hFile1, dwPosition, NULL, dwMoveMethod);
@@ -380,7 +380,7 @@
 // 				nError = ERROR_CAN_NOT_COMPLETE;
 // 				break;
 // 				}
-// 
+//
 // 			// Read the file's content by both methods and compare the result
 // 			bResult1 = SFileReadFile(hFile1, pbBuffer1, dwToRead, &dwRead1, NULL);
 // 			bResult2 = SFileReadFile(hFile2, pbBuffer2, dwToRead, &dwRead2, NULL);
@@ -390,7 +390,7 @@
 // 				nError = ERROR_CAN_NOT_COMPLETE;
 // 				break;
 // 				}
-// 
+//
 // 			// Test the number of bytes read
 // 			if(dwRead1 != dwRead2)
 // 				{
@@ -398,7 +398,7 @@
 // 				nError = ERROR_CAN_NOT_COMPLETE;
 // 				break;
 // 				}
-// 
+//
 // 			// Test the content
 // 			if(dwRead1 != 0 && memcmp(pbBuffer1, pbBuffer2, dwRead1))
 // 				{
@@ -406,7 +406,7 @@
 // 				nError = ERROR_CAN_NOT_COMPLETE;
 // 				break;
 // 				}
-// 
+//
 // 			delete [] pbBuffer2;
 // 			delete [] pbBuffer1;
 // 			}
@@ -414,27 +414,27 @@
 // 	clreol();
 // 	return (nError == ERROR_SUCCESS) ? true : false;
 // 	}
-// 
+//
 // //-----------------------------------------------------------------------------
 // // Opening local file
-// 
+//
 // static int TestOpenLocalFile(const char * szFileName)
 // 	{
 // 	HANDLE hFile;
 // 	char szRetrievedName[MAX_PATH];
-// 
+//
 // 	if(SFileOpenFileEx(NULL, szFileName, SFILE_OPEN_LOCAL_FILE, &hFile))
 // 		{
 // 		SFileGetFileName(hFile, szRetrievedName);
 // 		SFileCloseFile(hFile);
 // 		}
-// 
+//
 // 	return ERROR_SUCCESS;
 // 	}
-// 
+//
 // //-----------------------------------------------------------------------------
 // // Partial file reading
-// 
+//
 // static int TestPartFileRead(const TCHAR * szFileName)
 // 	{
 // 	ULONGLONG ByteOffset;
@@ -443,19 +443,19 @@
 // 	BYTE BigBuffer[0x7000];
 // 	BYTE Buffer[0x100];
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// Open the partial file
 // 	pStream = FileStream_OpenFile(szFileName, false);
 // 	if(pStream == NULL)
 // 		nError = GetLastError();
-// 
+//
 // 	// Get the size of the stream
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		if(!FileStream_GetSize(pStream, FileSize))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	// Read the last 0x7000 bytes
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -463,7 +463,7 @@
 // 		if(!FileStream_Read(pStream, &ByteOffset, BigBuffer, sizeof(BigBuffer)))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	// Read the last 0x100 bytes
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -471,7 +471,7 @@
 // 		if(!FileStream_Read(pStream, &ByteOffset, Buffer, sizeof(Buffer)))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	// Read 0x100 bytes from position (FileSize - 0xFF)
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -479,45 +479,45 @@
 // 		if(!FileStream_Read(pStream, &ByteOffset, Buffer, sizeof(Buffer)))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	FileStream_Close(pStream);
 // 	return nError;
 // 	}
-// 
+//
 // //-----------------------------------------------------------------------------
 // // Compare LZMA decompression
-// 
+//
 // #ifdef PLATFORM_WINDOWS
 // typedef void * (*ALLOC_MEMORY)(size_t);
 // typedef void (*FREE_MEMORY)(void *);
 // typedef int (GIVE_DATA)(void *);
-// 
+//
 // extern "C" int starcraft_decompress_lzma(char * pbInBuffer, int cbInBuffer, char * pbOutBuffer, int cbOutBuffer, int * pcbOutBuffer, ALLOC_MEMORY pfnAllocMemory, FREE_MEMORY pfnFreeMemory);
 // extern "C" int starcraft_compress_lzma(char * pbInBuffer, int cbInBuffer, int dummy1, char * pbOutBuffer, int cbOutBuffer, int dummy2, int * pcbOutBuffer, ALLOC_MEMORY pfnAllocMemory, FREE_MEMORY pfnFreeMemory, GIVE_DATA pfnGiveData);
 // void Compress_LZMA(char * pbOutBuffer, int * pcbOutBuffer, char * pbInBuffer, int cbInBuffer, int *, int);
 // int Decompress_LZMA(char * pbOutBuffer, int * pcbOutBuffer, char * pbInBuffer, int cbInBuffer);
-// 
+//
 // extern "C" void * operator_new(size_t sz)
 // 	{
 // 	return malloc(sz);
 // 	}
-// 
+//
 // void * Memory_Allocate(size_t byte_size)
 // 	{
 // 	return malloc(byte_size);
 // 	}
-// 
+//
 // void Memory_Free(void * address)
 // 	{
 // 	if(address != NULL)
 // 		free(address);
 // 	}
-// 
+//
 // int GiveData(void *)
 // 	{
 // 	return 0;
 // 	}
-// 
+//
 // static int StarcraftCompress_LZMA(char * pbOutBuffer, int * pcbOutBuffer, char * pbInBuffer, int cbInBuffer)
 // 	{
 // 	return starcraft_compress_lzma(pbInBuffer,
@@ -531,7 +531,7 @@
 // 		Memory_Free,
 // 		GiveData);
 // 	}
-// 
+//
 // static int StarcraftDecompress_LZMA(char * pbOutBuffer, int * pcbOutBuffer, char * pbInBuffer, int cbInBuffer)
 // 	{
 // 	return starcraft_decompress_lzma(pbInBuffer,
@@ -542,7 +542,7 @@
 // 		Memory_Allocate,
 // 		Memory_Free);
 // 	}
-// 
+//
 // static int CompareLzmaCompressions(int nSectorSize)
 // 	{
 // 	LPBYTE pbCompressed1 = NULL;            // Compressed by our code
@@ -551,7 +551,7 @@
 // 	LPBYTE pbDecompressed2 = NULL;          // Decompressed by Blizzard's code
 // 	LPBYTE pbOriginalData = NULL;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// Allocate buffers
 // 	// Must allocate twice blocks due to probable bug in Storm.dll.
 // 	// Storm.dll corrupts stack when uncompresses data with PKWARE DCL
@@ -563,7 +563,7 @@
 // 	pbOriginalData = new BYTE[nSectorSize];
 // 	if(!pbDecompressed1 || !pbDecompressed2 || !pbCompressed1 || !pbCompressed2 || !pbOriginalData)
 // 		nError = ERROR_NOT_ENOUGH_MEMORY;
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		for(int i = 0; i < 100000; i++)
@@ -573,20 +573,20 @@
 // 			int   nCmpLength1;
 // 			int   nCmpLength2;
 // 			int   nDiff;
-// 
+//
 // 			clreol();
 // 			_tprintf(_T("Testing compression of sector %u\r"), i + 1);
-// 
+//
 // 			// Generate random data sector
 // 			GenerateRandomDataBlock(pbOriginalData, nSectorSize);
-// 
+//
 // 			// Compress the sector by both methods
 // 			nCmpLength1 = nCmpLength2 = nSectorSize;
 // 			//          Compress_LZMA((char *)pbCompressed1, &nCmpLength1, (char *)pbOriginalData, nSectorSize, 0, 0);
 // 			StarcraftCompress_LZMA((char *)pbCompressed1, &nCmpLength2, (char *)pbOriginalData, nSectorSize);
-// 
+//
 // __TryToDecompress:
-// 
+//
 // 			// Only test decompression when the compression actually succeeded
 // 			if(nCmpLength1 < nSectorSize)
 // 				{
@@ -594,28 +594,28 @@
 // 				nDcmpLength2 = nDcmpLength1 = nSectorSize;
 // 				//              Decompress_LZMA((char *)pbDecompressed1, &nDcmpLength1, (char *)pbCompressed1, nCmpLength1);
 // 				StarcraftDecompress_LZMA((char *)pbDecompressed2, &nDcmpLength2, (char *)pbCompressed1, nCmpLength1);
-// 
+//
 // 				// Compare the length of the output data
 // 				if(nDcmpLength1 != nDcmpLength2)
 // 					{
 // 					_tprintf(_T("Difference in compressed blocks lengths (%u vs %u)\n"), nDcmpLength1, nDcmpLength2);
-// 					goto __TryToDecompress;             
+// 					goto __TryToDecompress;
 // 					}
-// 
+//
 // 				// Compare the output
 // 				if((nDiff = GetFirstDiffer(pbDecompressed1, pbDecompressed2, nDcmpLength1)) != -1)
 // 					{
 // 					_tprintf(_T("Difference in decompressed blocks (offset 0x%08X)\n"), nDiff);
 // 					goto __TryToDecompress;
 // 					}
-// 
+//
 // 				// Check for data overflow
 // 				if(pbDecompressed1[nSectorSize] != 0xFD || pbDecompressed1[nSectorSize] != 0xFD)
 // 					{
 // 					_tprintf(_T("Damage after decompressed sector !!!\n"));
 // 					goto __TryToDecompress;
 // 					}
-// 
+//
 // 				// Compare the decompressed data against original data
 // 				if((nDiff = GetFirstDiffer(pbDecompressed1, pbOriginalData, nDcmpLength1)) != -1)
 // 					{
@@ -625,7 +625,7 @@
 // 				}
 // 			}
 // 		}
-// 
+//
 // 	// Cleanup
 // 	if(pbOriginalData != NULL)
 // 		delete [] pbOriginalData;
@@ -641,24 +641,24 @@
 // 	return nError;
 // 	}
 // #endif // PLATFORM_WINDOWS
-// 
+//
 // //-----------------------------------------------------------------------------
 // // Compression method test
-// 
+//
 // static int TestSectorCompress(int nSectorSize)
 // 	{
 // 	LPBYTE pbDecompressed = NULL;
 // 	LPBYTE pbCompressed = NULL;
 // 	LPBYTE pbOriginal = NULL;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// Allocate buffers
 // 	pbDecompressed = new BYTE[nSectorSize];
 // 	pbCompressed = new BYTE[nSectorSize];
 // 	pbOriginal = new BYTE[nSectorSize];
 // 	if(!pbDecompressed || !pbCompressed || !pbOriginal)
 // 		nError = ERROR_NOT_ENOUGH_MEMORY;
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		for(int i = 0; i < 100000; i++)
@@ -668,22 +668,22 @@
 // 			int nDecompressedLength;
 // 			int nCmp = MPQ_COMPRESSION_SPARSE | MPQ_COMPRESSION_ZLIB | MPQ_COMPRESSION_BZIP2 | MPQ_COMPRESSION_PKWARE;
 // 			int nDiff;
-// 
+//
 // 			clreol();
 // 			_tprintf(_T("Testing compression of sector %u\r"), i + 1);
-// 
+//
 // 			// Generate random data sector
 // 			GenerateRandomDataBlock(pbOriginal, nOriginalLength);
 // 			if(nOriginalLength == 0x123)
 // 				nOriginalLength = 0;
-// 
+//
 // __TryAgain:
-// 
+//
 // 			// Compress the sector
 // 			nCompressedLength = nOriginalLength;
 // 			SCompCompress((char *)pbCompressed, &nCompressedLength, (char *)pbOriginal, nOriginalLength, nCmp, 0, -1);
 // 			//          SCompImplode((char *)pbCompressed, &nCompressedLength, (char *)pbOriginal, nOriginalLength);
-// 
+//
 // 			// When the method was unable to compress data,
 // 			// the compressed data must be identical to original data
 // 			if(nCompressedLength == nOriginalLength)
@@ -694,19 +694,19 @@
 // 					goto __TryAgain;
 // 					}
 // 				}
-// 
+//
 // 			// Uncompress the sector
 // 			nDecompressedLength = nOriginalLength;
 // 			SCompDecompress((char *)pbDecompressed, &nDecompressedLength, (char *)pbCompressed, nCompressedLength);
 // 			//          SCompExplode((char *)pbDecompressed, &nDecompressedLength, (char *)pbCompressed, nCompressedLength);
-// 
+//
 // 			// Check the decompressed length against original length
 // 			if(nDecompressedLength != nOriginalLength)
 // 				{
 // 				_tprintf(_T("Length of uncompressed data does not agree with original data length !!!\n"));
 // 				goto __TryAgain;
 // 				}
-// 
+//
 // 			// Check decompressed block against original block
 // 			if((nDiff = GetFirstDiffer(pbDecompressed, pbOriginal, nOriginalLength)) != -1)
 // 				{
@@ -715,7 +715,7 @@
 // 				}
 // 			}
 // 		}
-// 
+//
 // 	// Cleanup
 // 	delete [] pbOriginal;
 // 	delete [] pbCompressed;
@@ -723,7 +723,7 @@
 // 	clreol();
 // 	return nError;
 // 	}
-// 
+//
 // static int TestArchiveOpenAndClose(const TCHAR * szMpqName)
 // 	{
 // 	const char * szFileName1 = "world\\maps\\AhnQiraj\\AhnQiraj_27_51_tex1.adt";
@@ -733,7 +733,7 @@
 // 	//  HANDLE hFile2 = NULL;
 // 	HANDLE hMpq = NULL;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		_tprintf(_T("Opening archive %s ...\n"), szMpqName);
@@ -746,23 +746,23 @@
 // 	if(nError == ERROR_SUCCESS && ha->pHetTable != NULL)
 // 	{
 // 	TBitArray * pBitArray = ha->pHetTable->pBetIndexes;
-// 
+//
 // 	for(ULONG i = 0; i < 0x10000; i++)
 // 	{
 // 	BYTE LoadedBits[0x20];
 // 	BYTE SaveBits[0x40];
 // 	unsigned int nBitPosition = (i >> 0x08);
 // 	unsigned int nBitCount = (i & 0xFF);
-// 
+//
 // 	memset(LoadedBits, 0, sizeof(LoadedBits));
 // 	memcpy(SaveBits, pBitArray->Elements, sizeof(SaveBits));
-// 
+//
 // 	// Load the index to the BET table
 // 	pBitArray->GetBits(nBitPosition, nBitCount, LoadedBits, sizeof(LoadedBits));
-// 
+//
 // 	// Load the index to the BET table
 // 	pBitArray->SetBits(nBitPosition, nBitCount, LoadedBits, sizeof(LoadedBits));
-// 
+//
 // 	// Verify the bits
 // 	if(memcmp(SaveBits, pBitArray->Elements, sizeof(SaveBits)))
 // 	assert(false);
@@ -774,7 +774,7 @@
 // 		{
 // 		// Verify the archive
 // 		SFileVerifyRawData(hMpq, SFILE_VERIFY_FILE, szFileName1);
-// 
+//
 // 		// Try to open a file
 // 		if(!SFileOpenFileEx(hMpq, szFileName1, SFILE_OPEN_FROM_MPQ, &hFile1))
 // 			{
@@ -782,13 +782,13 @@
 // 			printf("%s - file not found in the MPQ\n", szFileName1);
 // 			}
 // 		}
-// 
+//
 // 	// Dummy read from the file
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		DWORD dwBytesRead = 0;
 // 		BYTE Buffer[0x1000];
-// 
+//
 // 		SFileSetFileLocale(hFile1, 0x405);
 // 		SFileReadFile(hFile1, Buffer, sizeof(Buffer), &dwBytesRead);
 // 		}
@@ -796,7 +796,7 @@
 // 	// Verify the MPQ listfile
 // 	if(nError == ERROR_SUCCESS)
 // 	{
-// 	SFileVerifyFile(hMpq, szFileName1, 0xFFFFFFFF); 
+// 	SFileVerifyFile(hMpq, szFileName1, 0xFFFFFFFF);
 // 	if(!CompareArchivedFilesRR(szFileName1, hFile1, hFile2, 0x100000))
 // 	nError = ERROR_CAN_NOT_COMPLETE;
 // 	}
@@ -807,7 +807,7 @@
 // 		SFileCloseArchive(hMpq);
 // 	return nError;
 // 	}
-// 
+//
 // static int TestFindFiles(const TCHAR * szMpqName)
 // 	{
 // 	TMPQFile * hf;
@@ -817,7 +817,7 @@
 // 	int nError = ERROR_SUCCESS;
 // 	int nFiles = 0;
 // 	int nFound = 0;
-// 
+//
 // 	// Open the archive
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -825,7 +825,7 @@
 // 		if(!SFileOpenArchive(szMpqName, 0, 0, &hMpq))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	// Compact the archive
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -833,7 +833,7 @@
 // 		HANDLE hFind;
 // 		DWORD dwExtraDataSize;
 // 		bool bFound = true;
-// 
+//
 // 		hFind = SFileFindFirstFile(hMpq, "*", &sf, "c:\\Tools32\\ListFiles\\ListFile.txt");
 // 		while(hFind != NULL && bFound != false)
 // 			{
@@ -842,33 +842,33 @@
 // 				hf = (TMPQFile *)hFile;
 // 				SFileReadFile(hFile, Buffer, sizeof(Buffer));
 // 				nFiles++;
-// 
+//
 // 				if(sf.dwFileFlags & MPQ_FILE_SECTOR_CRC)
 // 					{
 // 					dwExtraDataSize = hf->SectorOffsets[hf->dwSectorCount + 1] - hf->SectorOffsets[hf->dwSectorCount];
 // 					if(dwExtraDataSize != 0)
 // 						nFound++;
 // 					}
-// 
+//
 // 				SFileCloseFile(hFile);
 // 				}
-// 
+//
 // 			bFound = SFileFindNextFile(hFind, &sf);
 // 			}
 // 		}
-// 
+//
 // 	if(hMpq != NULL)
 // 		SFileCloseArchive(hMpq);
 // 	if(nError == ERROR_SUCCESS)
 // 		_tprintf(_T("Search complete\n"));
 // 	return nError;
 // 	}
-// 
+//
 // static int TestMpqCompacting(const TCHAR * szMpqName)
 // 	{
 // 	HANDLE hMpq = NULL;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// Open the archive
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -876,11 +876,11 @@
 // 		if(!SFileOpenArchive(szMpqName, 0, 0, &hMpq))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		char * szFileName = "Shaders\\Effects\\shadowmap.wfx";
-// 
+//
 // 		printf("Deleting file %s ...\r", szFileName);
 // 		if(!SFileRemoveFile(hMpq, szFileName))
 // 			nError = GetLastError();
@@ -901,35 +901,35 @@
 // 		_tprintf(_T("Compacting complete (No errors)\n"));
 // 	return nError;
 // 	}
-// 
+//
 // static int TestCreateArchive(const TCHAR * szMpqName)
 // 	{
 // 	TFileStream * pStream;
 // 	const TCHAR * szFileName1 = MAKE_PATH("FileTest.exe");
 // 	const TCHAR * szFileName2 = MAKE_PATH("ZeroSize.txt");
-// 	HANDLE hMpq = NULL;                 // Handle of created archive 
+// 	HANDLE hMpq = NULL;                 // Handle of created archive
 // 	DWORD dwVerifyResult;
 // 	DWORD dwFileCount = 0;
 // 	LCID LocaleIDs[] = {0x000, 0x405, 0x406, 0x407, 0xFFFF};
 // 	char szMpqFileName[MAX_PATH];
 // 	int nError = ERROR_SUCCESS;
 // 	int i;
-// 
+//
 // 	// Create the new file
 // 	_tprintf(_T("Creating %s ...\n"), szMpqName);
 // 	pStream = FileStream_CreateFile(szMpqName);
 // 	if(pStream == NULL)
 // 		nError = GetLastError();
-// 
+//
 // 	// Write some data
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		ULONGLONG FileSize = 0x100000;
-// 
+//
 // 		FileStream_SetSize(pStream, FileSize);
 // 		FileStream_Close(pStream);
 // 		}
-// 
+//
 // 	// Well, now create the MPQ archive
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -941,7 +941,7 @@
 // 			nError = GetLastError();
 // 			}
 // 		}
-// 
+//
 // 	// Add the same file multiple times
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -962,16 +962,16 @@
 // 				printf("Failed to add the file \"%s\".\n", szMpqFileName);
 // 				}
 // 			}
-// 
-// 
+//
+//
 // 		// Delete a file in the middle of the file table
 // 		SFileRemoveFile(hMpq, "FileTest_10.exe");
 // 		SFileAddFileEx(hMpq, szFileName1, "FileTest_xx.exe", MPQ_FILE_COMPRESS | MPQ_FILE_ENCRYPTED, MPQ_COMPRESSION_ZLIB);
-// 
+//
 // 		// Try to decrement max file count
 // 		dwFileCount = SFileGetMaxFileCount(hMpq);
 // 		SFileSetMaxFileCount(hMpq, dwFileCount - 1);
-// 
+//
 // 		// Add ZeroSize.txt (1)
 // 		sprintf(szMpqFileName, "ZeroSize_1.txt");
 // 		for(i = 0; LocaleIDs[i] != 0xFFFF; i++)
@@ -981,7 +981,7 @@
 // 			if(!SFileAddFileEx(hMpq, szFileName2, szMpqFileName, MPQ_FILE_COMPRESS | MPQ_FILE_ENCRYPTED, MPQ_COMPRESSION_ZLIB))
 // 				printf("Cannot add the file\n");
 // 			}
-// 
+//
 // 		// Add ZeroSize.txt (1)
 // 		sprintf(szMpqFileName, "ZeroSize_2.txt");
 // 		for(int i = 0; LocaleIDs[i] != 0xFFFF; i++)
@@ -992,7 +992,7 @@
 // 				printf("Cannot add the file\n");
 // 			}
 // 		}
-// 
+//
 // 	// Test rename function
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -1003,60 +1003,60 @@
 // 			nError = GetLastError();
 // 			_tprintf(_T("Failed to rename the file\n"));
 // 			}
-// 
+//
 // 		if(!SFileRenameFile(hMpq, "FileTest_08a.exe", "FileTest_08.exe"))
 // 			{
 // 			nError = GetLastError();
 // 			_tprintf(_T("Failed to rename the file\n"));
 // 			}
-// 
+//
 // 		if(!SFileRenameFile(hMpq, "FileTest_10.exe", "FileTest_10a.exe"))
 // 			{
 // 			nError = GetLastError();
 // 			_tprintf(_T("Failed to rename the file\n"));
 // 			}
-// 
+//
 // 		if(!SFileRenameFile(hMpq, "FileTest_10a.exe", "FileTest_10.exe"))
 // 			{
 // 			nError = GetLastError();
 // 			_tprintf(_T("Failed to rename the file\n"));
 // 			}
-// 
+//
 // 		if(nError == ERROR_SUCCESS)
 // 			_tprintf(_T("Rename test succeeded.\n\n"));
 // 		else
 // 			_tprintf(_T("Rename test failed.\n\n"));
 // 		}
-// 
+//
 // 	// Compact the archive
 // 	//  if(nError == ERROR_SUCCESS)
 // 	//      SFileCompactArchive(hMpq);
-// 
+//
 // 	// Test changing hash table size
 // 	if(nError == ERROR_SUCCESS)
 // 		SFileSetMaxFileCount(hMpq, 0x95);
-// 
+//
 // 	if(hMpq != NULL)
 // 		SFileCloseArchive(hMpq);
-// 
+//
 // 	// Try to reopen the archive
 // 	if(SFileOpenArchive(szMpqName, 0, 0, &hMpq))
 // 		SFileCloseArchive(hMpq);
-// 
+//
 // 	_tprintf(_T("\n"));
 // 	return nError;
 // 	}
-// 
+//
 // static int TestCreateArchive_PaliRoharBug(const TCHAR * szMpqName)
 // 	{
 // 	const TCHAR * szFileName = MAKE_PATH("FileTest.exe");
-// 	HANDLE hMpq = NULL;                 // Handle of created archive 
+// 	HANDLE hMpq = NULL;                 // Handle of created archive
 // 	DWORD dwMaxFileCount = 0;
 // 	DWORD dwMpqFlags = MPQ_FILE_ENCRYPTED | MPQ_FILE_COMPRESS;
 // 	char szMpqFileName[MAX_PATH];
 // 	int nError = ERROR_SUCCESS;
 // 	int i;
-// 
+//
 // 	_tremove(szMpqName);
 // 	if(SFileCreateArchive(szMpqName,
 // 		MPQ_CREATE_ARCHIVE_V4 | MPQ_CREATE_ATTRIBUTES,
@@ -1067,7 +1067,7 @@
 // 		SFileAddFileEx(hMpq, szFileName, "FileTest_base.exe", dwMpqFlags, MPQ_COMPRESSION_ZLIB);
 // 		SFileFlushArchive(hMpq);
 // 		SFileCloseArchive(hMpq);
-// 
+//
 // 		// Add the same file 10 times
 // 		for(i = 0; i < 10; i++)
 // 			{
@@ -1076,7 +1076,7 @@
 // 				dwMaxFileCount = SFileGetMaxFileCount(hMpq) + 1;
 // 				_tprintf(_T("Increasing max file count to %u ...\n"), dwMaxFileCount);
 // 				SFileSetMaxFileCount(hMpq, dwMaxFileCount);
-// 
+//
 // 				sprintf(szMpqFileName, "FileTest_%02u.exe", dwMaxFileCount);
 // 				PrintfTA(_T("Adding %s as %s\n"), szFileName, szMpqFileName);
 // 				if(!SFileAddFileEx(hMpq, szFileName, szMpqFileName, dwMpqFlags, MPQ_COMPRESSION_ZLIB))
@@ -1084,19 +1084,19 @@
 // 					printf("Failed to add the file \"%s\".\n", szMpqFileName);
 // 					break;
 // 					}
-// 
+//
 // 				SFileFlushArchive(hMpq);
 // 				SFileCompactArchive(hMpq);
 // 				SFileCloseArchive(hMpq);
 // 				}
 // 			}
 // 		}
-// 
+//
 // 	_tprintf(_T("\n"));
 // 	return nError;
 // 	}
-// 
-// 
+//
+//
 // static int TestAddFilesToMpq(
 // 	const TCHAR * szMpqName,
 // 	...
@@ -1109,10 +1109,10 @@
 // 	va_list argList;
 // 	char szMpqFileName[MAX_PATH];
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	if(!SFileOpenArchive(szMpqName, 0, 0, &hMpq))
 // 		return GetLastError();
-// 
+//
 // 	va_start(argList, szMpqName);
 // 	while((szFileName = va_arg(argList, const TCHAR *)) != NULL)
 // 		{
@@ -1122,7 +1122,7 @@
 // 		while(*szSrc != 0)
 // 			*szTrg++ = (char)*szSrc++;
 // 		*szTrg = 0;
-// 
+//
 // 		// Add the file to MPQ
 // 		if(!SFileAddFileEx(hMpq, szFileName,
 // 			szMpqFileName,
@@ -1133,21 +1133,21 @@
 // 			printf("Failed to add the file \"%s\"\n", szFileName);
 // 			}
 // 		}
-// 
+//
 // 	SFileCloseArchive(hMpq);
 // 	return nError;
 // 	}
-// 
+//
 // static int TestCreateArchiveFromMemory(const TCHAR * szMpqName)
 // 	{
 // #define FILE_SIZE 65535
-// 
+//
 // 	HANDLE hFile;
 // 	HANDLE hMPQ;
 // 	char* data = new char [FILE_SIZE];          // random memory data
 // 	char szFileName[100];
 // 	int i;
-// 
+//
 // 	// Create an mpq file for testing
 // 	if(SFileCreateArchive(szMpqName, MPQ_CREATE_ARCHIVE_V2|MPQ_CREATE_ATTRIBUTES, 0x100000, &hMPQ))
 // 		{
@@ -1155,7 +1155,7 @@
 // 			{
 // 			sprintf(szFileName, "File%03u.bin", i);
 // 			printf("Adding file %s\r", szFileName);
-// 
+//
 // 			if(SFileCreateFile(hMPQ, szFileName, 0, FILE_SIZE, 0, MPQ_FILE_COMPRESS, &hFile))
 // 				{
 // 				SFileWriteFile(hFile, data, FILE_SIZE, MPQ_COMPRESSION_ZLIB);
@@ -1167,7 +1167,7 @@
 // 	delete [] data;
 // 	return ERROR_SUCCESS;
 // 	}
-// 
+//
 // static int TestFileReadAndWrite(
 // 	const TCHAR * szMpqName,
 // 	const char * szFileName)
@@ -1178,13 +1178,13 @@
 // 	DWORD dwBytesRead;
 // 	DWORD dwFileSize = 0;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	if(!SFileOpenArchive(szMpqName, 0, 0, &hMpq))
 // 		{
 // 		nError = GetLastError();
 // 		_tprintf(_T("Failed to open the archive %s (%u).\n"), szMpqName, nError);
 // 		}
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		if(!SFileOpenFileEx(hMpq, szFileName, 0, &hFile))
@@ -1193,7 +1193,7 @@
 // 			printf("Failed to open the file %s (%u).\n", szFileName, nError);
 // 			}
 // 		}
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		if(!SFileGetFileInfo(hFile, SFILE_INFO_FILE_SIZE, &dwFileSize, sizeof(DWORD)))
@@ -1202,7 +1202,7 @@
 // 			_tprintf(_T("Failed to get the file size (%u).\n"), nError);
 // 			}
 // 		}
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		pvFile = new BYTE[dwFileSize];
@@ -1212,7 +1212,7 @@
 // 			printf("Failed to allocate buffer for the file (%u).\n", nError);
 // 			}
 // 		}
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		if(!SFileReadFile(hFile, pvFile, dwFileSize, &dwBytesRead))
@@ -1221,13 +1221,13 @@
 // 			printf("Failed to read file (%u).\n", nError);
 // 			}
 // 		}
-// 
+//
 // 	if(hFile != NULL)
 // 		{
 // 		SFileCloseFile(hFile);
 // 		hFile = NULL;
 // 		}
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		if(!SFileCreateFile(hMpq, szFileName, 0, dwFileSize, 0, MPQ_FILE_REPLACEEXISTING, &hFile))
@@ -1236,7 +1236,7 @@
 // 			printf("Failed to create %s in the archive (%u).\n", szFileName, nError);
 // 			}
 // 		}
-// 
+//
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		if(!SFileWriteFile(hFile, pvFile, dwFileSize, 0))
@@ -1245,7 +1245,7 @@
 // 			printf("Failed to write the data to the MPQ (%u).\n", nError);
 // 			}
 // 		}
-// 
+//
 // 	if(hFile != NULL)
 // 		{
 // 		if(!SFileFinishFile(hFile))
@@ -1254,18 +1254,18 @@
 // 			printf("Failed to finalize file creation (%u).\n", nError);
 // 			}
 // 		}
-// 
+//
 // 	if(pvFile != NULL)
 // 		delete [] pvFile;
 // 	if(hMpq != NULL)
 // 		SFileCloseArchive(hMpq);
 // 	return nError;
 // 	}
-// 
+//
 // static int TestSignatureVerify(const TCHAR * szMpqName)
 // 	{
 // 	HANDLE hMpq;
-// 
+//
 // 	if(SFileOpenArchive(szMpqName, 0, 0, &hMpq))
 // 		{
 // 		_tprintf(_T("Verifying digital signature in %s:\n"), szMpqName);
@@ -1274,63 +1274,63 @@
 // 		case ERROR_NO_SIGNATURE:
 // 			_tprintf(_T("No digital signature present.\n"));
 // 			break;
-// 
+//
 // 		case ERROR_VERIFY_FAILED:
 // 			_tprintf(_T("Failed to verify signature.\n"));
 // 			break;
-// 
+//
 // 		case ERROR_WEAK_SIGNATURE_OK:
 // 			_tprintf(_T("Weak signature is OK.\n"));
 // 			break;
-// 
+//
 // 		case ERROR_WEAK_SIGNATURE_ERROR:
 // 			_tprintf(_T("Weak signature mismatch.\n"));
 // 			break;
-// 
+//
 // 		case ERROR_STRONG_SIGNATURE_OK:
 // 			_tprintf(_T("Strong signature is OK.\n"));
 // 			break;
-// 
+//
 // 		case ERROR_STRONG_SIGNATURE_ERROR:
 // 			_tprintf(_T("Strong signature mismatch.\n"));
 // 			break;
 // 			}
-// 
+//
 // 		SFileCloseArchive(hMpq);
 // 		_tprintf(_T("\n"));
 // 		}
-// 
+//
 // 	return 0;
 // 	}
-// 
-// 
+//
+//
 // static int TestCreateArchiveCopy(const TCHAR * szMpqName, const TCHAR * szMpqCopyName, const char * szListFile)
 // 	{
 // 	TFileStream * pStream;
 // 	TCHAR  szLocalFile[MAX_PATH];
 // 	HANDLE hMpq1 = NULL;                // Handle of existing archive
-// 	HANDLE hMpq2 = NULL;                // Handle of created archive 
+// 	HANDLE hMpq2 = NULL;                // Handle of created archive
 // 	DWORD dwHashTableSize = 0;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// If no listfile or an empty one, use NULL
 // 	if(szListFile == NULL || *szListFile == 0)
 // 		szListFile = NULL;
-// 
+//
 // 	// Create the new file
 // 	pStream = FileStream_CreateFile(szMpqCopyName);
 // 	if(pStream == NULL)
 // 		nError = GetLastError();
-// 
+//
 // 	// Write some data
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		ULONGLONG FileSize = 0x100000;
-// 
+//
 // 		FileStream_SetSize(pStream, FileSize);
 // 		FileStream_Close(pStream);
 // 		}
-// 
+//
 // 	// Open the existing MPQ archive
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -1338,7 +1338,7 @@
 // 		if(!SFileOpenArchive(szMpqName, 0, 0, &hMpq1))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	// Well, now create the MPQ archive
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -1347,16 +1347,16 @@
 // 		if(!SFileCreateArchive(szMpqCopyName, 0, dwHashTableSize, &hMpq2))
 // 			nError = GetLastError();
 // 		}
-// 
+//
 // 	// Copy all files from one archive to another
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		SFILE_FIND_DATA sf;
 // 		HANDLE hFind = SFileFindFirstFile(hMpq1, "*", &sf, szListFile);
 // 		bool bResult = true;
-// 
+//
 // 		_tprintf(_T("Copying files ...\n"));
-// 
+//
 // 		if(hFind != NULL)
 // 			{
 // 			while(bResult)
@@ -1364,7 +1364,7 @@
 // 				if(strcmp(sf.cFileName, LISTFILE_NAME) && strcmp(sf.cFileName, ATTRIBUTES_NAME))
 // 					{
 // 					SFileSetLocale(sf.lcLocale);
-// 
+//
 // 					// Create the local file name
 // 					MergeLocalPath(szLocalFile, szWorkDir, sf.szPlainName);
 // 					if(SFileExtractFile(hMpq1, sf.cFileName, szLocalFile))
@@ -1386,21 +1386,21 @@
 // 						{
 // 						printf("Extracting %s ... Failed\n", sf.cFileName);
 // 						}
-// 
+//
 // 					// Delete the added file
 // 					_tremove(szLocalFile);
 // 					}
-// 
+//
 // 				// Find the next file
 // 				bResult = SFileFindNextFile(hFind, &sf);
 // 				}
-// 
+//
 // 			// Close the search handle
 // 			SFileFindClose(hFind);
 // 			printf("\n");
 // 			}
 // 		}
-// 
+//
 // 	// Close both archives
 // 	if(hMpq2 != NULL)
 // 		SFileCloseArchive(hMpq2);
@@ -1408,7 +1408,7 @@
 // 		SFileCloseArchive(hMpq1);
 // 	return nError;
 // 	}
-// 
+//
 // static int TestCompareTwoArchives(
 // 	const TCHAR * szMpqName1,
 // 	const TCHAR * szMpqName2,
@@ -1424,19 +1424,19 @@
 // 	HANDLE hFile1 = NULL;
 // 	HANDLE hFile2 = NULL;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// If no listfile or an empty one, use NULL
 // 	if(szListFile == NULL || *szListFile == 0)
 // 		szListFile = NULL;
-// 
+//
 // 	// Allocate both buffers
 // 	pbBuffer1 = new BYTE[dwBlockSize];
 // 	pbBuffer2 = new BYTE[dwBlockSize];
 // 	if(pbBuffer1 == NULL || pbBuffer2 == NULL)
 // 		nError = ERROR_NOT_ENOUGH_MEMORY;
-// 
+//
 // 	_tprintf(_T("=============== Comparing MPQ archives ===============\n"));
-// 
+//
 // 	// Open the first MPQ archive
 // 	if(nError == ERROR_SUCCESS && szMpqName1 != NULL)
 // 		{
@@ -1445,7 +1445,7 @@
 // 			nError = GetLastError();
 // 		ha1 = (TMPQArchive *)hMpq1;
 // 		}
-// 
+//
 // 	// Open the second MPQ archive
 // 	if(nError == ERROR_SUCCESS && szMpqName2 != NULL)
 // 		{
@@ -1454,7 +1454,7 @@
 // 			nError = GetLastError();
 // 		ha2 = (TMPQArchive *)hMpq2;
 // 		}
-// 
+//
 // 	// Compare the header
 // 	if(nError == ERROR_SUCCESS && (ha1 != NULL && ha2 != NULL))
 // 		{
@@ -1473,7 +1473,7 @@
 // 		if(ha1->pHeader->dwBlockTableSize != ha2->pHeader->dwBlockTableSize)
 // 			printf(" - Block table size is different\n");
 // 		}
-// 
+//
 // 	// Find all files in the first archive and compare them
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -1482,58 +1482,58 @@
 // 		DWORD dwSearchScope1 = SFILE_OPEN_FROM_MPQ;
 // 		DWORD dwSearchScope2 = SFILE_OPEN_FROM_MPQ;
 // 		bool bResult = true;
-// 
+//
 // 		if(hMpq1 == NULL)
 // 			dwSearchScope1 = SFILE_OPEN_LOCAL_FILE;
 // 		if(hMpq2 == NULL)
 // 			dwSearchScope2 = SFILE_OPEN_LOCAL_FILE;
-// 
+//
 // 		while(hFind != NULL && bResult == true)
 // 			{
 // 			printf("%s\n", sf.cFileName);
 // 			SFileSetLocale(sf.lcLocale);
-// 
+//
 // 			// Open the first file
 // 			if(!SFileOpenFileEx(hMpq1, sf.cFileName, dwSearchScope1, &hFile1))
 // 				{
 // 				printf("Failed to open the file %s in the first archive\n", sf.cFileName);
 // 				continue;
 // 				}
-// 
+//
 // 			if(!SFileOpenFileEx(hMpq2, sf.cFileName, dwSearchScope2, &hFile2))
 // 				{
 // 				printf("Failed to open the file %s in the second archive\n", sf.cFileName);
 // 				continue;
 // 				}
-// 
+//
 // 			if(dwSearchScope1 == SFILE_OPEN_FROM_MPQ && dwSearchScope2 == SFILE_OPEN_FROM_MPQ)
 // 				{
 // 				TMPQFile * hf1 = (TMPQFile *)hFile1;
 // 				TMPQFile * hf2 = (TMPQFile *)hFile2;
-// 
+//
 // 				// Compare the file sizes
 // 				if(hf1->pFileEntry->dwFileSize != hf2->pFileEntry->dwFileSize)
 // 					printf(" - %s different size (%u x %u)\n", sf.cFileName, hf1->pFileEntry->dwFileSize, hf2->pFileEntry->dwFileSize);
-// 
+//
 // 				if(hf1->pFileEntry->dwFlags != hf2->pFileEntry->dwFlags)
 // 					printf(" - %s different flags (%08X x %08X)\n", sf.cFileName, hf1->pFileEntry->dwFlags, hf2->pFileEntry->dwFlags);
 // 				}
-// 
+//
 // 			if(!CompareArchivedFiles(sf.cFileName, hFile1, hFile2, 0x1001))
 // 				printf(" - %s different content\n", sf.cFileName);
-// 
+//
 // 			if(!CompareArchivedFilesRR(sf.cFileName, hFile1, hFile2, 0x100000))
 // 				printf(" - %s different content\n", sf.cFileName);
-// 
+//
 // 			// Close both files
 // 			SFileCloseFile(hFile2);
 // 			SFileCloseFile(hFile1);
 // 			hFile2 = hFile1 = NULL;
-// 
+//
 // 			// Find the next file
 // 			bResult = SFileFindNextFile(hFind, &sf);
 // 			}
-// 
+//
 // 		// Close all handles
 // 		if(hFile2 != NULL)
 // 			SFileCloseFile(hFile2);
@@ -1542,7 +1542,7 @@
 // 		if(hFind != NULL)
 // 			SFileFindClose(hFind);
 // 		}
-// 
+//
 // 	// Close both archives
 // 	clreol();
 // 	printf("================ MPQ compare complete ================\n");
@@ -1556,7 +1556,7 @@
 // 		delete [] pbBuffer1;
 // 	return nError;
 // 	}
-// 
+//
 // static int TestOpenPatchedArchive(const TCHAR * szMpqName, ...)
 // 	{
 // 	TFileStream * pStream;
@@ -1568,7 +1568,7 @@
 // 	LPBYTE pbFullFile = NULL;
 // 	DWORD dwFileSize;
 // 	int nError = ERROR_SUCCESS;
-// 
+//
 // 	// Open the primary MPQ
 // 	_tprintf(_T("Opening %s ...\n"), szMpqName);
 // 	if(!SFileOpenArchive(szMpqName, 0, MPQ_OPEN_READ_ONLY, &hMpq))
@@ -1576,7 +1576,7 @@
 // 		nError = GetLastError();
 // 		_tprintf(_T("Failed to open the archive %s ...\n"), szMpqName);
 // 		}
-// 
+//
 // 	// Add all patches
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -1592,14 +1592,14 @@
 // 			}
 // 		va_end(argList);
 // 		}
-// 
+//
 // 	// Now search all files
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		SFILE_FIND_DATA sf;
 // 		HANDLE hFind;
 // 		bool bResult = true;
-// 
+//
 // 		hFind = SFileFindFirstFile(hMpq, "World\\Minimaps\\Azeroth\\noLiquid_map20_44.*", &sf, NULL);
 // 		while(hFind && bResult)
 // 			{
@@ -1607,13 +1607,13 @@
 // 			bResult = SFileFindNextFile(hFind, &sf);
 // 			}
 // 		}
-// 
+//
 // 	// Now try to open patched version of a file
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		SFileExtractFile(hMpq, szFileName, _T("E:\\noLiquid_map20_44.blp"));
 // 		}
-// 
+//
 // 	// Now try to open patched version of "Achievement.dbc"
 // 	if(nError == ERROR_SUCCESS)
 // 		{
@@ -1625,39 +1625,39 @@
 // 			printf("Failed to open patched file \"%s\"\n", szFileName);
 // 			}
 // 		}
-// 
+//
 // 	// Verify of the patched version is correct
 // 	if(nError == ERROR_SUCCESS)
 // 		{
 // 		TCHAR * szPatchChain = NULL;
 // 		DWORD cbPatchChain = 0;
-// 
+//
 // 		// Get the patch chain
 // 		SFileGetFileInfo(hFile, SFILE_INFO_PATCH_CHAIN, szPatchChain, cbPatchChain, &cbPatchChain);
 // 		szPatchChain = (TCHAR *)(new BYTE[cbPatchChain]);
 // 		SFileGetFileInfo(hFile, SFILE_INFO_PATCH_CHAIN, szPatchChain, cbPatchChain, &cbPatchChain);
 // 		delete [] szPatchChain;
-// 
+//
 // 		// Get the size of the full patched file
 // 		dwFileSize = SFileGetFileSize(hFile, NULL);
 // 		if(dwFileSize != 0)
 // 			{
 // 			DWORD dwBytesRead = 0;
 // 			BYTE TempData[0x100];
-// 
+//
 // 			SFileReadFile(hFile, TempData, sizeof(TempData), &dwBytesRead);
 // 			SFileSetFilePointer(hFile, 0, NULL, FILE_BEGIN);
-// 
+//
 // 			// Allocate space for the full file
 // 			pbFullFile = new BYTE[dwFileSize];
 // 			if(pbFullFile != NULL)
 // 				{
 // 				if(!SFileReadFile(hFile, pbFullFile, dwFileSize))
-// 					{           
+// 					{
 // 					nError = GetLastError();
 // 					printf("Failed to read full patched file data \"%s\"\n", szFileName);
 // 					}
-// 
+//
 // 				if(nError == ERROR_SUCCESS)
 // 					{
 // 					MergeLocalPath(szLocFileName, MAKE_PATH("Work//"), GetPlainFileNameA(szFileName));
@@ -1668,12 +1668,12 @@
 // 						FileStream_Close(pStream);
 // 						}
 // 					}
-// 
+//
 // 				delete [] pbFullFile;
 // 				}
 // 			}
 // 		}
-// 
+//
 // 	// Close handles
 // 	if(hFile != NULL)
 // 		SFileCloseFile(hFile);

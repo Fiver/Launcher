@@ -38,20 +38,20 @@ int hash_memory(int hash, const unsigned char *in, unsigned long inlen, unsigned
     }
 
     if (*outlen < hash_descriptor[hash].hashsize) {
-       *outlen = hash_descriptor[hash].hashsize;
-       return CRYPT_BUFFER_OVERFLOW;
+        *outlen = hash_descriptor[hash].hashsize;
+        return CRYPT_BUFFER_OVERFLOW;
     }
 
     md = XMALLOC(sizeof(hash_state));
     if (md == NULL) {
-       return CRYPT_MEM;
+        return CRYPT_MEM;
     }
 
     if ((err = hash_descriptor[hash].init(md)) != CRYPT_OK) {
-       goto LBL_ERR;
+        goto LBL_ERR;
     }
     if ((err = hash_descriptor[hash].process(md, in, inlen)) != CRYPT_OK) {
-       goto LBL_ERR;
+        goto LBL_ERR;
     }
     err = hash_descriptor[hash].done(md, out);
     *outlen = hash_descriptor[hash].hashsize;

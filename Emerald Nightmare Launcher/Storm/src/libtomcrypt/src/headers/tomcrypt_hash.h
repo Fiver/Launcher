@@ -165,7 +165,7 @@ extern  struct ltc_hash_descriptor {
       @return CRYPT_OK if successful
     */
     int (*init)(hash_state *hash);
-    /** Process a block of data 
+    /** Process a block of data
       @param hash   The hash state
       @param in     The data to hash
       @param inlen  The length of the data (octets)
@@ -185,8 +185,8 @@ extern  struct ltc_hash_descriptor {
 
     /* accelerated hmac callback: if you need to-do multiple packets just use the generic hmac_memory and provide a hash callback */
     int  (*hmac_block)(const unsigned char *key, unsigned long  keylen,
-                       const unsigned char *in,  unsigned long  inlen, 
-                             unsigned char *out, unsigned long *outlen);
+                       const unsigned char *in,  unsigned long  inlen,
+                       unsigned char *out, unsigned long *outlen);
 
 } hash_descriptor[];
 
@@ -217,7 +217,7 @@ extern const struct ltc_hash_descriptor sha512_desc;
 
 #ifdef LTC_SHA384
 #ifndef LTC_SHA512
-   #error LTC_SHA512 is required for LTC_SHA384
+#error LTC_SHA512 is required for LTC_SHA384
 #endif
 int sha384_init(hash_state * md);
 #define sha384_process sha512_process
@@ -235,7 +235,7 @@ extern const struct ltc_hash_descriptor sha256_desc;
 
 #ifdef LTC_SHA224
 #ifndef LTC_SHA256
-   #error LTC_SHA256 is required for LTC_SHA224
+#error LTC_SHA256 is required for LTC_SHA224
 #endif
 int sha224_init(hash_state * md);
 #define sha224_process sha256_process
@@ -328,9 +328,9 @@ int hash_is_valid(int idx);
 
 LTC_MUTEX_PROTO(ltc_hash_mutex)
 
-int hash_memory(int hash, 
-                const unsigned char *in,  unsigned long inlen, 
-                      unsigned char *out, unsigned long *outlen);
+int hash_memory(int hash,
+                const unsigned char *in,  unsigned long inlen,
+                unsigned char *out, unsigned long *outlen);
 int hash_memory_multi(int hash, unsigned char *out, unsigned long *outlen,
                       const unsigned char *in, unsigned long inlen, ...);
 int hash_filehandle(int hash, FILE *in, unsigned char *out, unsigned long *outlen);

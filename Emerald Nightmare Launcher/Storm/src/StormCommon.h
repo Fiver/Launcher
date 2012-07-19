@@ -69,7 +69,7 @@
 #define ID_MPQ_FILE            0x46494c45     // Used internally for checking TMPQFile ('FILE')
 
 #define MPQ_WEAK_SIGNATURE_SIZE        64
-#define MPQ_STRONG_SIGNATURE_SIZE     256 
+#define MPQ_STRONG_SIGNATURE_SIZE     256
 
 // Prevent problems with CRT "min" and "max" functions,
 // as they are not defined on all platforms
@@ -93,16 +93,16 @@
 
 #if defined(_MSC_VER) && defined(_DEBUG)
 __inline void * DebugMalloc(char * /* szFile */, int /* nLine */, size_t nSize)
-	{
-	//  return new BYTE[nSize];
-	return HeapAlloc(GetProcessHeap(), 0, nSize);
-	}
+{
+    //  return new BYTE[nSize];
+    return HeapAlloc(GetProcessHeap(), 0, nSize);
+}
 
 __inline void DebugFree(void * ptr)
-	{
-	//  delete [] ptr;
-	HeapFree(GetProcessHeap(), 0, ptr);
-	}
+{
+    //  delete [] ptr;
+    HeapFree(GetProcessHeap(), 0, ptr);
+}
 
 #define STORM_ALLOC(type, nitems) (type *)DebugMalloc(__FILE__, __LINE__, (nitems) * sizeof(type))
 #define STORM_FREE(ptr)           DebugFree(ptr)
@@ -230,25 +230,25 @@ bool IsInternalMpqFileName(const char * szFileName);
 // Support for adding files to the MPQ
 
 int SFileAddFile_Init(
-	TMPQArchive * ha,
-	const char * szArchivedName,
-	ULONGLONG ft,
-	DWORD dwFileSize,
-	LCID lcLocale,
-	DWORD dwFlags,
-	TMPQFile ** phf
-	);
+    TMPQArchive * ha,
+    const char * szArchivedName,
+    ULONGLONG ft,
+    DWORD dwFileSize,
+    LCID lcLocale,
+    DWORD dwFlags,
+    TMPQFile ** phf
+);
 
 int SFileAddFile_Write(
-	TMPQFile * hf,
-	const void * pvData,
-	DWORD dwSize,
-	DWORD dwCompression
-	);
+    TMPQFile * hf,
+    const void * pvData,
+    DWORD dwSize,
+    DWORD dwCompression
+);
 
 int SFileAddFile_Finish(
-	TMPQFile * hf
-	);
+    TMPQFile * hf
+);
 
 //-----------------------------------------------------------------------------
 // Attributes support

@@ -14,8 +14,8 @@ extern "C"
 {
 #endif
 
-uint32_t hashlittle(const void *key, size_t length, uint32_t initval);
-void hashlittle2(const void *key, size_t length, uint32_t *pc, uint32_t *pb);
+    uint32_t hashlittle(const void *key, size_t length, uint32_t initval);
+    void hashlittle2(const void *key, size_t length, uint32_t *pc, uint32_t *pb);
 
 #ifdef __cplusplus
 }
