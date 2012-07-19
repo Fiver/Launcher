@@ -371,6 +371,7 @@ inline void DeleteArchiveInterfaceFiles()
 
 inline void RepackArchives()
 	{
+	exit(0); // B E C A U S E - if you knew that this was unfinished you wouldn't have ran this function
 	// repacker finds files from all files in data and puts
 	// the files from the patch mpq archives into the master files
 	// I was just combining the patch files here and I decided to stop coding this for a bit
