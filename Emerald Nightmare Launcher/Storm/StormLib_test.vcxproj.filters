@@ -67,6 +67,9 @@
     <Filter Include="Header Files\MD5">
       <UniqueIdentifier>{16cea283-e9d7-4a72-abdb-6a303bdf9f48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\StormLibTest">
+      <UniqueIdentifier>{c17dc431-340d-49c0-a04a-6bee6b566698}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\StormProxy\app.ico">
@@ -136,57 +139,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\FileStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SBaseCommon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SBaseDumpData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SBaseFileTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SCompression.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileAddFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileAttributes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileCompactArchive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileCreateArchive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileExtractFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileFindFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileListFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileOpenArchive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileOpenFileEx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFilePatchArchives.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileReadFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SFileVerify.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\adpcm\adpcm.cpp">
       <Filter>Source Files\adpcm</Filter>
     </ClCompile>
@@ -808,13 +760,67 @@
     <ClCompile Include="src\zlib\zutil.c">
       <Filter>Source Files\zlib</Filter>
     </ClCompile>
+    <ClCompile Include="src\FileStream.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SBaseCommon.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SBaseDumpData.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SBaseFileTable.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SCompression.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileAddFile.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileAttributes.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileCompactArchive.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileCreateArchive.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileExtractFile.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileFindFile.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileListFile.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileOpenArchive.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileOpenFileEx.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFilePatchArchives.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileReadFile.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SFileVerify.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
+    <ClCompile Include="StormLibTest.cpp">
+      <Filter>Source Files\StormLibTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="test\x86_ripped_code.asm">
-      <Filter>Source Files</Filter>
-    </MASM>
     <MASM Include="test\x86_starcraft_lzma.asm">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\StormLibTest</Filter>
+    </MASM>
+    <MASM Include="test\x86_ripped_code.asm">
+      <Filter>Source Files\StormLibTest</Filter>
     </MASM>
   </ItemGroup>
   <ItemGroup>

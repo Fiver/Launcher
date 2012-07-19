@@ -352,6 +352,7 @@
     <ClCompile Include="src\zlib\inftrees.c" />
     <ClCompile Include="src\zlib\trees.c" />
     <ClCompile Include="src\zlib\zutil.c" />
+    <ClCompile Include="StormLibTest.cpp" />
     <ClCompile Include="test\Main.cpp">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level4</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level4</WarningLevel>
