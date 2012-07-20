@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>G:/Dev/Client/Launcher/Emerald Nightmare Launcher/Emerald Nightmare Launcher/BackGround.png</file>
+        <file>G:/Dev/Client/Launcher/Emerald Nightmare Launcher/Emerald Nightmare Launcher/PLAY.png</file>
+        <file>G:/Dev/Client/Launcher/Emerald Nightmare Launcher/Emerald Nightmare Launcher/TOPBARGRADIENT.png</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>G:/Dev/Client/Launcher/Emerald Nightmare Launcher/Emerald Nightmare Launcher/app.ico</file>
+    </qresource>
+</RCC>
