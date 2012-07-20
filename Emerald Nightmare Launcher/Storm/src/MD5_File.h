@@ -113,7 +113,7 @@ private:
     #pragma region static helper functions
     // The core of the MD5 algorithm is here.
     // MD5 basic transformation. Transforms state based on block.
-    static void MD5Transform( UINT4 state[4], unsigned char block[64] )
+    static inline void MD5Transform( UINT4 state[4], unsigned char block[64] )
     {
         UINT4 a = state[0], b = state[1], c = state[2], d = state[3], x[16];
 
@@ -202,7 +202,7 @@ private:
 
     // Encodes input (UINT4) into output (unsigned char). Assumes len is
     // a multiple of 4.
-    static void Encode( unsigned char *output, UINT4 *input, unsigned int len )
+    static inline void Encode( unsigned char *output, UINT4 *input, unsigned int len )
     {
         unsigned int i, j;
 
@@ -216,7 +216,7 @@ private:
 
     // Decodes input (unsigned char) into output (UINT4). Assumes len is
     // a multiple of 4.
-    static void Decode( UINT4 *output, unsigned char *input, unsigned int len )
+    static inline void Decode( UINT4 *output, unsigned char *input, unsigned int len )
     {
         unsigned int i, j;
 
@@ -233,7 +233,7 @@ public:
     }
 
     // MD5 initialization. Begins an MD5 operation, writing a new context.
-    void Init()
+    void inline Init()
     {
         context.count[0] = context.count[1] = 0;
 
@@ -247,7 +247,7 @@ public:
     // MD5 block update operation. Continues an MD5 message-digest
     // operation, processing another message block, and updating the
     // context.
-    void Update(
+    void inline Update(
         unsigned char *input,   // input block
         unsigned int inputLen ) // length of input block
     {
@@ -284,7 +284,7 @@ public:
     // MD5 finalization. Ends an MD5 message-digest operation, writing the
     // the message digest and zeroizing the context.
     // Writes to digestRaw
-    void Final()
+    void inline Final()
     {
         unsigned char bits[8];
         unsigned int index, padLen;
@@ -310,7 +310,7 @@ public:
     }
 
     /// Buffer must be 32+1 (nul) = 33 chars long at least
-    void writeToString()
+    void inline writeToString()
     {
         int pos ;
 
@@ -327,7 +327,7 @@ public:
 
     /// Load a file from disk and digest it
     // Digests a file and returns the result.
-    char* digestFile( const char *filename )
+    inline char* digestFile( const char *filename )
     {
         Init() ;
 
@@ -351,7 +351,7 @@ public:
     }
 
     /// Digests a byte-array already in memory
-    char* digestMemory( BYTE *memchunk, int len )
+    inline char* digestMemory( BYTE *memchunk, int len )
     {
         Init() ;
         Update( memchunk, len ) ;
@@ -361,7 +361,7 @@ public:
     }
 
     // Digests a string and prints the result.
-    char* digestString( char *string )
+    inline char* digestString( char *string )
     {
         Init() ;
         Update( (unsigned char*)string, strlen(string) ) ;

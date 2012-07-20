@@ -32,7 +32,18 @@ using namespace boost::this_thread;
 #pragma warning(disable: 4996)
 #pragma warning(disable: 4512)              // assignment operator could not be generated
 #define countof( array ) ( sizeof( array )/sizeof( array[0] ) )
+int IsRunningRepackOps;
 
+//************************************
+// Method:    MergeLocalPath
+// FullName:  MergeLocalPath
+// Access:    public static
+// Returns:   void
+// Qualifier:
+// Parameter: TCHAR * szBuffer
+// Parameter: const char * szPart1
+// Parameter: const char * szPart2
+//************************************
 static void MergeLocalPath(TCHAR * szBuffer, const char * szPart1, const char * szPart2)
 {
     // Copy directory name
@@ -50,6 +61,17 @@ static void MergeLocalPath(TCHAR * szBuffer, const char * szPart1, const char * 
     *szBuffer = 0;
 }
 
+//************************************
+// Method:    CopyArchiveToArchive
+// FullName:  CopyArchiveToArchive
+// Access:    public static
+// Returns:   int
+// Qualifier:
+// Parameter: const TCHAR * szMpqName
+// Parameter: const TCHAR * szMpqCopyName
+// Parameter: const char * szListFile
+// Comment: Copies one archive to another
+//************************************
 static int inline CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * szMpqCopyName, const char * szListFile)
 {
     char buffer[MAX_PATH];
@@ -152,7 +174,31 @@ static int inline CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * sz
     return nError;
 }
 
-inline void VerifyMPQSignature(const char *szFileName)
+//************************************
+// Method:    ContinueRepack
+// FullName:  ContinueRepack
+// Access:    public
+// Returns:   void
+// Qualifier:
+// Parameter: const char * szFileName
+// Comment: Continues repacking patches after they are combined and checked
+//************************************
+inline void ContinueRepack(const char *szFileName)
+{
+    // unfinished
+}
+
+//************************************
+// Method:    VerifyArchiveMD5
+// FullName:  VerifyArchiveMD5
+// Access:    public
+// Returns:   void
+// Qualifier:
+// Parameter: const char * szFileName
+// Parameter: bool MD5Check
+// Comment: Check internal MPQ signature and MD5 against a internal list of valid MD5s
+//************************************
+inline void VerifyArchiveMD5(const char *szFileName, bool MD5Check)
 {
     HANDLE hMpq = NULL;
     cout << endl;
@@ -254,21 +300,54 @@ inline void VerifyMPQSignature(const char *szFileName)
 
         if (IsKnownArchive == false)
         {
-            cout << "File does NOT match any known MD5, archive is corrupt or changed!" << endl;
-			// write to log, for lazy saving of MD5s later on when I add more to the list of valid MD5s
-			ofstream myfile;
-			myfile.open("Logs\\MD5-Check.log");
-			myfile << ("A MD5 was unmatched in this archive %s:", szFileName) << endl;
-			myfile << ("%s", CalculatedArchiveMD5) << endl << endl;
-			myfile.close();
+            if (MD5Check)
+            {
+                string YesCheck;
+                cout << "It would seem your archive has been damaged by the combination operation, or you are running a customized client already." << endl
+                     << "Abort and restore original file? Y/N:" << endl;
+                cin >> YesCheck;
+                if (YesCheck != "Y")
+                {
+                    // restore original file
+                }
+            }
+            else if (!MD5Check)
+            {
+                cout << "File does NOT match any known MD5, archive is corrupt or changed!" << endl;
+            }
+            // write to log, for lazy saving of MD5s later on when I add more to the list of valid MD5s
+            ofstream myfile;
+            myfile.open("Logs\\MD5-Check.log");
+            myfile << ("A MD5 was unmatched in this archive \"%s\":", szFileName) << endl
+                   << ("%s", CalculatedArchiveMD5) << endl << endl;
+            myfile.close();
             cin.get();
         }
 
         delete [] szFileName;
         cout << endl;
+
+        if (MD5Check)
+        {
+            cout << "Continuing repack operation" << endl;
+            IsRunningRepackOps++;
+
+            if (IsRunningRepackOps == 2)
+            {
+                ContinueRepack(szFileName);
+            }
+        }
     }
 }
 
+//************************************
+// Method:    VerifyMPQPipe
+// FullName:  VerifyMPQPipe
+// Access:    public
+// Returns:   void
+// Qualifier:
+// Comment: Builds directory strings and feeds them to VerifyArchiveMD5
+//************************************
 inline void VerifyMPQPipe()
 {
 
@@ -298,50 +377,58 @@ inline void VerifyMPQPipe()
     if( !boost::filesystem::exists(IsRepacked) )
     {
         cout << "Detected files as being repacked." << endl;
-        VerifyMPQSignature(CommonMPQ.c_str());
-        VerifyMPQSignature(CommonMPQ2.c_str());
-        VerifyMPQSignature(ExpansionMPQ.c_str());
-        VerifyMPQSignature(LichkingMPQ.c_str());
-        VerifyMPQSignature(PatchMPQ.c_str());
+        VerifyArchiveMD5(CommonMPQ.c_str(), false);
+        VerifyArchiveMD5(CommonMPQ2.c_str(), false);
+        VerifyArchiveMD5(ExpansionMPQ.c_str(), false);
+        VerifyArchiveMD5(LichkingMPQ.c_str(), false);
+        VerifyArchiveMD5(PatchMPQ.c_str(), false);
 
-        VerifyMPQSignature(ExpansionLocaleEnUSMPQ.c_str());
-        VerifyMPQSignature(ExpansionSpeechEnUSMPQ.c_str());
-        VerifyMPQSignature(LichkingLocaleEnUSMPQ.c_str());
-        VerifyMPQSignature(LichkingSpeechEnUSMPQ.c_str());
-        VerifyMPQSignature(LocaleEnUSMPQ.c_str());
-        VerifyMPQSignature(PatchEnUSMPQ.c_str());
-        VerifyMPQSignature(SpeechEnUSMPQ.c_str());
+        VerifyArchiveMD5(ExpansionLocaleEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(ExpansionSpeechEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(LichkingLocaleEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(LichkingSpeechEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(LocaleEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(PatchEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(SpeechEnUSMPQ.c_str(), false);
     }
     else if( boost::filesystem::exists(IsRepacked) )
     {
         cout << "Detected files as being original 3.3.5A layout." << endl;
 
-        VerifyMPQSignature(CommonMPQ2.c_str());
-        VerifyMPQSignature(CommonMPQ.c_str());
-        VerifyMPQSignature(ExpansionMPQ.c_str());
-        VerifyMPQSignature(LichkingMPQ.c_str());
-        VerifyMPQSignature(Patch2MPQ.c_str());
-        VerifyMPQSignature(Patch3MPQ.c_str());
-        VerifyMPQSignature(Patch4MPQ.c_str());
-        VerifyMPQSignature(PatchMPQ.c_str());
+        VerifyArchiveMD5(CommonMPQ2.c_str(), false);
+        VerifyArchiveMD5(CommonMPQ.c_str(), false);
+        VerifyArchiveMD5(ExpansionMPQ.c_str(), false);
+        VerifyArchiveMD5(LichkingMPQ.c_str(), false);
+        VerifyArchiveMD5(Patch2MPQ.c_str(), false);
+        VerifyArchiveMD5(Patch3MPQ.c_str(), false);
+        VerifyArchiveMD5(Patch4MPQ.c_str(), false);
+        VerifyArchiveMD5(PatchMPQ.c_str(), false);
 
-        VerifyMPQSignature(BackupEnUSMPQ.c_str());
-        VerifyMPQSignature(BaseEnUSMPQ.c_str());
-        VerifyMPQSignature(ExpansionLocaleEnUSMPQ.c_str());
-        VerifyMPQSignature(ExpansionSpeechEnUSMPQ.c_str());
-        VerifyMPQSignature(LichkingLocaleEnUSMPQ.c_str());
-        VerifyMPQSignature(LichkingSpeechEnUSMPQ.c_str());
-        VerifyMPQSignature(LocaleEnUSMPQ.c_str());
-        VerifyMPQSignature(PatchEnUS2MPQ.c_str());
-        VerifyMPQSignature(PatchEnUS3MPQ.c_str());
-        VerifyMPQSignature(PatchEnUSMPQ.c_str());
-        VerifyMPQSignature(SpeechEnUSMPQ.c_str());
+        VerifyArchiveMD5(BackupEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(BaseEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(ExpansionLocaleEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(ExpansionSpeechEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(LichkingLocaleEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(LichkingSpeechEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(LocaleEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(PatchEnUS2MPQ.c_str(), false);
+        VerifyArchiveMD5(PatchEnUS3MPQ.c_str(), false);
+        VerifyArchiveMD5(PatchEnUSMPQ.c_str(), false);
+        VerifyArchiveMD5(SpeechEnUSMPQ.c_str(), false);
     }
     cout << endl;
     cout << "Signature/MD5 check complete. Press any key to exit." << endl;
     cin.get();
 }
 
+//************************************
+// Method:    DeleteArchiveInterfaceFiles
+// FullName:  DeleteArchiveInterfaceFiles
+// Access:    public
+// Returns:   void
+// Qualifier:
+// Comment: Delete Interface folder within MPQ archive after the client has been repacked (for use only with Marforius-Client)
+//************************************
 inline void DeleteArchiveInterfaceFiles()
 {
     char buffer[MAX_PATH];
@@ -360,6 +447,14 @@ inline void DeleteArchiveInterfaceFiles()
     }
 }
 
+//************************************
+// Method:    RepackArchives
+// FullName:  RepackArchives
+// Access:    public
+// Returns:   void
+// Qualifier:
+// Comment: Copies files from sub-patch archives to parent-patch archives then checks their MD5 before continuing operations on them
+//************************************
 inline void RepackArchives()
 {
     exit(0); // B E C A U S E - if you knew that this was unfinished you wouldn't have ran this function
@@ -408,12 +503,22 @@ inline void RepackArchives()
         remove(BaseEnUSMPQ.c_str());
     }
     cout << endl;
-    cout << "Repack complete, running MD5 check on repacked archives." << endl;
     // investigate
-    VerifyMPQSignature(PatchMPQ.c_str());
-    VerifyMPQSignature(PatchEnUSMPQ.c_str());
+    VerifyArchiveMD5(PatchMPQ.c_str(), true);
+    VerifyArchiveMD5(PatchEnUSMPQ.c_str(), true);
     // Add code to verify if matches MD5 to continue repacking after combining archives
 }
+
+//************************************
+// Method:    main
+// FullName:  main
+// Access:    public
+// Returns:   int
+// Qualifier:
+// Parameter: int ac
+// Parameter: char * av[]
+// Args: --RunCHECKARCHIVES, --Repack, --RunDELETEARCHIVEINTERFACEFILES
+//************************************
 int main(int ac, char* av[])
 {
 
