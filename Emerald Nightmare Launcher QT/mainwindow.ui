@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>643</width>
+    <height>569</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/Images/G:/Dev/Client/Launcher/Emerald Nightmare Launcher/Emerald Nightmare Launcher/BackGround.png);</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWebView" name="webView">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>641</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="url">
+     <url>
+      <string>http://www.assembla.com/code/emerald-nightmare-launcher/subversion/node/blob/index.html</string>
+     </url>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PlayButton">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>430</y>
+      <width>141</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/Images/G:/Dev/Client/Launcher/Emerald Nightmare Launcher/Emerald Nightmare Launcher/PLAY.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="DeleteCacheCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>81</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>DeleteCache</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="IRCModeCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>400</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>IRC Mode</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LauncherAlertBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>430</y>
+      <width>501</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 64, 0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>643</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuGeneral">
+    <property name="title">
+     <string>General</string>
+    </property>
+    <addaction name="actionForce_Update"/>
+   </widget>
+   <widget class="QMenu" name="menuCleanup">
+    <property name="title">
+     <string>Cleanup</string>
+    </property>
+    <addaction name="actionDelete_Settings"/>
+    <addaction name="actionDelete_Non_Essential_Files"/>
+    <addaction name="actionDelete_Cache"/>
+   </widget>
+   <widget class="QMenu" name="menuClientSystem_Checks">
+    <property name="title">
+     <string>ClientSystem Checks</string>
+    </property>
+    <addaction name="actionSig_MD5_Check_Archives"/>
+   </widget>
+   <widget class="QMenu" name="menuDeveloper">
+    <property name="title">
+     <string>Developer</string>
+    </property>
+    <addaction name="actionToggle_Debug"/>
+   </widget>
+   <widget class="QMenu" name="menuAddons">
+    <property name="title">
+     <string>Addons</string>
+    </property>
+    <addaction name="actionDownload_Reccomended_Addons"/>
+   </widget>
+   <widget class="QMenu" name="menuGM">
+    <property name="title">
+     <string>GM</string>
+    </property>
+    <addaction name="actionDownload_GM_Addon"/>
+   </widget>
+   <widget class="QMenu" name="menuMarforius_Client">
+    <property name="title">
+     <string>Marforius-Client</string>
+    </property>
+    <addaction name="actionDownload_Client"/>
+    <addaction name="actionDelete_Archive_Interface_Files"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionCredits"/>
+   </widget>
+   <addaction name="menuGeneral"/>
+   <addaction name="menuCleanup"/>
+   <addaction name="menuClientSystem_Checks"/>
+   <addaction name="menuMarforius_Client"/>
+   <addaction name="menuAddons"/>
+   <addaction name="menuGM"/>
+   <addaction name="menuDeveloper"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionForce_Update">
+   <property name="text">
+    <string>Force Update</string>
+   </property>
+  </action>
+  <action name="actionDelete_Settings">
+   <property name="text">
+    <string>Delete Settings</string>
+   </property>
+  </action>
+  <action name="actionDelete_Non_Essential_Files">
+   <property name="text">
+    <string>Delete Non-Essential Files</string>
+   </property>
+  </action>
+  <action name="actionDelete_Cache">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Delete Cache</string>
+   </property>
+  </action>
+  <action name="actionSig_MD5_Check_Archives">
+   <property name="text">
+    <string>Sig/MD5 Check Archives</string>
+   </property>
+  </action>
+  <action name="actionToggle_Debug">
+   <property name="text">
+    <string>Toggle Debug</string>
+   </property>
+  </action>
+  <action name="actionDownload_Reccomended_Addons">
+   <property name="text">
+    <string>Download Reccomended Addons</string>
+   </property>
+  </action>
+  <action name="actionDownload_GM_Addon">
+   <property name="text">
+    <string>Download GM Addon</string>
+   </property>
+  </action>
+  <action name="actionDownload_Client">
+   <property name="text">
+    <string>Download Client</string>
+   </property>
+  </action>
+  <action name="actionDelete_Archive_Interface_Files">
+   <property name="text">
+    <string>Delete Archive Interface Files</string>
+   </property>
+  </action>
+  <action name="actionCredits">
+   <property name="text">
+    <string>Credits</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
