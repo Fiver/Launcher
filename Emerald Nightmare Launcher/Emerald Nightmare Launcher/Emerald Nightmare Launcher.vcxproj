@@ -164,7 +164,6 @@
   <ItemGroup>
     <None Include="app.ico" />
     <None Include="BackGround.png" />
-    <None Include="MainWindow.ui" />
     <None Include="PLAY.png" />
     <None Include="TOPBARGRADIENT.png" />
   </ItemGroup>

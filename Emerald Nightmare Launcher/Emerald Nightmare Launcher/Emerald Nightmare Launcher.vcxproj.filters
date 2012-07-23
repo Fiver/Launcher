@@ -71,8 +71,5 @@
     <None Include="app.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="MainWindow.ui">
-      <Filter>Interface</Filter>
-    </None>
   </ItemGroup>
 </Project>

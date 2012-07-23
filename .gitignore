@@ -66,3 +66,4 @@ WowError.exe
 /Emerald Nightmare Launcher.suo
 /ipch\stormlib_test-51901b1e/stormproxy-357f59dd.ipch
 /ipch\stormlib_test-51901b1e/*.ipch
+*.ipch
