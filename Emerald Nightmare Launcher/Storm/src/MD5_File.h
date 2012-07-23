@@ -29,6 +29,12 @@
 // string.h for memcpy.
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
+
+#pragma warning(disable: 4706) // assignment within conditional expression
+#pragma warning(disable: 4996)
+
+using namespace std;
 
 #pragma region MD5 defines
 // Constants for MD5Transform routine.
@@ -347,7 +353,7 @@ class MD5
 			unsigned char buffer[1024] ;
 
 			if( (file = fopen (filename, "rb")) == NULL )
-				printf( "%s can't be opened\n", filename ) ;
+				cout << ( "%s can't be opened", filename ) << endl;
 			else
 				{
 				while( len = fread( buffer, 1, 1024, file ) )

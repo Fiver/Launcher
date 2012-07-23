@@ -1,4 +1,4 @@
-/*////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 // StormProxy code
 // Handles command line arguments from Emerald Nightmare Launcher
 // Based on StormLib Test
@@ -10,9 +10,6 @@
 //////////////////////////////////////////////////////////////////////////
 // http://creativecommons.org/licenses/by-nc-nd/3.0/
 //////////////////////////////////////////////////////////////////////////
-// A very big thanks to Ladik for this great library, I hardly had to put
-// any work at all into this thanks to you.
-////////////////////////////////////////////////////////////////////////*/
 #define _CRT_SECURE_NO_DEPRECATE
 #define __INCLUDE_CRYPTOGRAPHY__
 #define __STORMLIB_SELF__                   // Don't use StormLib.lib
@@ -185,6 +182,7 @@ static int inline CopyArchiveToArchive(const TCHAR * szMpqName, const TCHAR * sz
 //************************************
 inline void ContinueRepack(const char *szFileName)
 	{
+	cout << szFileName << endl; // just to shut the compiler up
 	// unfinished
 	}
 
